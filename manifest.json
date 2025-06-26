@@ -1,0 +1,21 @@
+{
+    "name": "Shunya Codex",
+    "short_name": "Shunya",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#111827",
+    "theme_color": "#4a352a",
+    "description": "Petunjuk Keberlimpahan Sejati Tanpa Batas Tanpa Beban di Era AI",
+    "icons": [
+        {
+            "src": "https://www.dropbox.com/scl/fi/exxa099kw3gtxemtxq4as/AxAwWE01.svg?rlkey=h2o1j8uwv5jp91w224gcg7u9p&st=7ehi0f8k&dl=1",
+            "sizes": "192x192",
+            "type": "image/svg+xml"
+        },
+        {
+            "src": "https://www.dropbox.com/scl/fi/exxa099kw3gtxemtxq4as/AxAwWE01.svg?rlkey=h2o1j8uwv5jp91w224gcg7u9p&st=7ehi0f8k&dl=1",
+            "sizes": "512x512",
+            "type": "image/svg+xml"
+        }
+    ]
+}
