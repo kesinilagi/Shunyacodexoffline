@@ -2263,7 +2263,7 @@ style.innerHTML = `
     aspect-ratio: 2 / 3; /* Menjaga rasio buku */
     max-height: 85vh
     background-color: #382e28; /* Warna dasar kulit coklat tua */
-    background-image: url('https://raw.githubusercontent.com/kesinilagi/asetmusik/main/coverbaru.png');
+    background-image: url('https://raw.githubusercontent.com/kesinilagi/asetmusik/main/covernew.gif');
     background-size: cover;      /* Membuat gambar menutupi seluruh area tanpa merusak rasio */
     background-position: center; /* Memposisikan gambar pas di tengah */
     background-repeat: no-repeat;  /* Mencegah gambar diulang-ulang */
