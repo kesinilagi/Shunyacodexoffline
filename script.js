@@ -133,7 +133,7 @@ const DaftarIsi = () => {
 
 
 
-    React.createElement("li", null, /*#__PURE__*/React.createElement("button", { onClick: () => setCurrentPageKey('bab15'), className: tocSectionClasses }, " Bagian Penutup: Kompas Kehidupan"), /*#__PURE__*/
+    React.createElement("li", null, /*#__PURE__*/React.createElement("button", { onClick: () => setCurrentPageKey('bab15'), className: tocSectionClasses }, " Bagian Penutup: Shunya Codex seuah Kompas Kehidupan"), /*#__PURE__*/
     React.createElement("ul", { className: "ml-4 mt-1 space-y-1" }, /*#__PURE__*/
     React.createElement("li", null, /*#__PURE__*/React.createElement("button", { onClick: () => setCurrentPageKey('bab15'), className: tocChapterClasses }, " 15. Merangkai Semua: Dari Kesadaran Menuju Kehidupan Berkah")))), /*#__PURE__*/
 
