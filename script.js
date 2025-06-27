@@ -1892,13 +1892,20 @@ const ZoomingWordBackground = ({ customWords = [], rainColor }) => {
 
 const SidebarMenu = () => {
   // Ambil fungsi untuk navigasi dan menutup sidebar dari context
-  const { setCurrentPageKey, setIsSidebarOpen } = useContext(AppContext);
+  const { setCurrentPageKey, setIsSidebarOpen, installPromptEvent } = useContext(AppContext);
 
   const handleNavigate = pageKey => {
     setCurrentPageKey(pageKey);
     setIsSidebarOpen(false); // Otomatis tutup sidebar setelah bab dipilih
   };
-
+  const handleInstallClick = () => {
+    if (!installPromptEvent) {
+      alert("Tidak bisa meng-install, browser mungkin tidak didukung.");
+      return;
+    }
+    // Tampilkan dialog instalasi bawaan browser
+    installPromptEvent.prompt();
+  };
   // Style tombol yang sudah kita buat sebelumnya
   const tocSectionClasses = "block w-full text-left font-bold text-lg text-black p-3 rounded-lg hover:bg-sky-100 transition-colors";
   const tocChapterClasses = "block w-full text-left text-black font-semibold p-2 pl-4 rounded-lg hover:bg-sky-100 transition-colors";
@@ -1907,7 +1914,18 @@ const SidebarMenu = () => {
   return /*#__PURE__*/ (
     // Ini adalah isi dari sidebar kita
     React.createElement(React.Fragment, null, /*#__PURE__*/
-    React.createElement("h4", { className: `${sectionTitleClasses} mb-4` }, "\uD83D\uDCD1 DAFTAR ISI"), /*#__PURE__*/
+    React.createElement("h4", { className: `${sectionTitleClasses} mb-4` }, "\uD83D\uDCD1 DAFTAR ISI"),
+
+    installPromptEvent && /*#__PURE__*/
+    React.createElement("div", { className: "px-4 mb-4" }, /*#__PURE__*/
+    React.createElement("button", { onClick: handleInstallClick, className: "w-full flex items-center justify-center gap-3 bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg shadow-lg hover:bg-indigo-700 transition-all" }, /*#__PURE__*/
+    React.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", className: "h-6 w-6", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", strokeWidth: 2 }, /*#__PURE__*/
+    React.createElement("path", { strokeLinecap: "round", strokeLinejoin: "round", d: "M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" })), "Install Aplikasi")), /*#__PURE__*/
+
+
+
+
+
     React.createElement("ul", { className: "space-y-1 px-2" }, /*#__PURE__*/
     React.createElement("li", null, /*#__PURE__*/React.createElement("button", { onClick: () => handleNavigate('bab1'), className: tocSectionClasses }, "Bagian I: Dunia Ribut, Hati Harus Tenang"), /*#__PURE__*/
     React.createElement("ul", { className: "ml-4 mt-1 space-y-1" }, /*#__PURE__*/
@@ -2051,7 +2069,24 @@ const App = () => {
   const [fontSizeIndex, setFontSizeIndex] = useState(1);
   const [currentPageKey, setCurrentPageKey] = useState('home');
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State untuk menu
+  // --- STATE BARU UNTUK MENYIMPAN EVENT INSTALASI ---
+  const [installPromptEvent, setInstallPromptEvent] = useState(null);
+  useEffect(() => {
+    const handleBeforeInstallPrompt = event => {
+      // Mencegah browser menampilkan prompt default-nya
+      event.preventDefault();
+      // Simpan event-nya agar bisa kita panggil nanti
+      setInstallPromptEvent(event);
+      console.log("PWA bisa di-install, event ditangkap!");
+    };
 
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    };
+  }, []);
   useEffect(() => {
     const savedTheme = localStorage.getItem('ebookThemeKey');
     if (savedTheme && themes[savedTheme]) {
