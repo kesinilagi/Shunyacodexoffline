@@ -919,7 +919,7 @@ React.createElement("p", { className: `${paragraphClasses} text-center font-semi
 
 
 React.createElement(IntegratedAudioPlayer, {
-  src: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Pembukaan IA.mp3",
+  src: "src: "https://www.dropbox.com/scl/fi/670lr12jeov7i3huo7f4q/Allahuma-inne-audzubika.mp3?rlkey=g6tgl5ggj1v85gv0qnbw68k7f&st=zicx2qwg&dl=1",
   text: "Dengarkan Pembukaan Bab Ini" }));
 
 
