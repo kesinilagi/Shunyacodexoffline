@@ -2057,7 +2057,6 @@ const App = () => {
   const [isCoverUnlocked, setIsCoverUnlocked] = useState(false);
   // --- STATE BARU UNTUK SIDEBAR ---
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
   const themes = {
     'blue': { name: 'Biru Klasik', header: 'bg-blue-700' },
     'green': { name: 'Hijau Menenangkan', header: 'bg-teal-700' },
@@ -2069,6 +2068,7 @@ const App = () => {
   const [fontSizeIndex, setFontSizeIndex] = useState(1);
   const [currentPageKey, setCurrentPageKey] = useState('home');
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State untuk menu
+  
   // --- STATE BARU UNTUK MENYIMPAN EVENT INSTALASI ---
   const [installPromptEvent, setInstallPromptEvent] = useState(null);
   useEffect(() => {
@@ -2108,7 +2108,7 @@ const App = () => {
     currentPageKey, setCurrentPageKey,
     isCoverUnlocked, setIsCoverUnlocked,
     isSidebarOpen, setIsSidebarOpen,
-    isMenuOpen, setIsMenuOpen };
+    isMenuOpen, setIsMenuOpen,installPromptEvent };
 
 
   return /*#__PURE__*/(
