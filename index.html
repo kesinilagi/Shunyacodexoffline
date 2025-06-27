@@ -13,11 +13,20 @@
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     
     <style>
         :root { --dynamic-font-size: 22px; }
         .dynamic-paragraph { font-size: var(--dynamic-font-size); }
-        /* ... (sisa CSS Anda yang lain) ... */
+       .glowing-border { animation: pulse-glow 2.5s ease-in-out infinite alternate; }
+  @keyframes pulse-glow {
+    from { box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #0ea5e9; }
+    to { box-shadow: 0 0 10px #fff, 0 0 20px #0ea5e9, 0 0 30px #0ea5e9; }
+  }
+  .animate-fade-in { animation: fadeIn 1s ease-in-out; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 <body>
@@ -34,5 +43,32 @@
             });
         }
     </script>
+    <header>
+    <h1>SHUNYA CODEX</h1>
+    <nav>
+      <div data-netlify-identity-button></div>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Selamat Datang!</h2>
+    <p>APAKAH ANDA SIAP BERKELIMPAHAN KEMBALI</p>
+    <p>Silakan login untuk mengakses konten eksklusif.</p>
+  </main>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on('init', user => {
+          if (!user) {
+            window.netlifyIdentity.on('login', () => {
+              // Arahkan kembali ke halaman utama setelah login
+              document.location.href = '/';
+            });
+          }
+        });
+      }
+    });
+  </script>
 </body>
 </html>
