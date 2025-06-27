@@ -919,7 +919,7 @@ React.createElement("p", { className: `${paragraphClasses} text-center font-semi
 
 
 React.createElement(IntegratedAudioPlayer, {
-  src: "https://www.dropbox.com/scl/fi/qglpp04ts3fbsdoypga6n/Pembukaan.mp3?rlkey=0n1nc9yz3sbxe6ncn8l3u21dj&st=qat24ch4&dl=1",
+  src: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Pembukaan IA.mp3",
   text: "Dengarkan Pembukaan Bab Ini" }));
 
 
@@ -1217,7 +1217,7 @@ React.createElement("p", { className: `${paragraphClasses}` }, "Latihan Kawrooh 
 
 
 React.createElement(IntegratedAudioPlayer, {
-  src: "https://www.dropbox.com/scl/fi/15ac701brh7fsm41xbm2c/Pelepasan-Emosi.mp3?rlkey=up5grxllf62d14quiqewn962l&st=c3as7z8g&dl=1",
+  src: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Pelepasan Emosi.mp3",
   text: "Contoh Audio Pelepasan Emosi" }));
 
 
