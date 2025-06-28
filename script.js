@@ -326,7 +326,7 @@ const AffirmationRoom = () => {
     React.createElement("button", { onClick: () => setCurrentPageKey('daftar-isi'), className: "bg-white/20 px-4 py-2 rounded-lg hover:bg-white/30 transition-colors" }, "Kembali ke Daftar Isi \u2192")), /*#__PURE__*/
 
 
-    React.createElement("div", { className: "relative z-10 w-full max-w-3xl text-center flex flex-col justify-start items-center" },
+    React.createElement("div", { className: "relative z-10 w-full max-w-5xl text-center flex flex-col justify-center items-center" },
     phase === 'input' && /*#__PURE__*/
     React.createElement("div", { className: "animate-fade-in w-full px-4" }, /*#__PURE__*/
     React.createElement("h1", { className: "text-3xl md:text-5xl font-bold mb-4" }, "Ruang Afirmasi"), /*#__PURE__*/
@@ -620,7 +620,7 @@ const PixelThoughts = () => {
   const [view, setView] = useState('input');
   const [thought, setThought] = useState('');
   const [message, setMessage] = useState('');
-  const [heading, setHeading] = useState('Apa yang saat ini kamu rasakan dan pikirkan?');
+  const [heading, setHeading] = useState('Beban Apa yang saat ini kamu rasakan,pikirkan dan ingin kamu LEPASKAN?');
   const [animationClass, setAnimationClass] = useState('');
   const audioRef = useRef(null);
 
