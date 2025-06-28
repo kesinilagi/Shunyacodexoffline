@@ -262,10 +262,10 @@ const AffirmationRoom = () => {
   const [rainColor, setRainColor] = useState('#38bdf8'); // Default color
 
   const affirmationColors = [
-  { name: 'Biru Langit', hex: '#38bdf8' }, { name: 'Hijau Zamrud', hex: '#34d399' },
-  { name: 'Kuning Emas', hex: '#facc15' }, { name: 'Merah Muda', hex: '#f472b6' },
-  { name: 'Ungu Lavender', hex: '#a78bfa' }, { name: 'Oranye Senja', hex: '#fb923c' },
-  { name: 'Putih Mutiara', hex: '#f0f9ff' }];
+    { name: 'Biru Langit', hex: '#38bdf8' }, { name: 'Hijau Zamrud', hex: '#34d399' },
+    { name: 'Kuning Emas', hex: '#facc15' }, { name: 'Merah Muda', hex: '#f472b6' },
+    { name: 'Ungu Lavender', hex: '#a78bfa' }, { name: 'Oranye Senja', hex: '#fb923c' },
+    { name: 'Putih Mutiara', hex: '#f0f9ff' }];
 
 
   useEffect(() => {
@@ -290,8 +290,8 @@ const AffirmationRoom = () => {
 
   const handleStart = () => {
     const words = affirmationText.trim().split(/\s+/).filter(Boolean);
-    if (words.length === 0) {setError('Mohon masukkan afirmasi Anda.');return;}
-    if (words.length > 15) {setError('Terlalu panjang! Maksimal 15 kata.');return;}
+    if (words.length === 0) { setError('Mohon masukkan afirmasi Anda.'); return; }
+    if (words.length > 15) { setError('Terlalu panjang! Maksimal 15 kata.'); return; }
 
     if (audioRef.current) {
       audioRef.current.currentTime = 0;
@@ -305,69 +305,75 @@ const AffirmationRoom = () => {
   };
 
   const resetAffirmation = () => {
-    if (audioRef.current) {audioRef.current.pause();audioRef.current.currentTime = 0;}
+    if (audioRef.current) { audioRef.current.pause(); audioRef.current.currentTime = 0; }
     setAffirmationText('');
     setPhase('input');
   };
 
-  return /*#__PURE__*/(
-    React.createElement("div", { className: "fixed inset-0 bg-gray-900 text-white flex flex-col justify-start items-center p-4 overflow-hidden" }, /*#__PURE__*/
-    React.createElement("audio", { ref: audioRef, src: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/suara ruang afirmasi 8d.mp3", preload: "auto" }),
+  return (
+    React.createElement("div", { className: "fixed inset-0 bg-gray-900 text-white flex flex-col justify-center items-center p-4 overflow-hidden" },
+      React.createElement("audio", { ref: audioRef, src: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/suara%20ruang%20afirmasi%208d.mp3", preload: "auto" }),
 
-    phase === 'raining' && /*#__PURE__*/React.createElement(ZoomingWordBackground, { customWords: affirmationText.trim().split(/\s+/).filter(Boolean), rainColor: rainColor }),
-    phase === 'raining' && /*#__PURE__*/React.createElement(AffirmationFlasher, { phrase: affirmationText, rainColor: rainColor }),
-    phase === 'raining' && /*#__PURE__*/
-    React.createElement("div", { className: "absolute top-4 left-4 z-20" }, /*#__PURE__*/
-    React.createElement("button", { onClick: resetAffirmation, className: "bg-white/20 px-4 py-2 rounded-lg hover:bg-white/30 transition-colors" }, "\u2190 Tulis Ulang")),
+      phase === 'raining' && React.createElement(ZoomingWordBackground, { customWords: affirmationText.trim().split(/\s+/).filter(Boolean), rainColor: rainColor }),
+      phase === 'raining' && React.createElement(AffirmationFlasher, { phrase: affirmationText, rainColor: rainColor }),
+      
+      phase === 'raining' && React.createElement("div", { className: "absolute top-4 left-4 z-20" },
+        React.createElement("button", { onClick: resetAffirmation, className: "bg-white/20 px-4 py-2 rounded-lg hover:bg-white/30 transition-colors" }, "\u2190 Tulis Ulang")),
 
+      // Tombol kembali yang sudah diperbaiki posisinya
+      phase !== 'raining' && React.createElement("div", { className: "absolute bottom-8 left-1/2 -translate-x-1/2 z-20" },
+        React.createElement("button", { onClick: () => setCurrentPageKey('daftar-isi'), className: "bg-white/20 px-4 py-2 rounded-lg hover:bg-white/30 transition-colors" }, "Kembali ke Daftar Isi")
+      ),
 
-    phase !== 'raining' && /*#__PURE__*/React.createElement(Starfield, null), /*#__PURE__*/
-    React.crReact.createElement("div", { className: "absolute bottom-8 left-1/2 -translate-x-1/2 z-20" }, /*#__PURE__*/
-    React.createElement("button", { onClick: () => setCurrentPageKey('daftar-isi'), className: "bg-white/20 px-4 py-2 rounded-lg hover:bg-white/30 transition-colors" }, "Kembali ke Daftar Isi \u2192")), /*#__PURE__*/
+      phase !== 'raining' && React.createElement(Starfield, null),
+      
+      React.createElement("div", { className: "relative z-10 w-full max-w-3xl text-center flex flex-col justify-center items-center" },
+        phase === 'input' &&
+        React.createElement("div", { className: "animate-fade-in w-full px-4" },
+          React.createElement("h1", { className: "text-3xl md:text-5xl font-bold mb-4" }, "Ruang Afirmasi"),
+          React.createElement("p", { className: "mb-6 text-gray-300" }, "Tuliskan doa atau afirmasi positif Anda (maks. 15 kata)."),
+          React.createElement("textarea", {
+            value: affirmationText, onChange: e => setAffirmationText(e.target.value),
+            className: "w-full h-32 bg-gray-800 border border-gray-700 rounded-lg text-xl p-4 focus:outline-none focus:ring-2 focus:ring-sky-500 force-uppercase",
+            placeholder: "Contoh: Rezeki berlimpah datang padaku dengan mudah dan menyenangkan..."
+          }),
+          React.createElement("p", { className: `text-sm mt-2 ${affirmationText.trim().split(/\s+/).filter(Boolean).length > 15 ? 'text-red-500' : 'text-gray-400'}` }, "Jumlah Kata: ",
+            affirmationText.trim().split(/\s+/).filter(Boolean).length, " / 15"),
 
+          error && React.createElement("p", { className: "text-red-500 mt-2" }, error),
+          
+          React.createElement("div", { className: "mt-6" },
+            React.createElement("p", { className: "text-gray-400 mb-3" }, "Pilih Warna Hujan Afirmasi:"),
+            React.createElement("div", { className: "flex justify-center gap-3 flex-wrap" },
+              affirmationColors.map((color) =>
+                React.createElement("button", {
+                  key: color.name, onClick: () => setRainColor(color.hex),
+                  className: `w-8 h-8 rounded-full border-2 transition-all ${rainColor === color.hex ? 'border-white scale-110' : 'border-transparent'}`,
+                  style: { backgroundColor: color.hex }, title: color.name
+                })
+              )
+            )
+          ),
 
-    React.createElement("div", { className: "relative z-10 w-full max-w-5xl text-center flex flex-col justify-center items-center" },
-    phase === 'input' && /*#__PURE__*/
-    React.createElement("div", { className: "animate-fade-in w-full px-4" }, /*#__PURE__*/
-    React.createElement("h1", { className: "text-3xl md:text-5xl font-bold mb-4" }, "Ruang Afirmasi"), /*#__PURE__*/
-    React.createElement("p", { className: "mb-6 text-gray-300" }, "Tuliskan doa atau afirmasi positif Anda (maks. 15 kata)."), /*#__PURE__*/
-    React.createElement("textarea", { value: affirmationText, onChange: e => setAffirmationText(e.target.value),
-      className: "w-full h-32 bg-gray-800 border border-gray-700 rounded-lg text-xl p-4 focus:outline-none focus:ring-2 focus:ring-sky-500 force-uppercase",
-      placeholder: "Contoh: Rezeki berlimpah datang padaku dengan mudah dan menyenangkan..." }), /*#__PURE__*/
-    React.createElement("p", { className: `text-sm mt-2 ${affirmationText.trim().split(/\s+/).filter(Boolean).length > 15 ? 'text-red-500' : 'text-gray-400'}` }, "Jumlah Kata: ",
-    affirmationText.trim().split(/\s+/).filter(Boolean).length, " / 15"),
+          React.createElement("button", {
+            onClick: handleStart, disabled: !isAudioReady,
+            className: "mt-8 w-full max-w-sm bg-sky-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-sky-700 transition-all duration-300 disabled:bg-gray-500 disabled:cursor-not-allowed"
+          },
+            isAudioReady ? 'Mulai Sesi Afirmasi' : 'Memuat Audio...')
+        ),
 
-    error && /*#__PURE__*/React.createElement("p", { className: "text-red-500 mt-2" }, error), /*#__PURE__*/
-    React.createElement("div", { className: "mt-6" }, /*#__PURE__*/
-    React.createElement("p", { className: "text-gray-400 mb-3" }, "Pilih Warna Hujan Afirmasi:"), /*#__PURE__*/
-    React.createElement("div", { className: "flex justify-center gap-3 flex-wrap" },
-    affirmationColors.map((color) => /*#__PURE__*/
-    React.createElement("button", { key: color.name, onClick: () => setRainColor(color.hex),
-      className: `w-8 h-8 rounded-full border-2 transition-all ${rainColor === color.hex ? 'border-white scale-110' : 'border-transparent'}`,
-      style: { backgroundColor: color.hex }, title: color.name })))), /*#__PURE__*/
-
-
-
-    React.createElement("button", { onClick: handleStart, disabled: !isAudioReady,
-      className: "mt-8 w-full max-w-sm bg-sky-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-sky-700 transition-all duration-300 disabled:bg-gray-500 disabled:cursor-not-allowed" },
-    isAudioReady ? 'Mulai Sesi Afirmasi' : 'Memuat Audio...')),
-
-
-
-
-    phase === 'finished' && /*#__PURE__*/
-    React.createElement("div", { className: "animate-fade-in" }, /*#__PURE__*/
-    React.createElement("h1", { className: "text-3xl md:text-5xl font-bold mb-6" }, "Sesi Selesai"), /*#__PURE__*/
-    React.createElement("p", { className: "mb-8 text-gray-300" }, "Selamat Anda Sudah Siap Mengalirkan dan Menerima Energi Kelimpahan."), /*#__PURE__*/
-    React.createElement("button", { onClick: resetAffirmation,
-      className: "bg-sky-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-sky-700 transition-colors" }, "Afirmasi Lagi")))));
-
-
-
-
-
-
-
+        phase === 'finished' &&
+        React.createElement("div", { className: "animate-fade-in" },
+          React.createElement("h1", { className: "text-3xl md:text-5xl font-bold mb-6" }, "Sesi Selesai"),
+          React.createElement("p", { className: "mb-8 text-gray-300" }, "Selamat Anda Sudah Siap Mengalirkan dan Menerima Energi Kelimpahan."),
+          React.createElement("button", {
+            onClick: resetAffirmation,
+            className: "bg-sky-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-sky-700 transition-colors"
+          }, "Afirmasi Lagi")
+        )
+      )
+    )
+  );
 };
 
 // --- KOMPONEN-KOMPONEN UTILITAS ---
