@@ -1575,89 +1575,95 @@ React.createElement("p", { className: `${paragraphClasses}` }, "Dan ingatlah, An
 
 
 
-const DoaPilihan = () => /*#__PURE__*/
-React.createElement("div", { className: `${contentContainerClasses}` }, /*#__PURE__*/
-React.createElement("h2", { className: `${sectionTitleClasses}` }, "Doa-doa Pilihan untuk Kelapangan Rezeki dan Pelunasan Utang"), /*#__PURE__*/
+const DoaPilihan = () => {
+  // Langkah 1: Kita kumpulkan semua data doa ke dalam sebuah array agar lebih rapi.
+  const doaData = [
+    {
+      id: 1,
+      arab: "ٱللَّهُمَّ إِنِّىٓ أَعُوذُ بِكَ مِنَ ٱلْهَمِّ وَٱلْحَزَنِ، وَٱلْعَجْزِ وَٱلْكَسَلِ، وَٱلْبُخْلِ وَٱلْجُبْنِ، وَضَلَعِ ٱلدَّيْنِ وَغَلَبَةِ ٱلرِّجَالِ.",
+      terjemahan: "\"Ya Allah, aku berlindung kepada-Mu dari kegelisahan dan kesedihan, kelemahan dan kemalasan, kekikiran dan kepengecutan, beban utang dan dari dikuasai orang lain.\"",
+      manfaat: "Memohon perlindungan dari berbagai kesulitan hidup, termasuk beban utang.",
+      latin: "Allaahumma innee a’oodhu bika minal-hammi wal-hazani, wal-‘ajzi wal-kasali, wal-bukhli wal-jubni, wa dhala’id-dayni wa ghalabatir-rijaal.",
+      audioSrc: "https://www.dropbox.com/scl/fi/670lr12jeov7i3huo7f4q/Allahuma-inne-audzubika.mp3?rlkey=g6tgl5ggj1v85gv0qnbw68k7f&st=zicx2qwg&dl=1"
+    },
+    {
+      id: 2,
+      arab: "ٱللَّهُمَّ ٱكْفِنِى بِحَلَٰلِكَ عَنْ حَرَامِكَ، وَأَغْنِنِى بِفَضْلِكَ عَمَّنْ سِوَاكَ.",
+      terjemahan: "\"Ya Allah, cukupkanlah aku dengan rezeki halal-Mu dari yang haram, dan jadikanlah aku kaya dengan karunia-Mu dari selain-Mu.\"",
+      manfaat: "Memohon kecukupan rezeki yang halal dan kemandirian dari selain Allah.",
+      latin: "Allaahummak-finee bihalaalika ‘an haraamika wa ‘aghninee bifadhlika ‘amman siwaaka",
+      audioSrc: "https://www.dropbox.com/scl/fi/th3z8vt6knzd9xrcrd38k/Allahuma-finne.mp3?rlkey=li67cczje4b0h7vcqoptuxtmc&st=x4ji1mwv&dl=1"
+    },
+    {
+      id: 3,
+      arab: "يَا حَىُّ يَا قَيُّومُ بِرَحْمَتِكَ أَسْتَغِيثُ.",
+      terjemahan: "\"Wahai Yang Maha Hidup, Wahai Yang Maha Berdiri Sendiri! Dengan rahmat-Mu aku memohon pertolongan!\"",
+      manfaat: "Memohon pertolongan dan kemudahan dalam segala urusan.",
+      latin: "Ya Hayyu Ya Qayyum! Bi rahmatika astagheeth",
+      audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/ya%20hayy%20ya%20qayy.mp3"
+    },
+    // Anda bisa tambahkan doa-doa lain di sini dengan format yang sama
+  ];
 
-React.createElement("div", { className: "overflow-x-auto mb-6" }, /*#__PURE__*/
-React.createElement("table", { className: "min-w-full bg-white border border-gray-300 rounded-lg overflow-hidden" }, /*#__PURE__*/
-React.createElement("thead", null, /*#__PURE__*/
-React.createElement("tr", null, /*#__PURE__*/
-React.createElement("th", { className: "py-3 px-4 border-b" }, "Doa (Arab)"), /*#__PURE__*/
-React.createElement("th", { className: "py-3 px-4 border-b" }, "Terjemahan"), /*#__PURE__*/
-React.createElement("th", { className: "py-3 px-4 border-b" }, "Manfaat"), /*#__PURE__*/
-React.createElement("th", { className: "py-3 px-4 border-b" }, "Latin"))), /*#__PURE__*/
+  const cardLabelClasses = "block text-sm font-bold text-gray-600 uppercase";
+  const cardContentClasses = "mt-1 text-gray-900";
 
+  return React.createElement("div", { className: contentContainerClasses },
+    React.createElement("h2", { className: sectionTitleClasses }, "Doa-doa Pilihan"),
 
-React.createElement("tbody", null, /*#__PURE__*/
-React.createElement("tr", null, /*#__PURE__*/
+    // --- Tampilan Tabel untuk Desktop (Otomatis Sembunyi di HP) ---
+    React.createElement("div", { className: "hidden md:block overflow-x-auto" },
+      React.createElement("table", { className: "min-w-full bg-white border border-gray-300" },
+        React.createElement("thead", null,
+          React.createElement("tr", null,
+            React.createElement("th", { className: "py-2 px-4 border-b" }, "Doa (Arab)"),
+            React.createElement("th", { className: "py-2 px-4 border-b" }, "Terjemahan & Manfaat"),
+            React.createElement("th", { className: "py-2 px-4 border-b" }, "Dengarkan (Latin)")
+          )
+        ),
+        React.createElement("tbody", null,
+          doaData.map(doa => (
+            React.createElement("tr", { key: doa.id, className: "even:bg-gray-50" },
+              React.createElement("td", { className: "py-3 px-4 border-b text-right" },
+                React.createElement("p", { className: `text-xl ${arabicTextClass}` }, doa.arab)
+              ),
+              React.createElement("td", { className: "py-3 px-4 border-b" },
+                React.createElement("p", { className: "italic" }, doa.terjemahan),
+                React.createElement("p", { className: "mt-2 text-sm text-blue-700" }, `Manfaat: ${doa.manfaat}`)
+              ),
+              React.createElement("td", { className: "py-3 px-4 border-b" },
+                React.createElement(IntegratedAudioPlayer, { src: doa.audioSrc, text: doa.latin, isLooping: true })
+              )
+            )
+          ))
+        )
+      )
+    ),
 
-React.createElement("td", { className: "py-3 px-4 border-b" }, /*#__PURE__*/
-React.createElement("p", { className: `text-xl ${arabicTextClass} mb-2` }, "\u0627\u0644\u0644\u0651\u0647\u064F\u0640\u0645\u064E\u0651 \u0625\u0650\u0646\u0650\u0651\u064A \u0623\u064E\u0639\u064F\u0648\u0630\u064F \u0628\u0650\u0643\u064E \u0645\u0650\u0646\u064E \u0627\u0644\u0652\u0647\u064E\u0645\u0650\u0651 \u0648\u064E\u0627\u0644\u0652\u062D\u064E\u0632\u064E\u0646\u0650\u060C \u0648\u064E\u0627\u0644\u0652\u0639\u064E\u062C\u0652\u0632\u0650 \u0648\u064E\u0627\u0644\u0652\u0643\u064E\u0633\u064E\u0644\u0650\u060C \u0648\u064E\u0627\u0644\u0652\u0628\u064F\u062E\u0652\u0644\u0650 \u0648\u064E\u0627\u0644\u0652\u062C\u064F\u0628\u0652\u0646\u0650\u060C \u0648\u064E\u0636\u064E\u0644\u064E\u0639\u0650 \u0627\u0644\u062F\u064E\u0651\u064A\u0652\u0646\u0650 \u0648\u064E\u063A\u064E\u0644\u064E\u0628\u064E\u0629\u0650 \u0627\u0644\u0631\u0650\u0651\u062C\u064E\u0627\u0644\u0650.")), /*#__PURE__*/
-
-
-React.createElement("td", { className: "py-3 px-4 border-b" }, /*#__PURE__*/React.createElement("p", null, "\"Ya Allah, aku berlindung kepada-Mu dari kegelisahan dan kesedihan, kelemahan dan kemalasan, kekikiran dan kepengecutan, beban utang dan dari dikuasai orang lain.\"")), /*#__PURE__*/
-React.createElement("td", { className: "py-3 px-4 border-b" }, "Memohon perlindungan dari berbagai kesulitan hidup, termasuk beban utang."), /*#__PURE__*/
-React.createElement("td", { className: "py-3 px-4 border-b" }, /*#__PURE__*/
-
-React.createElement(IntegratedAudioPlayer, { src: "https://www.dropbox.com/scl/fi/670lr12jeov7i3huo7f4q/Allahuma-inne-audzubika.mp3?rlkey=g6tgl5ggj1v85gv0qnbw68k7f&st=zicx2qwg&dl=1",
-  text: "Allaahumma innee a\u2019oodhu bika minal-hammi wal-hazani, wal-\u2018ajzi wal-kasali, wal-bukhli wal-jubni, wa dhala\u2019id-dayni wa ghalabatir-rijaal.", isLooping: true }))), /*#__PURE__*/
-
-
-React.createElement("tr", { className: "bg-gray-50" }, /*#__PURE__*/
-React.createElement("td", { className: "py-3 px-4 border-b" }, /*#__PURE__*/React.createElement("p", { className: `text-xl ${arabicTextClass} mb-2` }, "\u0627\u0644\u0644\u0651\u0647\u064F\u0640\u0645\u064E\u0651 \u0627\u0643\u0652\u0641\u0650\u0640\u0646\u064A \u0628\u0650\u062D\u064E\u0644\u0627\u0644\u0650\u0640\u0643\u064E \u0639\u064E\u0646\u0652 \u062D\u064E\u0640\u0631\u0627\u0645\u0650\u0640\u0643\u060C \u0648\u064E\u0623\u064E\u063A\u0652\u0646\u0650\u0640\u0646\u064A \u0628\u0650\u0641\u064E\u0636\u0652\u0640\u0644\u0650\u0643\u064E \u0639\u064E\u0645\u064E\u0651\u0640\u0646\u0652 \u0633\u0650\u0640\u0648\u0627\u0643.")), /*#__PURE__*/
-React.createElement("td", { className: "py-3 px-4 border-b" }, /*#__PURE__*/React.createElement("p", null, "\"Ya Allah, cukupkanlah aku dengan rezeki halal-Mu dari yang haram, dan jadikanlah aku kaya dengan karunia-Mu dari selain-Mu.\"")), /*#__PURE__*/
-React.createElement("td", { className: "py-3 px-4 border-b" }, "Memohon kecukupan rezeki yang halal dan kemandirian dari selain Allah."), /*#__PURE__*/
-React.createElement("td", { className: "py-3 px-4 border-b" }, /*#__PURE__*/React.createElement(IntegratedAudioPlayer, { src: "https://www.dropbox.com/scl/fi/th3z8vt6knzd9xrcrd38k/Allahuma-finne.mp3?rlkey=li67cczje4b0h7vcqoptuxtmc&st=x4ji1mwv&dl=1", text: "Allaahummak-finee bihalaalika \u2018an haraamika wa \u2018aghninee bifadhlika \u2018amman siwaaka" }))), /*#__PURE__*/
-
-
-React.createElement("tr", null, /*#__PURE__*/
-React.createElement("td", { className: "py-3 px-4 border-b" }, /*#__PURE__*/React.createElement("p", { className: `text-xl ${arabicTextClass} mb-2` }, "\u064A\u064E\u0627 \u062D\u064E\u064A\u064F\u0651 \u064A\u064E\u0627 \u0642\u064E\u064A\u064F\u0651\u0648\u0652\u0645\u064F \u0628\u0650\u0631\u064E\u062D\u0652\u0645\u064E\u062A\u0650\u0643\u064E \u0623\u064E\u0633\u0652\u062A\u064E\u063A\u0650\u064A\u0652\u062B\u064F.")), /*#__PURE__*/
-React.createElement("td", { className: "py-3 px-4 border-b" }, /*#__PURE__*/React.createElement("p", null, "\"Wahai Yang Maha Hidup, Wahai Yang Maha Berdiri Sendiri! Dengan rahmat-Mu aku memohon pertolongan!\"")), /*#__PURE__*/
-React.createElement("td", { className: "py-3 px-4 border-b" }, "Memohon pertolongan dan kemudahan dalam segala urusan."), /*#__PURE__*/
-React.createElement("td", { className: "py-3 px-4 border-b" }, /*#__PURE__*/React.createElement(IntegratedAudioPlayer, { src: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/ya hayy ya qayy.mp3", text: "Ya Hayyu Ya Qayyum! Bi rahmatika astagheeth", isLooping: true }))), /*#__PURE__*/
-
-React.createElement("tr", { className: "bg-gray-50" }, /*#__PURE__*/
-React.createElement("td", { className: "py-3 px-4 border-b" }, /*#__PURE__*/React.createElement("p", { className: `text-xl ${arabicTextClass} mb-2` }, "\u0644\u064E\u0627 \u0625\u0650\u0644\u064E\u0647\u064E \u0625\u0650\u0644\u064E\u0651\u0627 \u0623\u064E\u0646\u0652\u062A\u064E \u0633\u064F\u0628\u0652\u062D\u064E\u0627\u0646\u064E\u0643\u064E \u0625\u0650\u0646\u0650\u0651\u064A \u0643\u064F\u0646\u0652\u062A\u064F \u0645\u0650\u0646\u064E \u0627\u0644\u0638\u064E\u0651\u0627\u0644\u0650\u0645\u0650\u064A\u0646\u064E.")), /*#__PURE__*/
-React.createElement("td", { className: "py-3 px-4 border-b" }, /*#__PURE__*/React.createElement("p", null, "\"Tidak ada Tuhan selain Engkau. Maha Suci Engkau, sesungguhnya aku termasuk orang-orang yang zalim.\"")), /*#__PURE__*/
-React.createElement("td", { className: "py-3 px-4 border-b" }, "Doa permohonan ampun dan pertolongan dalam keadaan terdesak (Doa Nabi Yunus)."), /*#__PURE__*/
-React.createElement("td", { className: "py-3 px-4 border-b" }, /*#__PURE__*/React.createElement(IntegratedAudioPlayer, { src: "https://www.dropbox.com/scl/fi/ld61ofv4vcdg2tae42on7/Laailahailaanta.mp3?rlkey=6ve7qhcxt43s1t8v4xiyrv3rk&st=1rkk0afx&dl=1", text: "LAA ILAAHA ILLAAA ANTA SUBHAANAKA INNEE KUNTU MINAZ'Z'AALIMEEN" }))), /*#__PURE__*/
-
-React.createElement("tr", null, /*#__PURE__*/
-React.createElement("td", { className: "py-3 px-4 border-b" }, /*#__PURE__*/React.createElement("p", { className: `text-xl ${arabicTextClass} mb-2` }, "\u062D\u064E\u0633\u0652\u0628\u0650\u064A\u064E \u0627\u0644\u0644\u064E\u0651\u0647\u064F \u0644\u064E\u0627 \u0625\u0650\u0644\u064E\u0647\u064E \u0625\u0650\u0644\u064E\u0651\u0627 \u0647\u064F\u0648\u064E \u0639\u064E\u0644\u064E\u064A\u0652\u0647\u0650 \u062A\u064E\u0648\u064E\u0643\u064E\u0651\u0644\u0652\u062A\u064F \u0648\u064E\u0647\u064F\u0648\u064E \u0631\u064E\u0628\u064F\u0651 \u0627\u0644\u0652\u0639\u064E\u0631\u0652\u0634\u0650 \u0627\u0644\u0652\u0639\u064E\u0638\u0650\u064A\u0645\u0650.")), /*#__PURE__*/
-React.createElement("td", { className: "py-3 px-4 border-b" }, /*#__PURE__*/React.createElement("p", null, "\"Cukuplah Allah bagiku, tiada Tuhan selain Dia. Hanya kepada-Nya aku bertawakal, dan Dia adalah Tuhan pemilik Arsy yang agung.\"")), /*#__PURE__*/
-React.createElement("td", { className: "py-3 px-4 border-b" }, "Menegaskan tawakal penuh kepada Allah sebagai satu-satunya sandaran."), /*#__PURE__*/
-React.createElement("td", { className: "py-3 px-4 border-b" }, /*#__PURE__*/React.createElement(IntegratedAudioPlayer, { src: "https://www.dropbox.com/scl/fi/m3mapahumh2uk83azchst/Hasbiyallah.mp3?rlkey=7wq1fhibhc023x698itru308g&st=yu0bb0wq&dl=1", text: "Hasbiyallahu la ilaha illa Huwa alaihi tawakaltu wa huwa Robul Arsyil Azhiim", isLooping: true }))), /*#__PURE__*/
-
-React.createElement("tr", { className: "bg-gray-50" }, /*#__PURE__*/
-React.createElement("td", { className: "py-3 px-4 border-b" }, /*#__PURE__*/React.createElement("p", { className: `text-xl ${arabicTextClass} mb-2` }, "\u0644\u0644\u064E\u0651\u0647\u064F\u0645\u064E\u0651 \u064A\u064E\u0627 \u0641\u064E\u0627\u0631\u0650\u062C\u064E \u0671\u0644\u0652\u0647\u064E\u0645\u0650\u0651\u060C \u0648\u064E\u064A\u064E\u0627 \u0643\u064E\u0627\u0634\u0650\u0641\u064E \u0671\u0644\u0652\u063A\u064E\u0645\u0650\u0651\u060C \u0648\u064E\u064A\u064E\u0627 \u0645\u064F\u062C\u0650\u064A\u0628\u064E \u062F\u064E\u0639\u0652\u0648\u064E\u0629\u0650 \u0671\u0644\u0652\u0645\u064F\u0636\u0652\u0637\u064E\u0631\u0650\u0651\u064A\u0646\u064E\u060C \u064A\u064E\u0627 \u0631\u064E\u062D\u0652\u0645\u0670\u0646\u064E \u0671\u0644\u062F\u064F\u0651\u0646\u0652\u064A\u064E\u0627 \u0648\u064E\u0671\u0644\u0652\u0622\u062E\u0650\u0631\u064E\u0629\u0650 \u0648\u064E\u0631\u064E\u062D\u0650\u064A\u0645\u064E\u0647\u064F\u0645\u064E\u0627\u060C \u0623\u064E\u0646\u0652\u062A\u064E \u0631\u064E\u062C\u064E\u0627\u0626\u0650\u064A\u060C \u0648\u064E\u064A\u064E\u0627 \u0631\u064E\u062D\u0652\u0645\u0670\u0646\u064E \u0643\u064F\u0644\u0650\u0651 \u0634\u064E\u064A\u0652\u0621\u064D\u060C \u0671\u0631\u0652\u062D\u064E\u0645\u0652\u0646\u0650\u064A \u0631\u064E\u062D\u0652\u0645\u064E\u0629\u064B \u062A\u064F\u063A\u0652\u0646\u0650\u064A\u0646\u0650\u064A \u0628\u0650\u0647\u064E\u0627 \u0639\u064E\u0646\u0652 \u0631\u064E\u062D\u0652\u0645\u064E\u0629\u0650 \u0645\u064E\u0646\u0652 \u0633\u0650\u0648\u064E\u0627\u0643\u064E\u060C \u0648\u064E\u0671\u0642\u0652\u0636\u0650 \u0639\u064E\u0646\u0650\u0651\u064A \u062C\u064E\u0645\u0650\u064A\u0639\u064E \u062F\u064E\u064A\u0652\u0646\u0650\u064A."), /*#__PURE__*/React.createElement("p", { className: "italic" }, ".")), /*#__PURE__*/
-
-
-React.createElement("td", { className: "py-3 px-4 border-b" }, /*#__PURE__*/React.createElement("p", null, "\"Ya Allah! Wahai penghilang kesedihan. Wahai penghapus duka! Wahai yang menolak kesedihan dan Wahai yang menerima doa orang-orang yang gelisah. Wahai Yang Maha Penyayang di dunia dan akhirat. Engkaulah satu-satunya harapanku, dan Wahai Yang Maha Penyayang atas segala sesuatu, rahmatilah aku. Limpahkanlah rahmat kepadaku yang melebihi setiap rahmat lainnya dan bebaskanlah aku dari semua utang.\"")), /*#__PURE__*/
-React.createElement("td", { className: "py-3 px-4 border-b" }, "Doa spesifik untuk pembebasan dari utang dan memohon rahmat."), /*#__PURE__*/
-React.createElement("td", { className: "py-3 px-4 border-b" }, /*#__PURE__*/React.createElement(IntegratedAudioPlayer, { src: "https://www.dropbox.com/scl/fi/yq8cqv2m8xr68x8qzcm4t/Allahuma-ya-farijal.mp3?rlkey=rhui1g4c1ko6tc802rzovmasl&st=dkaburaf&dl=1", text: "Allaahumma yaa faarijal-hammi, wa yaa kaashifal-ghammi, wa yaa mujeeba da'watil-mudhtarrin, yaa Rahmaanad-dunyaa wal-aakhirati wa rahiimahumaa, anta rajaa'ii, wa yaa Rahmaana kulli syai'in, irhamnii rahmatan tughniinii bihaa 'an rahmati man siwaaka, waqdhi 'annii jamii'a dainii." }))), /*#__PURE__*/
-
-React.createElement("tr", null, /*#__PURE__*/
-React.createElement("td", { className: "py-3 px-4 border-b" }, /*#__PURE__*/React.createElement("p", { className: `text-xl ${arabicTextClass} mb-2` }, "\u0644\u0644\u064E\u0651\u0647\u064F\u0645\u064E\u0651 \u0671\u0631\u0652\u062F\u064F\u062F\u0652 \u0625\u0650\u0644\u0649\u0670 \u062C\u064E\u0645\u0650\u064A\u0639\u0650 \u062E\u064E\u0644\u0652\u0642\u0650\u0643\u064E \u0645\u064E\u0638\u064E\u0627\u0644\u0650\u0645\u064E\u0647\u064F\u0645\u064F \u0671\u0644\u064E\u0651\u062A\u0650\u064A \u0642\u0650\u0628\u064E\u0644\u0650\u064A \u0635\u064E\u063A\u0650\u064A\u0631\u064E\u0647\u064E\u0627 \u0648\u064E\u0643\u064E\u0628\u0650\u064A\u0631\u064E\u0647\u064E\u0627 \u0641\u0650\u064A \u064A\u064F\u0633\u0652\u0631\u064D \u0645\u0650\u0646\u0652\u0643\u064E \u0648\u064E\u0639\u064E\u0627\u0641\u0650\u064A\u064E\u0629\u064D \u0648\u064E\u0645\u064E\u0627 \u0644\u064E\u0645\u0652 \u062A\u064E\u0628\u0652\u0644\u064F\u063A\u0652\u0647\u064F \u0642\u064F\u0648\u064E\u0651\u062A\u0650\u064A \u0648\u064E\u0644\u064E\u0645\u0652 \u062A\u064E\u0633\u064E\u0639\u0652\u0647\u064F \u0630\u064E\u0627\u062A\u064F \u064A\u064E\u062F\u0650\u064A \u0648\u064E\u0644\u064E\u0645\u0652 \u064A\u064E\u0642\u0652\u0648\u064E \u0639\u064E\u0644\u064E\u064A\u0652\u0647\u0650 \u0628\u064E\u062F\u064E\u0646\u0650\u064A \u0648\u064E\u064A\u064E\u0642\u0650\u064A\u0646\u0650\u064A \u0648\u064E\u0646\u064E\u0641\u0652\u0633\u0650\u064A \u0641\u064E\u0627\uE832\u062F\u0650\u0651\u0647\u0650 \u0639\u064E\u0646\u0650\u0651\u064A \u0645\u0650\u0646\u0652 \u062C\u064E\u0632\u0650\u064A\u0644\u0650 \u0645\u064E\u0627 \u0639\u0650\u0646\u0652\u062F\u064E\u0643\u064E \u0645\u0650\u0646\u0652 \u0641\u064E\u0636\u0652\u0644\u0650\u0643\u064E \u062B\u064F\u0645\u064E\u0651 \u0644\u0627\u064E \u062A\u064F\u062E\u064E\u0644\u0650\u0651\u0641\u0652 \u0639\u064E\u0644\u064E\u064A\u064E\u0651 \u0645\u0650\u0646\u0652\u0647\u064F \u0634\u064E\u064A\u0652\u0626\u0627\u064B \u062A\u064E\u0642\u0652\u0636\u0650\u064A\u0647\u0650 \u0645\u0650\u0646\u0652 \u062D\u064E\u0633\u064E\u0646\u064E\u0627\u062A\u0650\u064A \u064A\u064E\u0627 \u0627\uE832\u0631\u0652\u062D\u064E\u0645\u064E \u0671\u0644\u0631\u064E\u0651\u0627\u062D\u0650\u0645\u0650\u064A\u0646\u064E"), /*#__PURE__*/
-React.createElement("p", { className: "italic" })), /*#__PURE__*/
-
-React.createElement("td", { className: "py-3 px-4 border-b" }, /*#__PURE__*/React.createElement("p", null, "\"Ya Allah, (mohon) bantulah aku membayar kembali kepada semua makhluk-Mu atas kezaliman mereka yang ada padaku, baik yang kecil maupun yang besar, dengan kemudahan dan kesejahteraan dari Hadirat-Mu. Adapun kewajiban yang aku terlalu lemah untuk menyelesaikannya, dan aku terlalu miskin untuk melunasinya, dan fisik, keyakinan, serta diriku tidak mampu menanggungnya, maka (mohon) selesaikanlah atas namaku dari karunia-Mu yang melimpah. Kemudian, (mohon) janganlah Engkau mengambil sedikit pun darinya dari kebaikan-kebaianku. Wahai Yang Maha Penyayang di antara para penyayang!\"\"")), /*#__PURE__*/
-React.createElement("td", { className: "py-3 px-4 border-b" }, "Permohonan agar Allah melunasi utang yang tak mampu dibayar dari karunia-Nya."), /*#__PURE__*/
-React.createElement("td", { className: "py-3 px-4 border-b" }, /*#__PURE__*/React.createElement(IntegratedAudioPlayer, { src: "https://www.dropbox.com/scl/fi/llvm79ccwr1hx0xvkd8df/Allahuma-urdud.mp3?rlkey=o1ykeala308pzrb8xu8g9vx91&st=n8xwnlq9&dl=1", text: "Allaahumma urdud ilaa jamii'i khalqika mazhaalimahum allatee qibalii saghiirahaa wa kabiirahaa fii yusrin minka wa 'aafiyatin wa maa lam tablughhu quwwatii wa lam tasa'hu zaatu yadii wa lam yaqwa 'alaihi badanii wa yaqiinii wa nafsii fa'addih 'annii min jaziili maa 'indaka min fadhlika thumma laa tukhallif 'alayya minhu syai'an taqdhiih min hasanaatii yaa Arhamar-Raahimiin." }))), /*#__PURE__*/
-
-React.createElement("tr", { className: "bg-gray-50" }, /*#__PURE__*/
-React.createElement("td", { className: "py-3 px-4 border-b" }, /*#__PURE__*/React.createElement("p", { className: `text-xl ${arabicTextClass} mb-2` }, "\u0627\u0644\u0644\u064E\u0651\u0647\u064F\u0645\u064E\u0651 \u0644\u064E\u0627 \u0633\u064E\u0647\u0652\u0644\u064E \u0625\u0650\u0644\u064E\u0651\u0627 \u0645\u064E\u0627 \u062C\u064E\u0639\u064E\u0644\u0652\u062A\u064E\u0647\u064F \u0633\u064E\u0647\u0652\u0644\u064B\u0627\u060C \u0648\u064E\u0623\u064E\u0646\u0652\u062A\u064E \u062A\u064E\u062C\u0652\u0639\u064E\u0644\u064F \u0627\u0644\u0652\u062D\u064E\u0632\u0652\u0646\u064E \u0625\u0650\u0630\u064E\u0627 \u0634\u0650\u0626\u0652\u062A\u064E \u0633\u064E\u0647\u0652\u0644\u064B\u0627."), /*#__PURE__*/React.createElement("p", { className: "italic" })), /*#__PURE__*/
-React.createElement("td", { className: "py-3 px-4 border-b" }, /*#__PURE__*/React.createElement("p", null, "\"Ya Allah! Tidak ada kemudahan kecuali yang Engkau jadikan mudah, dan Engkau menjadikan kesedihan (kesulitan), jika Engkau kehendaki, menjadi mudah.\"")), /*#__PURE__*/
-React.createElement("td", { className: "py-3 px-4 border-b" }, "Memohon kemudahan dari Allah dalam menghadapi segala kesulitan."), /*#__PURE__*/
-React.createElement("td", { className: "py-3 px-4 border-b" }, /*#__PURE__*/React.createElement(IntegratedAudioPlayer, { src: "https://www.dropbox.com/scl/fi/0wfm0jdg3vktod5t4fkxe/Allahuma-sahla.mp3?rlkey=icsztiki9wo3brj16noz3g89y&st=ozy2f9lg&dl=1", text: "Allahumma la sahla illa maa ja'altahu sahlan, wa Anta taj'alu l-hazna idha shi'ta sahla." }))), /*#__PURE__*/
-
-React.createElement("tr", null, /*#__PURE__*/
-React.createElement("td", { className: "py-3 px-4 border-b" }, /*#__PURE__*/React.createElement("p", { className: `text-xl ${arabicTextClass} mb-2` }, "\u0627\u0644\u0644\u064E\u0651\u0647\u064F\u0645\u064E\u0651 \u0642\u064E\u0646\u0650\u0651\u0639\u0652\u0646\u0650\u064A \u0628\u0650\u0645\u064E\u0627 \u0631\u064E\u0632\u064E\u0642\u0652\u062A\u064E\u0646\u0650\u064A\u060C \u0648\u064E\u0628\u064E\u0627\u0631\u0650\u0643\u0652 \u0644\u0650\u064A \u0641\u0650\u064A\u0647\u0650\u060C \u0648\u064E\u0627\u062E\u0652\u0644\u064F\u0641\u0652 \u0639\u064E\u0644\u064E\u064A\u064E\u0651 \u0643\u064F\u0644\u064E\u0651 \u063A\u064E\u0627\u0626\u0650\u0628\u064E\u0629\u064D \u0644\u0650\u064A \u0628\u0650\u062E\u064E\u064A\u0652\u0631\u064D."), /*#__PURE__*/React.createElement("p", { className: "italic" })), /*#__PURE__*/
-React.createElement("td", { className: "py-3 px-4 border-b" }, /*#__PURE__*/React.createElement("p", null, "\"Ya Allah, jadikanlah aku ridha dengan apa yang Engkau berikan kepadaku, berikanlah berkah di dalamnya, dan gantikanlah setiap yang hilang dariku dengan yang lebih baik.\"")), /*#__PURE__*/
-React.createElement("td", { className: "py-3 px-4 border-b" }, "Memohon rasa cukup, keberkahan, dan penggantian yang lebih baik."), /*#__PURE__*/
-React.createElement("td", { className: "py-3 px-4 border-b" }, /*#__PURE__*/React.createElement(IntegratedAudioPlayer, { src: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Allahuma qanni.mp3", text: "Allahumma qanni\u2019ni bima razaqtani, wa barik li fihi, wakhluf \u2018alayya kulla gha\u2019ibatin li bi khayr." })))))));
-
-
+    // --- Tampilan KARTU untuk Mobile (Otomatis Sembunyi di Desktop) ---
+    React.createElement("div", { className: "md:hidden space-y-6" },
+      doaData.map(doa => (
+        React.createElement("div", { key: doa.id, className: "bg-white/70 p-4 rounded-xl shadow" },
+          React.createElement("div", { className: "mb-4" },
+            React.createElement("span", { className: cardLabelClasses }, "Doa"),
+            React.createElement("p", { className: `${cardContentClasses} text-2xl text-right ${arabicTextClass}` }, doa.arab)
+          ),
+          React.createElement("div", { className: "mb-4" },
+            React.createElement("span", { className: cardLabelClasses }, "Terjemahan"),
+            React.createElement("p", { className: `${cardContentClasses} italic` }, doa.terjemahan)
+          ),
+          React.createElement("div", { className: "mb-4" },
+            React.createElement("span", { className: cardLabelClasses }, "Manfaat"),
+            React.createElement("p", { className: cardContentClasses }, doa.manfaat)
+          ),
+          React.createElement("div", null,
+             React.createElement(IntegratedAudioPlayer, { src: doa.audioSrc, text: doa.latin, isLooping: true })
+          )
+        )
+      ))
+    )
+  );
+};
 
 
 
