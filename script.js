@@ -717,7 +717,7 @@ const PixelThoughts = () => {
   }, []);
 
   return /*#__PURE__*/(
-    React.createElement("div", { className: "fixed inset-0 bg-gray-900 text-white flex flex-col justify-center items-center p-4" }, /*#__PURE__*/
+    React.createElement("div", { className: "fixed inset-0 bg-gray-900 text-white flex flex-col justify-start items-center p-4" }, /*#__PURE__*/
 
     React.createElement(Starfield, null), /*#__PURE__*/
     React.createElement("audio", { ref: audioRef, src: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Afirmasi Pelepasan Panning 3d.mp3", loop: true }), /*#__PURE__*/
