@@ -620,7 +620,7 @@ const PixelThoughts = () => {
   const [view, setView] = useState('input');
   const [thought, setThought] = useState('');
   const [message, setMessage] = useState('');
-  const [heading, setHeading] = useState('Apa yang saat ini kamu rasakan dan pikirkan?');
+  const [heading, setHeading] = useState('Beban Apa yang saat ini kamu rasakan , pikirkan dan ingin di LEPASKAN?');
   const [animationClass, setAnimationClass] = useState('');
   const audioRef = useRef(null);
 
@@ -1569,93 +1569,139 @@ const Bab15 = () => (
     </div>
 );
 
-const DoaPilihan = () => (
-    <div className={`${contentContainerClasses}`}>
-        <h2 className={`${sectionTitleClasses}`}>Doa-doa Pilihan untuk Kelapangan Rezeki dan Pelunasan Utang</h2>
-        {/* PERBAIKAN: Struktur tabel sekarang valid */}
-        <div className="overflow-x-auto mb-6">
-            <table className="min-w-full bg-white border border-gray-300 rounded-lg overflow-hidden">
-                <thead>
-                    <tr>
-                        <th className="py-3 px-4 border-b">Doa (Arab)</th>
-                        <th className="py-3 px-4 border-b">Terjemahan</th>
-                        <th className="py-3 px-4 border-b">Manfaat</th>
-                        <th className="py-3 px-4 border-b">Latin</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                     
-                        <td className="py-3 px-4 border-b">
-                           <p className={`text-xl ${arabicTextClass} mb-2`}>اللّهُـمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ، وَالْعَجْزِ وَالْكَسَلِ، وَالْبُخْلِ وَالْجُبْنِ، وَضَلَعِ الدَّيْنِ وَغَلَبَةِ الرِّجَالِ.</p>
-                          
-                          </td>
-                        <td className="py-3 px-4 border-b"><p>"Ya Allah, aku berlindung kepada-Mu dari kegelisahan dan kesedihan, kelemahan dan kemalasan, kekikiran dan kepengecutan, beban utang dan dari dikuasai orang lain."</p></td>
-                        <td className="py-3 px-4 border-b">Memohon perlindungan dari berbagai kesulitan hidup, termasuk beban utang.</td>
-                        <td className="py-3 px-4 border-b">
-                         
-   <IntegratedAudioPlayer src="https://www.dropbox.com/scl/fi/670lr12jeov7i3huo7f4q/Allahuma-inne-audzubika.mp3?rlkey=g6tgl5ggj1v85gv0qnbw68k7f&st=zicx2qwg&dl=1"
-     text="Allaahumma innee a’oodhu bika minal-hammi wal-hazani, wal-‘ajzi wal-kasali, wal-bukhli wal-jubni, wa dhala’id-dayni wa ghalabatir-rijaal." isLooping={true} />                                             
-                         </td>
-                    </tr>
-                    <tr className="bg-gray-50">
-                        <td className="py-3 px-4 border-b"><p className={`text-xl ${arabicTextClass} mb-2`}>اللّهُـمَّ اكْفِـني بِحَلالِـكَ عَنْ حَـرامِـك، وَأَغْنِـني بِفَضْـلِكَ عَمَّـنْ سِـواك.</p></td>
-                        <td className="py-3 px-4 border-b"><p>"Ya Allah, cukupkanlah aku dengan rezeki halal-Mu dari yang haram, dan jadikanlah aku kaya dengan karunia-Mu dari selain-Mu."</p></td>
-                        <td className="py-3 px-4 border-b">Memohon kecukupan rezeki yang halal dan kemandirian dari selain Allah.</td>
-                        <td className="py-3 px-4 border-b"><IntegratedAudioPlayer src="https://www.dropbox.com/scl/fi/th3z8vt6knzd9xrcrd38k/Allahuma-finne.mp3?rlkey=li67cczje4b0h7vcqoptuxtmc&st=x4ji1mwv&dl=1" text="Allaahummak-finee bihalaalika ‘an haraamika wa ‘aghninee bifadhlika ‘amman siwaaka"  />
-                                            </td>
-                    </tr>
-                    <tr>
-                        <td className="py-3 px-4 border-b"><p className={`text-xl ${arabicTextClass} mb-2`}>يَا حَيُّ يَا قَيُّوْمُ بِرَحْمَتِكَ أَسْتَغِيْثُ.</p></td>
-                        <td className="py-3 px-4 border-b"><p>"Wahai Yang Maha Hidup, Wahai Yang Maha Berdiri Sendiri! Dengan rahmat-Mu aku memohon pertolongan!"</p></td>
-                        <td className="py-3 px-4 border-b">Memohon pertolongan dan kemudahan dalam segala urusan.</td>
-                        <td className="py-3 px-4 border-b"><IntegratedAudioPlayer src="https://raw.githubusercontent.com/kesinilagi/asetmusik/main/ya hayy ya qayy.mp3" text="Ya Hayyu Ya Qayyum! Bi rahmatika astagheeth"  isLooping={true} /></td>
-                    </tr>
-                    <tr className="bg-gray-50">
-                        <td className="py-3 px-4 border-b"><p className={`text-xl ${arabicTextClass} mb-2`}>لَا إِلَهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ.</p></td>
-                        <td className="py-3 px-4 border-b"><p>"Tidak ada Tuhan selain Engkau. Maha Suci Engkau, sesungguhnya aku termasuk orang-orang yang zalim."</p></td>
-                        <td className="py-3 px-4 border-b">Doa permohonan ampun dan pertolongan dalam keadaan terdesak (Doa Nabi Yunus).</td>
-                        <td className="py-3 px-4 border-b"><IntegratedAudioPlayer src="https://www.dropbox.com/scl/fi/ld61ofv4vcdg2tae42on7/Laailahailaanta.mp3?rlkey=6ve7qhcxt43s1t8v4xiyrv3rk&st=1rkk0afx&dl=1" text="LAA ILAAHA ILLAAA ANTA SUBHAANAKA INNEE KUNTU MINAZ'Z'AALIMEEN" /></td>
-                    </tr>
-                    <tr>
-                         <td className="py-3 px-4 border-b"><p className={`text-xl ${arabicTextClass} mb-2`}>حَسْبِيَ اللَّهُ لَا إِلَهَ إِلَّا هُوَ عَلَيْهِ تَوَكَّلْتُ وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ.</p></td>
-                        <td className="py-3 px-4 border-b"><p>"Cukuplah Allah bagiku, tiada Tuhan selain Dia. Hanya kepada-Nya aku bertawakal, dan Dia adalah Tuhan pemilik Arsy yang agung."</p></td>
-                        <td className="py-3 px-4 border-b">Menegaskan tawakal penuh kepada Allah sebagai satu-satunya sandaran.</td>
-                        <td className="py-3 px-4 border-b"><IntegratedAudioPlayer src="https://www.dropbox.com/scl/fi/m3mapahumh2uk83azchst/Hasbiyallah.mp3?rlkey=7wq1fhibhc023x698itru308g&st=yu0bb0wq&dl=1" text="Hasbiyallahu la ilaha illa Huwa alaihi tawakaltu wa huwa Robul Arsyil Azhiim" isLooping={true}/></td>
-                    </tr>
-                    <tr className="bg-gray-50">
-                        <td className="py-3 px-4 border-b"><p className={`text-xl ${arabicTextClass} mb-2`}>للَّهُمَّ يَا فَارِجَ ٱلْهَمِّ، وَيَا كَاشِفَ ٱلْغَمِّ، وَيَا مُجِيبَ دَعْوَةِ ٱلْمُضْطَرِّينَ، يَا رَحْمٰنَ ٱلدُّنْيَا وَٱلْآخِرَةِ وَرَحِيمَهُمَا، أَنْتَ رَجَائِي، وَيَا رَحْمٰنَ كُلِّ شَيْءٍ، ٱرْحَمْنِي رَحْمَةً تُغْنِينِي بِهَا عَنْ رَحْمَةِ مَنْ سِوَاكَ، وَٱقْضِ عَنِّي جَمِيعَ دَيْنِي.</p><p className="italic">
+const DoaPilihan = () => {
+  const doaData = [
+    {
+      id: 1,
+      arab: "اللّهُـمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ، وَالْعَجْزِ وَالْكَسَلِ، وَالْبُخْلِ وَالْجُبْنِ، وَضَلَعِ الدَّيْنِ وَغَلَبَةِ الرِّجَالِ.",
+      terjemahan: "\"Ya Allah, aku berlindung kepada-Mu dari kegelisahan dan kesedihan, kelemahan dan kemalasan, kekikiran dan kepengecutan, beban utang dan dari dikuasai orang lain.\"",
+      manfaat: "Memohon perlindungan dari berbagai kesulitan hidup, termasuk beban utang.",
+      latin: "Allaahumma innee a’oodhu bika minal-hammi wal-hazani...",
+      audioSrc: "https://www.dropbox.com/scl/fi/670lr12jeov7i3huo7f4q/Allahuma-inne-audzubika.mp3?rlkey=g6tgl5ggj1v85gv0qnbw68k7f&st=zicx2qwg&dl=1"
+    },
+    {
+      id: 2,
+      arab: "اللّهُـمَّ اكْفِـني بِحَلالِـكَ عَنْ حَـرامِـك، وَأَغْنِـني بِفَضْـلِكَ عَمَّـنْ سِـواك.",
+      terjemahan: "\"Ya Allah, cukupkanlah aku dengan rezeki halal-Mu dari yang haram, dan jadikanlah aku kaya dengan karunia-Mu dari selain-Mu.\"",
+      manfaat: "Memohon kecukupan rezeki yang halal dan kemandirian dari selain Allah.",
+      latin: "Allaahummak-finee bihalaalika ‘an haraamika...",
+      audioSrc: "https://www.dropbox.com/scl/fi/th3z8vt6knzd9xrcrd38k/Allahuma-finne.mp3?rlkey=li67cczje4b0h7vcqoptuxtmc&st=x4ji1mwv&dl=1"
+    },
+    {
+      id: 3,
+      arab: "يَا حَيُّ يَا قَيُّوْمُ بِرَحْمَتِكَ أَسْتَغِيْثُ.",
+      terjemahan: "\"Wahai Yang Maha Hidup, Wahai Yang Maha Berdiri Sendiri! Dengan rahmat-Mu aku memohon pertolongan!\"",
+      manfaat: "Memohon pertolongan dan kemudahan dalam segala urusan.",
+      latin: "Ya Hayyu Ya Qayyum! Bi rahmatika astagheeth",
+      audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/ya%20hayy%20ya%20qayy.mp3"
+    },
+    {
+      id: 4,
+      arab: "لَا إِلَهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ.",
+      terjemahan: "\"Tidak ada Tuhan selain Engkau. Maha Suci Engkau, sesungguhnya aku termasuk orang-orang yang zalim.\"",
+      manfaat: "Doa permohonan ampun dan pertolongan dalam keadaan terdesak (Doa Nabi Yunus).",
+      latin: "LAA ILAAHA ILLAAA ANTA SUBHAANAKA...",
+      audioSrc: "https://www.dropbox.com/scl/fi/ld61ofv4vcdg2tae42on7/Laailahailaanta.mp3?rlkey=6ve7qhcxt43s1t8v4xiyrv3rk&st=1rkk0afx&dl=1"
+    },
+    {
+      id: 5,
+      arab: "حَسْبِيَ اللَّهُ لَا إِلَهَ إِلَّا هُوَ عَلَيْهِ تَوَكَّلْتُ وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ.",
+      terjemahan: "\"Cukuplah Allah bagiku, tiada Tuhan selain Dia. Hanya kepada-Nya aku bertawakal, dan Dia adalah Tuhan pemilik Arsy yang agung.\"",
+      manfaat: "Menegaskan tawakal penuh kepada Allah sebagai satu-satunya sandaran.",
+      latin: "Hasbiyallahu la ilaha illa Huwa...",
+      audioSrc: "https://www.dropbox.com/scl/fi/m3mapahumh2uk83azchst/Hasbiyallah.mp3?rlkey=7wq1fhibhc023x698itru308g&st=yu0bb0wq&dl=1"
+    },
+    {
+      id: 6,
+      arab: "للَّهُمَّ يَا فَارِجَ ٱلْهَمِّ، وَيَا كَاشِفَ ٱلْغَمِّ...",
+      terjemahan: "\"Ya Allah! Wahai penghilang kesedihan... dan bebaskanlah aku dari semua utang.\"",
+      manfaat: "Doa spesifik untuk pembebasan dari utang dan memohon rahmat.",
+      latin: "Allaahumma yaa faarijal-hammi...",
+      audioSrc: "https://www.dropbox.com/scl/fi/yq8cqv2m8xr68x8qzcm4t/Allahuma-ya-farijal.mp3?rlkey=rhui1g4c1ko6tc802rzovmasl&st=dkaburaf&dl=1"
+    },
+    {
+      id: 7,
+      arab: "للَّهُمَّ ٱرْدُدْ إِلىٰ جَمِيعِ خَلْقِكَ مَظَالِمَهُمُ...",
+      terjemahan: "\"Ya Allah, (mohon) bantulah aku membayar kembali kepada semua makhluk-Mu atas kezaliman mereka...\"",
+      manfaat: "Permohonan agar Allah melunasi utang yang tak mampu dibayar dari karunia-Nya.",
+      latin: "Allaahumma urdud ilaa jamii'i khalqika...",
+      audioSrc: "https://www.dropbox.com/scl/fi/llvm79ccwr1hx0xvkd8df/Allahuma-urdud.mp3?rlkey=o1ykeala308pzrb8xu8g9vx91&st=n8xwnlq9&dl=1"
+    },
+    {
+      id: 8,
+      arab: "اللَّهُمَّ لَا سَهْلَ إِلَّا مَا جَعَلْتَهُ سَهْلًا...",
+      terjemahan: "\"Ya Allah! Tidak ada kemudahan kecuali yang Engkau jadikan mudah...\"",
+      manfaat: "Memohon kemudahan dari Allah dalam menghadapi segala kesulitan.",
+      latin: "Allahumma la sahla illa maa ja'altahu sahlan...",
+      audioSrc: "https://www.dropbox.com/scl/fi/0wfm0jdg3vktod5t4fkxe/Allahuma-sahla.mp3?rlkey=icsztiki9wo3brj16noz3g89y&st=ozy2f9lg&dl=1"
+    },
+    {
+      id: 9,
+      arab: "اللَّهُمَّ قَنِّعْنِي بِمَا رَزَقْتَنِي، وَبَارِكْ لِي فِيهِ...",
+      terjemahan: "\"Ya Allah, jadikanlah aku ridha dengan apa yang Engkau berikan kepadaku...\"",
+      manfaat: "Memohon rasa cukup (qana'ah), keberkahan, dan penggantian yang lebih baik.",
+      latin: "Allahumma qanni’ni bima razaqtani...",
+      audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Allahuma%20qanni.mp3"
+    }
+  ];
 
-.</p></td>
-                        <td className="py-3 px-4 border-b"><p>"Ya Allah! Wahai penghilang kesedihan. Wahai penghapus duka! Wahai yang menolak kesedihan dan Wahai yang menerima doa orang-orang yang gelisah. Wahai Yang Maha Penyayang di dunia dan akhirat. Engkaulah satu-satunya harapanku, dan Wahai Yang Maha Penyayang atas segala sesuatu, rahmatilah aku. Limpahkanlah rahmat kepadaku yang melebihi setiap rahmat lainnya dan bebaskanlah aku dari semua utang."</p></td>
-                        <td className="py-3 px-4 border-b">Doa spesifik untuk pembebasan dari utang dan memohon rahmat.</td>
-                        <td className="py-3 px-4 border-b"><IntegratedAudioPlayer src="https://www.dropbox.com/scl/fi/yq8cqv2m8xr68x8qzcm4t/Allahuma-ya-farijal.mp3?rlkey=rhui1g4c1ko6tc802rzovmasl&st=dkaburaf&dl=1" text="Allaahumma yaa faarijal-hammi, wa yaa kaashifal-ghammi, wa yaa mujeeba da'watil-mudhtarrin, yaa Rahmaanad-dunyaa wal-aakhirati wa rahiimahumaa, anta rajaa'ii, wa yaa Rahmaana kulli syai'in, irhamnii rahmatan tughniinii bihaa 'an rahmati man siwaaka, waqdhi 'annii jamii'a dainii." /></td>
-                    </tr>
-                    <tr>
-                        <td className="py-3 px-4 border-b"><p className={`text-xl ${arabicTextClass} mb-2`}>للَّهُمَّ ٱرْدُدْ إِلىٰ جَمِيعِ خَلْقِكَ مَظَالِمَهُمُ ٱلَّتِي قِبَلِي صَغِيرَهَا وَكَبِيرَهَا فِي يُسْرٍ مِنْكَ وَعَافِيَةٍ وَمَا لَمْ تَبْلُغْهُ قُوَّتِي وَلَمْ تَسَعْهُ ذَاتُ يَدِي وَلَمْ يَقْوَ عَلَيْهِ بَدَنِي وَيَقِينِي وَنَفْسِي فَادِّهِ عَنِّي مِنْ جَزِيلِ مَا عِنْدَكَ مِنْ فَضْلِكَ ثُمَّ لاَ تُخَلِّفْ عَلَيَّ مِنْهُ شَيْئاً تَقْضِيهِ مِنْ حَسَنَاتِي يَا ارْحَمَ ٱلرَّاحِمِينَ
-</p><p className="italic">
-</p></td>
-                        <td className="py-3 px-4 border-b"><p>"Ya Allah, (mohon) bantulah aku membayar kembali kepada semua makhluk-Mu atas kezaliman mereka yang ada padaku, baik yang kecil maupun yang besar, dengan kemudahan dan kesejahteraan dari Hadirat-Mu. Adapun kewajiban yang aku terlalu lemah untuk menyelesaikannya, dan aku terlalu miskin untuk melunasinya, dan fisik, keyakinan, serta diriku tidak mampu menanggungnya, maka (mohon) selesaikanlah atas namaku dari karunia-Mu yang melimpah. Kemudian, (mohon) janganlah Engkau mengambil sedikit pun darinya dari kebaikan-kebaianku. Wahai Yang Maha Penyayang di antara para penyayang!""</p></td>
-                        <td className="py-3 px-4 border-b">Permohonan agar Allah melunasi utang yang tak mampu dibayar dari karunia-Nya.</td>
-                        <td className="py-3 px-4 border-b"><IntegratedAudioPlayer src="https://www.dropbox.com/scl/fi/llvm79ccwr1hx0xvkd8df/Allahuma-urdud.mp3?rlkey=o1ykeala308pzrb8xu8g9vx91&st=n8xwnlq9&dl=1" text="Allaahumma urdud ilaa jamii'i khalqika mazhaalimahum allatee qibalii saghiirahaa wa kabiirahaa fii yusrin minka wa 'aafiyatin wa maa lam tablughhu quwwatii wa lam tasa'hu zaatu yadii wa lam yaqwa 'alaihi badanii wa yaqiinii wa nafsii fa'addih 'annii min jaziili maa 'indaka min fadhlika thumma laa tukhallif 'alayya minhu syai'an taqdhiih min hasanaatii yaa Arhamar-Raahimiin." /></td>
-                    </tr>
-                     <tr className="bg-gray-50">
-                        <td className="py-3 px-4 border-b"><p className={`text-xl ${arabicTextClass} mb-2`}>اللَّهُمَّ لَا سَهْلَ إِلَّا مَا جَعَلْتَهُ سَهْلًا، وَأَنْتَ تَجْعَلُ الْحَزْنَ إِذَا شِئْتَ سَهْلًا.</p><p className="italic"></p></td>
-                        <td className="py-3 px-4 border-b"><p>"Ya Allah! Tidak ada kemudahan kecuali yang Engkau jadikan mudah, dan Engkau menjadikan kesedihan (kesulitan), jika Engkau kehendaki, menjadi mudah."</p></td>
-                        <td className="py-3 px-4 border-b">Memohon kemudahan dari Allah dalam menghadapi segala kesulitan.</td>
-                        <td className="py-3 px-4 border-b"><IntegratedAudioPlayer src="https://www.dropbox.com/scl/fi/0wfm0jdg3vktod5t4fkxe/Allahuma-sahla.mp3?rlkey=icsztiki9wo3brj16noz3g89y&st=ozy2f9lg&dl=1" text="Allahumma la sahla illa maa ja'altahu sahlan, wa Anta taj'alu l-hazna idha shi'ta sahla." /></td>
-                    </tr>
-                    <tr>
-                        <td className="py-3 px-4 border-b"><p className={`text-xl ${arabicTextClass} mb-2`}>اللَّهُمَّ قَنِّعْنِي بِمَا رَزَقْتَنِي، وَبَارِكْ لِي فِيهِ، وَاخْلُفْ عَلَيَّ كُلَّ غَائِبَةٍ لِي بِخَيْرٍ.</p><p className="italic"></p></td>
-                        <td className="py-3 px-4 border-b"><p>"Ya Allah, jadikanlah aku ridha dengan apa yang Engkau berikan kepadaku, berikanlah berkah di dalamnya, dan gantikanlah setiap yang hilang dariku dengan yang lebih baik."</p></td>
-                        <td className="py-3 px-4 border-b">Memohon rasa cukup, keberkahan, dan penggantian yang lebih baik.</td>
-                        <td className="py-3 px-4 border-b"><IntegratedAudioPlayer src="https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Allahuma qanni.mp3" text="Allahumma qanni’ni bima razaqtani, wa barik li fihi, wakhluf ‘alayya kulla gha’ibatin li bi khayr." /></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-);
+  const cardLabelClasses = "block text-sm font-bold text-gray-600 uppercase";
+  const cardContentClasses = "mt-1 text-gray-900";
+
+  return React.createElement("div", { className: contentContainerClasses },
+    React.createElement("h2", { className: sectionTitleClasses }, "Doa-doa Pilihan"),
+
+    React.createElement("div", { className: "hidden md:block overflow-x-auto" },
+      React.createElement("table", { className: "min-w-full bg-white border border-gray-300" },
+        React.createElement("thead", null,
+          React.createElement("tr", null,
+            React.createElement("th", { className: "py-2 px-4 border-b" }, "Doa (Arab)"),
+            React.createElement("th", { className: "py-2 px-4 border-b" }, "Terjemahan & Manfaat"),
+            React.createElement("th", { className: "py-2 px-4 border-b" }, "Dengarkan (Latin)")
+          )
+        ),
+        React.createElement("tbody", null,
+          doaData.map(doa => (
+            React.createElement("tr", { key: doa.id, className: "even:bg-gray-50" },
+              React.createElement("td", { className: "py-3 px-4 border-b text-right" },
+                React.createElement("p", { className: `text-xl ${arabicTextClass}` }, doa.arab)
+              ),
+              React.createElement("td", { className: "py-3 px-4 border-b" },
+                React.createElement("p", { className: "italic" }, doa.terjemahan),
+                React.createElement("p", { className: "mt-2 text-sm text-blue-700" }, `Manfaat: ${doa.manfaat}`)
+              ),
+              React.createElement("td", { className: "py-3 px-4 border-b" },
+                React.createElement(IntegratedAudioPlayer, { src: doa.audioSrc, text: doa.latin, isLooping: true })
+              )
+            )
+          ))
+        )
+      )
+    ),
+
+    React.createElement("div", { className: "md:hidden space-y-6" },
+      doaData.map(doa => (
+        React.createElement("div", { key: doa.id, className: "bg-white/70 p-4 rounded-xl shadow" },
+          React.createElement("div", { className: "mb-4" },
+            React.createElement("span", { className: cardLabelClasses }, "Doa"),
+            React.createElement("p", { className: `${cardContentClasses} text-2xl text-right ${arabicTextClass}` }, doa.arab)
+          ),
+          React.createElement("div", { className: "mb-4" },
+            React.createElement("span", { className: cardLabelClasses }, "Terjemahan"),
+            React.createElement("p", { className: `${cardContentClasses} italic` }, doa.terjemahan)
+          ),
+          React.createElement("div", { className: "mb-4" },
+            React.createElement("span", { className: cardLabelClasses }, "Manfaat"),
+            React.createElement("p", { className: cardContentClasses }, doa.manfaat)
+          ),
+          React.createElement("div", null,
+             React.createElement(IntegratedAudioPlayer, { src: doa.audioSrc, text: doa.latin, isLooping: true })
+          )
+        )
+      ))
+    )
+  );
+};
 
 // ### KOMPONEN LAYOUT UTAMA ###
 // Komponen baru untuk mengatur struktur halaman utama
