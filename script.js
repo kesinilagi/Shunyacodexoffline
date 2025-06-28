@@ -616,153 +616,135 @@ const AffirmationFlasher = ({ phrase }) => {
 
 // ### GANTI SELURUH PIXELTHOUGHTS ANDA DENGAN VERSI INI ###
 const PixelThoughts = () => {
-    const { setCurrentPageKey } = useContext(AppContext);
-    const [view, setView] = useState('input');
-    const [thought, setThought] = useState('');
-    const [message, setMessage] = useState('');
-    const [heading, setHeading] = useState('Apa yang saat ini kamu rasakan dan pikirkan?');
-    const [animationClass, setAnimationClass] = useState('');
-    const audioRef = useRef(null);
- 
-    // --- PERBAIKAN DI SINI: KEMBALIKAN KE STRUKTUR SEMULA ---
-    const messages = [
-        "Tarik napas dalam-dalam... ",
-      " tahan .", 
+  const { setCurrentPageKey } = useContext(AppContext);
+  const [view, setView] = useState('input');
+  const [thought, setThought] = useState('');
+  const [message, setMessage] = useState('');
+  const [heading, setHeading] = useState('Apa yang saat ini kamu rasakan dan pikirkan?');
+  const [animationClass, setAnimationClass] = useState('');
+  const audioRef = useRef(null);
 
-"Perhatikan pikiran itu menyusut.\nLihatlah ia menjadi kecil dan jauh.....",
+  const messages = [
+    "Tarik napas dalam-dalam... ",
+    "tahan .",
+    "Perhatikan pikiran itu menyusut.\nLihatlah ia menjadi kecil dan jauh.....",
+    "Ia hanyalah setitik kecil di alam semesta yang luas......",
+    "hembuskan nafasmu \nbersama rasa itu",
+    "Biarkan ia pergi.",
+    "Menghilang di antara bintang-bintang...... \nRasakan kelegaan saat ia menghilang......",
+    " ",
+    " ",
+    "Dari keheningan, aku terbuka. \nDari ketiadaan",
+    "aku menerima... ",
+    "Aku adalah tempat aliran rezeki-Mu mengalir... ",
+    "Aku sekarang merasa lebih ringan.\nAku sekarang merasa berlimpah",
+    "Aku sekarang merasa bahagia \nAku memiliki energi yang baru.",
+    "Aku Sangat tenang. \nAku berkelimpahan. ",
+    "Aku Sejahtera \nAllah sebaik baiknya pengurus",
+    "Jalan-jalan baru terbuka. \nPertolongan datang dari arah tak kusangka. ",
+    "Hatiku ringan.\nLangkahku lapang",
+    "Aku mengalir bersama-Mu, ya Allah. ",
+    "Aku mengalir bersama-Mu, ya Allah \nAku mengalir bersama-Mu, ya Allah",
+    "Tutup dengan sholawat Tiga Kali",
+    "Rasakan sampai musiknya berhenti \nNikmati momen ketenangan ini."];
 
- "Ia hanyalah setitik kecil di alam semesta yang luas......", 
+  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-" hembuskan nafasmu \nbersama rasa itu",
+  const startMeditation = async thoughtText => {
+    const audio = audioRef.current;
+    if (!audio) return;
 
-"Biarkan ia pergi.",
+    audio.pause();
+    audio.currentTime = 0;
 
- "Menghilang di antara bintang-bintang...... \nRasakan kelegaan saat ia menghilang......", 
-"  ",
-      "  ",
-      
-      "Dari keheningan, aku terbuka. \nDari ketiadaan",
-      " aku menerima... ",
+    setThought(thoughtText);
+    setView('thought');
 
-"Aku adalah tempat aliran rezeki-Mu mengalir... ",
+    audio.play().catch(e => console.error("Gagal memulai audio:", e));
 
-"Aku sekarang merasa lebih ringan.\nAku sekarang merasa berlimpah", 
+    await sleep(100);
+    setAnimationClass('recede');
+    await sleep(1000);
+    setView('message');
 
-"Aku sekarang merasa bahagia \nAku memiliki energi yang baru.",
-"Aku Sangat tenang. \nAku berkelimpahan. " ,
-"Aku Sejahtera \nAllah sebaik baiknya pengurus" ,
-"Jalan-jalan baru terbuka. \nPertolongan datang dari arah tak kusangka. " ,
-      "Hatiku ringan.\nLangkahku lapang",
-"Aku mengalir bersama-Mu, ya Allah. " ,
-"Aku mengalir bersama-Mu, ya Allah \nAku mengalir bersama-Mu, ya Allah" ,
-"Tutup dengan sholawat Tiga Kali" ,
-"Rasakan sampai musiknya berhenti \nNikmati momen ketenangan ini.", 
-    ];
-     
-    const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
- 
-    const startMeditation = async (thoughtText) => {
-        const audio = audioRef.current;
-        if (!audio) return;
-        
+    for (let i = 0; i < messages.length; i++) {
+      setMessage(messages[i]);
+      if (messages[i] === "Biarkan ia pergi.") {
+        setAnimationClass('recede vanish');
+      }
+      await sleep(i === messages.length - 1 ? 12000 : 5000);
+    }
+
+    audio.pause();
+    await sleep(1000);
+    setView('finished');
+  };
+
+  const handleKeyPress = event => {
+    if (event.key === 'Enter' && event.target.value.trim() !== '') {
+      startMeditation(event.target.value.trim());
+    }
+  };
+
+  const handleRestart = () => {
+    setView('input');
+    setThought('');
+    setAnimationClass('');
+    setHeading('Ada lagi yang ingin dilepaskan?');
+  };
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    return () => {
+      if (audio) {
         audio.pause();
         audio.currentTime = 0;
- 
-        setThought(thoughtText);
-        setView('thought');
- 
-        audio.play().catch(e => console.error("Gagal memulai audio:", e));
- 
-        await sleep(100);
-        setAnimationClass('recede');
-        await sleep(1000);
-        setView('message');
- 
-        for (let i = 0; i < messages.length; i++) {
-            setMessage(messages[i]);
-            // Sekarang kondisi ini akan terpenuhi
-            if (messages[i] === "Biarkan ia pergi.") {
-                setAnimationClass('recede vanish');
-            }
-            await sleep(i === messages.length - 1 ? 12000 : 5000); // Durasi per pesan disesuaikan lagi
-        }
- 
-        audio.pause();
-        await sleep(1000);
- 
-        setView('finished');
+      }
     };
- 
-    const handleKeyPress = (event) => {
-        if (event.key === 'Enter' && event.target.value.trim() !== '') {
-            startMeditation(event.target.value.trim());
-        }
-    };
+  }, []);
 
-    const handleRestart = () => {
-        setView('input');
-        setThought('');
-        setAnimationClass('');
-        setHeading('Ada lagi yang ingin dilepaskan?');
-    };
- 
-    useEffect(() => {
-        const audio = audioRef.current;
-        return () => {
-            if (audio) {
-                audio.pause();
-                audio.currentTime = 0;
-            }
-        };
-    }, []);
- 
-    return (
-        <div className="fixed inset-0 bg-gray-900 text-white flex flex-col justify-center items-center p-4">
-            
-            <Starfield />
-            <audio ref={audioRef} src="https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Afirmasi Pelepasan Panning 3d.mp3" loop></audio>
-            
-            <div className="absolute top-4 right-4 z-10">
-                <button onClick={() => setCurrentPageKey('daftar-isi')} className="bg-white/20 px-4 py-2 rounded-lg hover:bg-white/30 transition-colors">&larr; Kembali ke Daftar Isi</button>
-            </div>
-            
-            <div className="z-10 w-full max-w-2xl text-center flex flex-col justify-center items-center" style={{ minHeight: '384px' }}>
-                
-                {(view === 'thought' || view === 'message' || view === 'finished') && (
-                    <div className={`thought-bubble ${animationClass} glowing-border flex items-center justify-center w-64 h-64 md:w-80 md:h-80 bg-white/80 rounded-full text-center p-6`}>
-                        <span className={`font-extrabold text-indigo-600 break-words ${thought.length > 40 ? 'text-xl md:text-3xl' : 'text-2xl md:text-4xl'} force-uppercase`}>
-                            {thought}
-                        </span>
-                    </div>
-                )}
-                
-                {view === 'input' && (
-                    <div className="animate-fade-in">
-                        <h1 className="text-3xl md:text-5xl font-bold mb-6">{heading}</h1>
-                        <input onKeyPress={handleKeyPress} type="text" className="w-full bg-gray-800 border border-gray-700 rounded-lg text-xl md:text-2xl text-center p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 force-uppercase" placeholder="Ungkapkan Disini...." />
-                    </div>
-                )}
-                
-                {view === 'message' && (<p key={message} className="message-fade-in text-2xl md:text-4xl font-light">{message}</p>)}
+  return React.createElement("div", { className: "fixed inset-0 bg-gray-900 text-white flex flex-col justify-start items-center p-4 pt-16 md:pt-20" },
+    React.createElement(Starfield, null),
+    React.createElement("audio", { ref: audioRef, src: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Afirmasi Pelepasan Panning 3d.mp3", loop: true }),
 
-                {view === 'finished' && (
-                    <div className="animate-fade-in">
-                        <h2 className="text-2xl md:text-4xl font-bold mb-8">Pelepasan Selesai. Apa selanjutnya?</h2>
-                        <div className="flex flex-col md:flex-row gap-4 justify-center">
-                            <button onClick={handleRestart} className="bg-white/20 px-6 py-3 rounded-lg hover:bg-white/30 transition-colors">
-                                Ada Lagi yang Mau Dilepaskan
-                            </button>
-                            <button onClick={() => setCurrentPageKey('affirmation-room')} className="bg-sky-600 text-white font-bold px-6 py-3 rounded-lg hover:bg-sky-700 transition-colors">
-                                Lanjut ke Ruang Afirmasi ✨
-                            </button>
-                        </div>
-                    </div>
-                )}
-            </div>
-        </div>
-    );
+    // Tombol kembali kita pindah ke bawah agar tidak mengganggu
+    React.createElement("div", { className: "absolute bottom-8 left-1/2 -translate-x-1/2 z-10" },
+      React.createElement("button", { onClick: () => setCurrentPageKey('daftar-isi'), className: "bg-white/20 px-4 py-2 rounded-lg hover:bg-white/30 transition-colors" }, "\u2190 Kembali ke Daftar Isi")
+    ),
+
+    // --- STRUKTUR BARU DIMULAI DARI SINI ---
+    React.createElement("div", { className: "z-10 w-full max-w-2xl text-center flex flex-col items-center" },
+
+      // Area 1: Khusus untuk Teks (Input, Pesan, atau Tombol Selesai)
+      React.createElement("div", { className: "w-full h-48 flex flex-col justify-center items-center" },
+        view === 'input' && React.createElement("div", { className: "animate-fade-in w-full" },
+          React.createElement("h1", { className: "text-3xl md:text-5xl font-bold mb-6" }, heading),
+          React.createElement("input", { onKeyPress: handleKeyPress, type: "text", className: "w-full bg-gray-800 border border-gray-700 rounded-lg text-xl md:text-2xl text-center p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 force-uppercase", placeholder: "Ungkapkan Disini...." })
+        ),
+
+        view === 'message' && React.createElement("p", { key: message, className: "message-fade-in text-2xl md:text-4xl font-light" }, message),
+
+        view === 'finished' && React.createElement("div", { className: "animate-fade-in" },
+          React.createElement("h2", { className: "text-2xl md:text-4xl font-bold mb-8" }, "Pelepasan Selesai. Apa selanjutnya?"),
+          React.createElement("div", { className: "flex flex-col md:flex-row gap-4 justify-center" },
+            React.createElement("button", { onClick: handleRestart, className: "bg-white/20 px-6 py-3 rounded-lg hover:bg-white/30 transition-colors" }, "Ada Lagi yang Mau Dilepaskan"),
+            React.createElement("button", { onClick: () => setCurrentPageKey('affirmation-room'), className: "bg-sky-600 text-white font-bold px-6 py-3 rounded-lg hover:bg-sky-700 transition-colors" }, "Lanjut ke Ruang Afirmasi \u2728")
+          )
+        )
+      ),
+
+      // Area 2: Khusus untuk Gelembung Animasi
+      React.createElement("div", { className: "w-full flex justify-center items-center" },
+        (view === 'thought' || view === 'message' || view === 'finished') &&
+        React.createElement("div", { className: `thought-bubble ${animationClass} glowing-border flex items-center justify-center w-64 h-64 md:w-80 md:h-80 bg-white/80 rounded-full text-center p-6` },
+          React.createElement("span", { className: `font-extrabold text-indigo-600 break-words ${thought.length > 40 ? 'text-xl md:text-3xl' : 'text-2xl md:text-4xl'} force-uppercase` },
+            thought
+          )
+        )
+      )
+    )
+  );
 };
-
 
 
 // QUOTE
