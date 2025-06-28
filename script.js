@@ -311,7 +311,7 @@ const AffirmationRoom = () => {
   };
 
   return (
-    React.createElement("div", { className: "fixed inset-0 bg-gray-900 text-white flex flex-col justify-center items-center p-4 overflow-hidden" },
+    React.createElement("div", { className: "fixed inset-0 bg-gray-900 text-white flex flex-col justify-start items-center p-4 overflow-hidden" },
       React.createElement("audio", { ref: audioRef, src: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/suara%20ruang%20afirmasi%208d.mp3", preload: "auto" }),
 
       phase === 'raining' && React.createElement(ZoomingWordBackground, { customWords: affirmationText.trim().split(/\s+/).filter(Boolean), rainColor: rainColor }),
