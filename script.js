@@ -327,7 +327,7 @@ const AffirmationRoom = () => {
 
       phase !== 'raining' && React.createElement(Starfield, null),
       
-      React.createElement("div", { className: "relative z-10 w-full max-w-3xl text-center flex flex-col justify-center items-center" },
+      React.createElement("div", { className: "relative z-10 w-full max-w-3xl text-center flex flex-col justify-start items-center" },
         phase === 'input' &&
         React.createElement("div", { className: "animate-fade-in w-full px-4" },
           React.createElement("h1", { className: "text-3xl md:text-5xl font-bold mb-4" }, "Ruang Afirmasi"),
