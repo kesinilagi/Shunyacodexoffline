@@ -568,6 +568,7 @@ const Starfield = () => {
   const canvasRef = useRef(null);
   useEffect(() => {
     const canvas = canvasRef.current;
+    if (!canvas) return;
     const ctx = canvas.getContext('2d');
     let stars = [];
     let animationFrameId;
@@ -582,8 +583,8 @@ const Starfield = () => {
           y: Math.random() * canvas.height,
           radius: Math.random() * 1.5 + 0.5,
           alpha: Math.random(),
-          speed: Math.random() * 0.2 + 0.1 });
-
+          speed: Math.random() * 0.2 + 0.1
+        });
       }
     };
 
