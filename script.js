@@ -311,7 +311,7 @@ const AffirmationRoom = () => {
   };
 
   return /*#__PURE__*/(
-    React.createElement("div", { className: "fixed inset-0 bg-gray-900 text-white flex flex-col justify-center items-center p-4 overflow-hidden" }, /*#__PURE__*/
+    React.createElement("div", { className: "fixed inset-0 bg-gray-900 text-white flex flex-col justify-start items-center p-4 overflow-hidden" }, /*#__PURE__*/
     React.createElement("audio", { ref: audioRef, src: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/suara ruang afirmasi 8d.mp3", preload: "auto" }),
 
     phase === 'raining' && /*#__PURE__*/React.createElement(ZoomingWordBackground, { customWords: affirmationText.trim().split(/\s+/).filter(Boolean), rainColor: rainColor }),
@@ -326,7 +326,7 @@ const AffirmationRoom = () => {
     React.createElement("button", { onClick: () => setCurrentPageKey('daftar-isi'), className: "bg-white/20 px-4 py-2 rounded-lg hover:bg-white/30 transition-colors" }, "Kembali ke Daftar Isi \u2192")), /*#__PURE__*/
 
 
-    React.createElement("div", { className: "relative z-10 w-full max-w-3xl text-center flex flex-col justify-center items-center" },
+    React.createElement("div", { className: "relative z-10 w-full max-w-3xl text-center flex flex-col justify-start items-center" },
     phase === 'input' && /*#__PURE__*/
     React.createElement("div", { className: "animate-fade-in w-full px-4" }, /*#__PURE__*/
     React.createElement("h1", { className: "text-3xl md:text-5xl font-bold mb-4" }, "Ruang Afirmasi"), /*#__PURE__*/
