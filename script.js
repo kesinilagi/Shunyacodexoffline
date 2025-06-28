@@ -1577,7 +1577,7 @@ const DoaPilihan = () => {
       terjemahan: "\"Ya Allah, aku berlindung kepada-Mu dari kegelisahan dan kesedihan, kelemahan dan kemalasan, kekikiran dan kepengecutan, beban utang dan dari dikuasai orang lain.\"",
       manfaat: "Memohon perlindungan dari berbagai kesulitan hidup, termasuk beban utang.",
       latin: "Allaahumma innee a’oodhu bika minal-hammi wal-hazani...",
-      audioSrc: "https://www.dropbox.com/scl/fi/670lr12jeov7i3huo7f4q/Allahuma-inne-audzubika.mp3?rlkey=g6tgl5ggj1v85gv0qnbw68k7f&st=zicx2qwg&dl=1"
+      audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Allahuma inne audzubika.mp3"
     },
     {
       id: 2,
@@ -1585,7 +1585,7 @@ const DoaPilihan = () => {
       terjemahan: "\"Ya Allah, cukupkanlah aku dengan rezeki halal-Mu dari yang haram, dan jadikanlah aku kaya dengan karunia-Mu dari selain-Mu.\"",
       manfaat: "Memohon kecukupan rezeki yang halal dan kemandirian dari selain Allah.",
       latin: "Allaahummak-finee bihalaalika ‘an haraamika...",
-      audioSrc: "https://www.dropbox.com/scl/fi/th3z8vt6knzd9xrcrd38k/Allahuma-finne.mp3?rlkey=li67cczje4b0h7vcqoptuxtmc&st=x4ji1mwv&dl=1"
+      audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Allahuma finne.mp3"
     },
     {
       id: 3,
@@ -1601,7 +1601,7 @@ const DoaPilihan = () => {
       terjemahan: "\"Tidak ada Tuhan selain Engkau. Maha Suci Engkau, sesungguhnya aku termasuk orang-orang yang zalim.\"",
       manfaat: "Doa permohonan ampun dan pertolongan dalam keadaan terdesak (Doa Nabi Yunus).",
       latin: "LAA ILAAHA ILLAAA ANTA SUBHAANAKA...",
-      audioSrc: "https://www.dropbox.com/scl/fi/ld61ofv4vcdg2tae42on7/Laailahailaanta.mp3?rlkey=6ve7qhcxt43s1t8v4xiyrv3rk&st=1rkk0afx&dl=1"
+      audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Laailahailaanta.mp3"
     },
     {
       id: 5,
@@ -1609,7 +1609,7 @@ const DoaPilihan = () => {
       terjemahan: "\"Cukuplah Allah bagiku, tiada Tuhan selain Dia. Hanya kepada-Nya aku bertawakal, dan Dia adalah Tuhan pemilik Arsy yang agung.\"",
       manfaat: "Menegaskan tawakal penuh kepada Allah sebagai satu-satunya sandaran.",
       latin: "Hasbiyallahu la ilaha illa Huwa...",
-      audioSrc: "https://www.dropbox.com/scl/fi/m3mapahumh2uk83azchst/Hasbiyallah.mp3?rlkey=7wq1fhibhc023x698itru308g&st=yu0bb0wq&dl=1"
+      audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Hasbiyallah.mp3"
     },
     {
       id: 6,
@@ -1617,7 +1617,7 @@ const DoaPilihan = () => {
       terjemahan: "\"Ya Allah! Wahai penghilang kesedihan... dan bebaskanlah aku dari semua utang.\"",
       manfaat: "Doa spesifik untuk pembebasan dari utang dan memohon rahmat.",
       latin: "Allaahumma yaa faarijal-hammi...",
-      audioSrc: "https://www.dropbox.com/scl/fi/yq8cqv2m8xr68x8qzcm4t/Allahuma-ya-farijal.mp3?rlkey=rhui1g4c1ko6tc802rzovmasl&st=dkaburaf&dl=1"
+      audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Allahuma ya farijal.mp3"
     },
     {
       id: 7,
@@ -1625,7 +1625,7 @@ const DoaPilihan = () => {
       terjemahan: "\"Ya Allah, (mohon) bantulah aku membayar kembali kepada semua makhluk-Mu atas kezaliman mereka...\"",
       manfaat: "Permohonan agar Allah melunasi utang yang tak mampu dibayar dari karunia-Nya.",
       latin: "Allaahumma urdud ilaa jamii'i khalqika...",
-      audioSrc: "https://www.dropbox.com/scl/fi/llvm79ccwr1hx0xvkd8df/Allahuma-urdud.mp3?rlkey=o1ykeala308pzrb8xu8g9vx91&st=n8xwnlq9&dl=1"
+      audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Allahuma urdud.mp3"
     },
     {
       id: 8,
@@ -1633,7 +1633,7 @@ const DoaPilihan = () => {
       terjemahan: "\"Ya Allah! Tidak ada kemudahan kecuali yang Engkau jadikan mudah...\"",
       manfaat: "Memohon kemudahan dari Allah dalam menghadapi segala kesulitan.",
       latin: "Allahumma la sahla illa maa ja'altahu sahlan...",
-      audioSrc: "https://www.dropbox.com/scl/fi/0wfm0jdg3vktod5t4fkxe/Allahuma-sahla.mp3?rlkey=icsztiki9wo3brj16noz3g89y&st=ozy2f9lg&dl=1"
+      audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Allahuma ya farijal.mp3"
     },
     {
       id: 9,
