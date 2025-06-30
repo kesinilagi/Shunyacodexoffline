@@ -686,9 +686,9 @@ const PixelThoughts = () => {
     }
     
     const shareData = {
-      title: 'Perasaanku di Shunya Codex',
-      text: `Setelah sesi pelepasan di Shunya Codex, sekarang saya merasa "${feeling}".\n\nCoba juga pengalaman ini di:`,
-      url: 'https://shunyacodex.netlify.app'
+      title: 'Perasaanku Setelah Pelepasan',
+      text: `Setelah sesi pelepasan di Ruang Pelepasan Shunya Codex, sekarang saya merasa "${feeling}".\n\nCoba juga pengalaman ini di:`,
+      url: 'https://kitabhidupselaluasik.netlify.app/'
     };
 
     if (platform === 'native' && navigator.share) {
@@ -707,21 +707,7 @@ const PixelThoughts = () => {
     }
   };
 
-  const handleDownloadImage = () => {
-    if (shareableRef.current === null) return;
-    alert('Sedang membuat gambar, mohon tunggu...');
-    htmlToImage.toPng(shareableRef.current, { cacheBust: true, pixelRatio: 2 })
-      .then((dataUrl) => {
-        const link = document.createElement('a');
-        link.download = 'shunya-codex-story.png';
-        link.href = dataUrl;
-        link.click();
-      })
-      .catch((err) => {
-        console.error('Gagal membuat gambar:', err);
-        alert('Maaf, gagal membuat gambar. Coba lagi.');
-      });
-  };
+  
 
   return (
     <div className="fixed inset-0 bg-gray-900 text-white flex flex-col justify-start items-center p-4 pt-20">
