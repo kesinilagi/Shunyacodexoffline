@@ -624,11 +624,59 @@ const PixelThoughts = () => {
   const [animationClass, setAnimationClass] = useState('');
   const audioRef = useRef(null);
   const [feeling, setFeeling] = useState('');
+  const shareableRef = useRef(null);
 
-  // ... (const messages dan const sleep tetap sama) ...
+  const messages = [
+    "Tarik napas dalam-dalam... ", "tahan .", "Perhatikan pikiran itu menyusut.\nLihatlah ia menjadi kecil dan jauh.....",
+    "Ia hanyalah setitik kecil di alam semesta yang luas......", " hembuskan nafasmu \nbersama rasa itu", "Biarkan ia pergi.",
+    "Menghilang di antara bintang-bintang...... \nRasakan kelegaan saat ia menghilang......", " ", " ", "Dari keheningan, aku terbuka. \nDari ketiadaan",
+    "aku menerima... ", "Aku adalah tempat aliran rezeki-Mu mengalir... ", "Aku sekarang merasa lebih ringan.\nAku sekarang merasa berlimpah",
+    "Aku sekarang merasa bahagia \nAku memiliki energi yang baru.", "Aku Sangat tenang. \nAku berkelimpahan. ", "Aku Sejahtera \nAllah sebaik baiknya pengurus",
+    "Jalan-jalan baru terbuka. \nPertolongan datang dari arah tak kusangka. ", "Hatiku ringan.\nLangkahku lapang",
+    "Aku mengalir bersama-Mu, ya Allah. ", "Aku mengalir bersama-Mu, ya Allah \nAku mengalir bersama-Mu, ya Allah",
+    "Tutup dengan sholawat Tiga Kali", "Rasakan sampai musiknya berhenti \nNikmati momen ketenangan ini."
+  ];
 
-  const startMeditation = async (thoughtText) => { /* ... (fungsi ini tetap sama) ... */ };
-  const handleSubmit = (event) => { /* ... (fungsi ini tetap sama) ... */ };
+  const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+  // --- PERBAIKAN DI SINI ---
+  const startMeditation = async () => { // Argumen dihapus
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    audio.pause();
+    audio.currentTime = 0;
+    
+    // setThought(thoughtText); // Baris ini tidak perlu lagi
+    setView('thought');
+
+    audio.play().catch(e => console.error("Gagal memulai audio:", e));
+
+    await sleep(100);
+    setAnimationClass('recede');
+    await sleep(1000);
+    setView('message');
+
+    for (let i = 0; i < messages.length; i++) {
+      setMessage(messages[i]);
+      if (messages[i] === "Biarkan ia pergi.") {
+        setAnimationClass('recede vanish');
+      }
+      await sleep(i === messages.length - 1 ? 12000 : 5000);
+    }
+
+    audio.pause();
+    await sleep(1000);
+    setView('finished');
+  };
+  
+  // --- PERBAIKAN DI SINI ---
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (thought.trim() !== '') {
+      startMeditation(); // Dipanggil tanpa argumen
+    }
+  };
 
   const handleRestart = () => {
     setView('input');
@@ -638,9 +686,16 @@ const PixelThoughts = () => {
     setHeading('Ada lagi yang ingin dilepaskan?');
   };
 
-  useEffect(() => { /* ... (hook ini tetap sama) ... */ }, []);
-
-  // --- FUNGSI SHARE BARU YANG LEBIH PINTAR ---
+  useEffect(() => {
+    const audio = audioRef.current;
+    return () => {
+      if (audio) {
+        audio.pause();
+        audio.currentTime = 0;
+      }
+    };
+  }, []);
+  
   const handleShare = async () => {
     if (feeling.trim() === '') {
       alert('Mohon isi dulu perasaanmu saat ini.');
@@ -651,57 +706,24 @@ const PixelThoughts = () => {
       text: `Setelah sesi pelepasan di Shunya Codex, sekarang saya merasa "${feeling}".\n\nCoba juga pengalaman ini di:`,
       url: 'https://shunyacodex.netlify.app'
     };
-
-    // Cek apakah browser mendukung Web Share API
     if (navigator.share) {
       try {
         await navigator.share(shareData);
-        console.log('Konten berhasil dibagikan!');
       } catch (err) {
         console.error('Gagal share:', err);
       }
     } else {
-      // Fallback untuk desktop: copy ke clipboard
       const fallbackText = `${shareData.text} ${shareData.url}`;
       navigator.clipboard.writeText(fallbackText).then(() => {
         alert('Teks berhasil disalin! Silakan paste di sosial media favoritmu.');
-      }).catch(err => {
-        alert('Gagal menyalin teks.');
       });
     }
   };
 
-  return React.createElement("div", { className: "fixed inset-0 bg-gray-900 text-white flex flex-col justify-start items-center p-4 pt-16 md:pt-20" },
-    // ... (Starfield dan audio tetap sama) ...
-    React.createElement("div", { className: "absolute bottom-8 left-1/2 -translate-x-1/2 z-10" }, /* ... Tombol kembali ... */),
-    React.createElement("div", { className: "z-10 w-full max-w-2xl text-center flex flex-col items-center" },
-      React.createElement("div", { className: "w-full h-48 flex flex-col justify-center items-center" },
-        // ... (view 'input' dan 'message' tetap sama) ...
-        view === 'finished' && React.createElement("div", { className: "animate-fade-in w-full" },
-          React.createElement("h2", { className: "text-2xl md:text-4xl font-bold mb-4" }, "Pelepasan Selesai."),
-          React.createElement("p", { className: "text-lg mb-4" }, "Bagaimana Perasaan Kamu Sekarang?"),
-          React.createElement("input", {
-            type: "text",
-            value: feeling,
-            onChange: e => setFeeling(e.target.value),
-            className: "w-full max-w-md bg-gray-800 border border-gray-700 rounded-lg text-xl text-center p-3 focus:outline-none focus:ring-2 focus:ring-sky-500",
-            placeholder: "Contoh: Lega, Tenang, Plong..."
-          }),
-          // --- SATU TOMBOL SHARE PINTAR ---
-          React.createElement("div", { className: "mt-4 flex justify-center" },
-            React.createElement("button", { onClick: handleShare, className: "bg-green-500 text-white font-bold px-6 py-3 rounded-lg hover:bg-green-600 flex items-center gap-2" },
-              React.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", className: "h-5 w-5", viewBox: "0 0 20 20", fill: "currentColor" }, React.createElement("path", { d: "M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z" })),
-              "Bagikan Perasaan Ini"
-            )
-          ),
-          React.createElement("div", { className: "mt-8 flex flex-col md:flex-row gap-4 justify-center" },
-            React.createElement("button", { onClick: handleRestart, className: "bg-white/20 px-6 py-3 rounded-lg hover:bg-white/30 transition-colors" }, "Ulangi Sesi"),
-            React.createElement("button", { onClick: () => setCurrentPageKey('affirmation-room'), className: "bg-sky-600 text-white font-bold px-6 py-3 rounded-lg hover:bg-sky-700 transition-colors" }, "Lanjut ke Ruang Afirmasi \u2728")
-          )
-        )
-      ),
-      // ... (sisa kode bubble tetap sama) ...
-    )
+  return (
+    <div className="fixed inset-0 bg-gray-900 text-white flex flex-col justify-start items-center p-4 pt-16 md:pt-20">
+      {/* ... sisa return JSX tetap sama persis seperti sebelumnya ... */}
+    </div>
   );
 };
 
