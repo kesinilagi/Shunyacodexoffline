@@ -145,7 +145,8 @@ const DaftarIsi = () => {
 
 
                     <li className="pt-2"><button onClick={() => setCurrentPageKey('doapilihan')} className="text-green-600 hover:underline font-bold text-xl">🙏 Doa-doa Pilihan (Kelapangan Rezeki dan Pelunasan Utang)</button></li>
-            </ul>
+                    <li className="pt-2"><button onClick={() => setCurrentPageKey('doa-harian')} className="text-emerald-600 hover:underline font-bold text-xl">🤲 Doa Pilihan Khusus</button></li>
+  </ul>
             <AuthorFootnote />
         </div>
     );
@@ -1568,6 +1569,46 @@ const Bab15 = () => (
         </p>
     </div>
 );
+const DoaHarianPlaylist = () => {
+  // Kita buat daftar doa dan link audionya di sini
+  const doaHarianData = [
+    {
+      id: 1,
+      judul: "Doa 1 Milyar",
+      audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Doa 1 Milyar_Sholawat 3x.mp3"
+    },
+    {
+      id: 2,
+      judul: "Doa Memohon Jodoh Terbaik",
+      audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Love release.mp3"
+    },
+    {
+      id: 3,
+      judul: "Doa Istiqomah Sholat 5 Waktu & Tahajud",
+      audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/DOA Afiyah (1).mp3"
+    }
+    // Tambahkan doa lain di sini jika ada
+  ];
+
+  return (
+    <div className={contentContainerClasses}>
+      <h2 className={sectionTitleClasses}>Doa Pilihan Sehari-hari</h2>
+      <p className={paragraphClasses}>
+        Dengarkan dan resapi doa-doa pilihan ini untuk menemani aktivitas harian Anda. Cukup klik pada judul doa untuk memutar audio.
+      </p>
+      <div className="mt-6 space-y-3">
+        {doaHarianData.map(doa => (
+          <IntegratedAudioPlayer
+            key={doa.id}
+            src={doa.audioSrc}
+            text={doa.judul}
+            isLooping={false} // Kita buat tidak berulang agar bisa ganti-ganti
+          />
+        ))}
+      </div>
+    </div>
+  );
+};  
 
 const DoaPilihan = () => {
   const doaData = [
@@ -1763,6 +1804,7 @@ const MainLayout = () => {
             case 'bab15': return <Bab15 />;
             case 'doapilihan': return <DoaPilihan />;
             case 'pengaturan': return <ThemeSettings />;
+              case 'doa-harian': return <DoaHarianPlaylist />;
             default: return <DaftarIsi />;
         }
     };
@@ -2013,7 +2055,8 @@ const SidebarMenu = () => {
                 <li className="pt-4"><button onClick={() => handleNavigate('pixel-thoughts')} className={`${tocFeatureClasses} text-yellow-600`}>✨ Ruang Pelepasan</button></li>
                 <li className="pt-2"><button onClick={()=> handleNavigate('affirmation-room')} className={`${tocFeatureClasses} text-sky-500`}>✨ Ruang Afirmasi</button></li>
                 <li className="pt-2"><button onClick={()=> handleNavigate('doapilihan')} className={`${tocFeatureClasses} text-green-600`}>🙏 Doa-doa Pilihan</button></li>
-            </ul>
+             <li className="pt-2"><button onClick={() => handleNavigate('doa-harian')} className={`${tocFeatureClasses} text-emerald-600`}>🤲 Doa Khusus</button></li>
+              </ul>
         </>
     );
 }
@@ -2077,7 +2120,7 @@ const [isExiting, setIsExiting] = useState(false);
 };
 
 // Daftar halaman untuk navigasi
-const pages = ['kata-pengantar', 'daftar-isi', 'bab1', 'bab2', 'bab3', 'bab4', 'bab5', 'bab6', 'bab7', 'bab8', 'bab9', 'bab10', 'bab11', 'bab12', 'bab13', 'bab14a', 'bab14b', 'bab15','affirmation-room', 'doapilihan', 'pixel-thoughts', 'pengaturan'];
+const pages = ['kata-pengantar', 'daftar-isi', 'bab1', 'bab2', 'bab3', 'bab4', 'bab5', 'bab6', 'bab7', 'bab8', 'bab9', 'bab10', 'bab11', 'bab12', 'bab13', 'bab14a', 'bab14b', 'bab15','affirmation-room', 'doapilihan', 'pixel-thoughts', 'pengaturan','doa-harian'];
 
 
 // ### KOMPONEN UTAMA APLIKASI (OTAK DARI SEMUANYA) ###
