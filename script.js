@@ -29,7 +29,7 @@ const closeFullscreen = () => {
   }
 }
 // --- Styling Constants ---
-const contentContainerClasses = "p-6 md:p-10 bg-amber-200/40 backdrop-blur-sm rounded-3xl shadow-lg animate-fade-in mb-8";  // <-- DARI bg-white MENJADI bg-stone-100
+const contentContainerClasses = "p-6 md:p-10 [background-color:rgba(254,243,199,var(--content-bg-opacity))] backdrop-blur-sm rounded-3xl shadow-lg animate-fade-in mb-8";  // <-- DARI bg-white MENJADI bg-stone-100
 const sectionTitleClasses = "text-2xl md:text-3xl font-bold text-center text-black-800 mb-6 border-b-2 pb-2 border-black-200";
 const paragraphClasses = "dynamic-paragraph text-black-1000 leading-loose mb-4 text-justify[text-shadow:1px_1px_3px_rgba(0,0,0,0.7)]";
 const highlightTextClasses = "text-blue-600 font-semibold";
@@ -801,7 +801,7 @@ const LoginScreen = () => {
 
 const ThemeSettings = () => {
     // 1. Ambil fungsi `setCurrentPageKey` dari Context
-    const { themeKey, setThemeKey, themes, setCurrentPageKey } = useContext(AppContext);
+    const { themeKey, setThemeKey, themes, setCurrentPageKey,bgOpacity, setBgOpacity } = useContext(AppContext);
 
     const handleThemeChange = (key) => {
         localStorage.setItem('ebookThemeKey', key);
@@ -830,6 +830,19 @@ const ThemeSettings = () => {
                 })}
             </div>
 
+            {/* --- KONTROL TRANSPARANSI BARU --- */}
+      <h3 className={`${subHeadingClasses} mt-10`}>Atur Transparansi Latar</h3>
+      <div className="mt-4">
+        <input 
+          type="range"
+          min="20" // Minimal 20% agar tidak terlalu transparan
+          max="100" // Maksimal 100% (solid)
+          value={bgOpacity}
+          onChange={(e) => setBgOpacity(e.target.value)}
+          className="w-full h-2 bg-gray-400 rounded-lg appearance-none cursor-pointer"
+        />
+        <div className="text-center text-gray-700 font-semibold mt-2">{bgOpacity}%</div>
+      </div>
             {/* 2. TAMBAHKAN TOMBOL INI DI BAGIAN BAWAH */}
             <div className="text-center mt-10">
                 <button
@@ -2142,6 +2155,25 @@ const pages = ['kata-pengantar', 'daftar-isi', 'bab1', 'bab2', 'bab3', 'bab4', '
      const [isMenuOpen, setIsMenuOpen] = useState(false); // State untuk menu
 // --- STATE BARU UNTUK MENYIMPAN EVENT INSTALASI ---
     const [installPromptEvent, setInstallPromptEvent] = useState(null);
+    // --- STATE BARU UNTUK TRANSPARANSI ---
+  const [bgOpacity, setBgOpacity] = useState(80); // Default 80%
+
+  useEffect(() => {
+    // Ambil nilai transparansi yang tersimpan
+    const savedOpacity = localStorage.getItem('ebookBgOpacity');
+    if (savedOpacity) {
+      setBgOpacity(Number(savedOpacity));
+    }
+  }, []);
+
+  // --- EFEK BARU UNTUK MENGUBAH CSS ---
+  useEffect(() => {
+    // Simpan nilai ke localStorage setiap kali berubah
+    localStorage.setItem('ebookBgOpacity', bgOpacity);
+    // Ubah variabel CSS di root dokumen
+    document.documentElement.style.setProperty('--content-bg-opacity', bgOpacity / 100);
+  }, [bgOpacity]);
+     
      useEffect(() => {
         const handleBeforeInstallPrompt = (event) => {
             // Mencegah browser menampilkan prompt default-nya
@@ -2179,7 +2211,8 @@ const pages = ['kata-pengantar', 'daftar-isi', 'bab1', 'bab2', 'bab3', 'bab4', '
         currentPageKey, setCurrentPageKey,
         isCoverUnlocked, setIsCoverUnlocked,
         isSidebarOpen, setIsSidebarOpen,
-       isMenuOpen, setIsMenuOpen
+       isMenuOpen, setIsMenuOpen,
+      bgOpacity, setBgOpacity 
     };
     
     return (
