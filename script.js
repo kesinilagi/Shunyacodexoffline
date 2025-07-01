@@ -1302,8 +1302,8 @@ const Bab10 = () => {
         title="1. Sholawat Nariyah"
         audioSrc="https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Sholawat nariyah bowl.mp3"
         arabicText="اللَّهُمَّ صَلِّ صَلاَةً كَامِلَةً وَسَلِّمْ سَلاَماً تَامًّا عَلَى سَيِّدِنَا مُحَمَّدٍ الَّذِي تَنْحَلُّ بِهِ الْعُقَدُ، وَتَنْفَرِجُ بِهِ الْكُرَبُ، وَتُقْضَى بِهِ الْحَوَائِجُ، وَتُنَالُ بِهِ الرَّغَائِبُ، وَحُسْنُ الْخَوَاتِيمِ، وَيُسْتَسْقَى الْغَمَامُ بِوَجْهِهِ الْكَرِيمِ، وَعَلَى آلِهِ وَصَحْبِهِ، فِي كُلِّ لَمْحَةٍ وَنَفَسٍ، بِعَدَدِ كُلِّ مَعْلُومٍ لَكَ."
-        latinText="Allahumma shalli shalaatan kaamilatan wa sallim salaaman taamman ‘alaa sayyidinaa Muhammadin..."
-        translationText="Ya Allah, limpahkanlah shalawat yang sempurna dan salam yang sempurna kepada junjungan kami Nabi Muhammad, yang dengan beliau segala simpul kesulitan terurai..."
+        latinText="Allahumma shalli shalaatan kaamilatan wa sallim salaaman taamman ‘alaa sayyidinaa Muhammadin illadzi tanhallu bihil ‘uqad wa tanfariju bihil kurab wa tuqdhaa bihil hawaaij wa tunaalu bihir raghaaib wa husnul khawaatim wa yustasqal ghamaamu bi wajhihil kariim wa ‘alaa aalihi wa shahbihi fii kulli lamhatin wa nafasin bi ‘adadi kulli ma’luumin laka."
+        translationText="Ya Allah, limpahkanlah shalawat yang sempurna dan salam yang sempurna kepada junjungan kami Nabi Muhammad, yang dengan beliau segala simpul kesulitan terurai, segala kesusahan teratasi, segala kebutuhan terpenuhi, segala keinginan tercapai, dan husnul khatimah didapatkan. Dengan wajah mulia beliau, awan pun menurunkan hujan. Dan (limpahkan juga) kepada keluarga dan para sahabat beliau, dalam setiap kilatan pandangan dan hembusan nafas, sebanyak jumlah segala sesuatu yang Engkau ketahui."
       >
         <ul className="list-disc pl-5 space-y-1">
             <li><b>Melancarkan Rezeki:</b> Baca 11 kali setiap selesai sholat fardhu.</li>
@@ -1318,10 +1318,10 @@ const Bab10 = () => {
         title="2. Sholawat Munjiyat"
         audioSrc="https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Sholawat munjiyat bowl.mp3"
         arabicText="اللَّهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّدٍ صَلَاةً تُنَجِّينَا بِهَا مِنْ جَمِيعِ الْأَهْوَالِ وَالآفَاتِ، وَتَقْضِي لَنَا بِهَا جَمِيعَ الْحَاجَاتِ، وَتُطَهِّرُنَا بِهَا مِنْ جَمِيعِ السَّيِّئَاتِ، وَتَرْفَعُنَا بِهَا عِنْدَكَ أَعْلَى الدَّرَجَاتِ..."
-        latinText="Allahumma shalli ‘ala sayyidina Muhammadin shalaatan tunajjinaa biha min jamii’il ahwaali wal aafaat..."
-        translationText="Ya Allah, limpahkanlah shalawat kepada junjungan kami Nabi Muhammad, sebuah shalawat yang dengannya Engkau menyelamatkan kami dari segala bahaya dan bencana..."
-      >
-        <ul className="list-disc pl-5 space-y-1">
+        latinText="Allahumma shalli ‘ala sayyidina Muhammadin shalaatan tunajjinaa biha min jamii’il ahwaali wal aafaat, wa taqdhi lanaa biha jamii’al haajaat, wa tutahhirunaa biha min jamii’is sayyi’aat, wa tarfa’unaa biha ‘indaka a’lad darajaat, wa tuballighunaa biha aqshal ghaayaat min jamii’il khayraat fil hayaat wa ba’dal mamaat. Innaka ‘ala kulli syai’in qadiir"
+        translationText="Ya Allah, limpahkanlah shalawat kepada junjungan kami Nabi Muhammad, sebuah shalawat yang dengannya Engkau menyelamatkan kami dari segala bahaya dan bencana, Engkau penuhi semua hajat kami, Engkau sucikan kami dari segala dosa, Engkau angkat derajat kami ke tempat yang paling tinggi di sisi-Mu, dan Engkau sampaikan kami kepada tujuan tertinggi dari semua kebaikan dalam kehidupan ini dan sesudah mati. Sesungguhnya Engkau Maha Kuasa atas segala sesuatu"
+        >
+          <ul className="list-disc pl-5 space-y-1">
             <li><b>Terkabulnya Doa:</b> Baca 11 kali setiap selesai sholat Subuh.</li>
             <li><b>Kelancaran Urusan/Pekerjaan:</b> Baca 40 kali di pagi hari sebelum beraktivitas.</li>
             <li><b>Terhindar dari Penyakit/Musibah:</b> Baca 1.000 kali di tengah malam.</li>
@@ -1334,8 +1334,10 @@ const Bab10 = () => {
         title="3. Sholawat Nuril Anwar"
         audioSrc="https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Sholawat Nuril Anwar bowl 8d.mp3"
         arabicText="اللَّهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّدٍ نُورِ الْأَنْوَارِ، وَسِرِّ الْأَسْرَارِ، وَتِرْيَاقِ الْأَغْيَارِ، وَمِفْتَاحِ بَابِ الْيَسَارِ..."
-        latinText="Allahumma shalli ‘ala Sayyidina Muhammad, Nuril Anwar, wa Sirril Asrar..."
-        translationText="Ya Allah, limpahkanlah rahmat kepada junjungan kami, Nabi Muhammad, Cahaya dari segala Cahaya, Rahasia dari segala Rahasia..."
+        latinText="Allahumma shalli ‘ala Sayyidina Muhammad, Nuril Anwar, wa Sirril Asrar, wa Tiryāqil Aghyār, wa Miftāhi Bābil Yasar, Sayyidina wa Maulana Muhammadinil Mukhtar, wa Alihi al-Athar, wa Shahbihi al-Akhyar, 'Adada Ni'amillahi wa Ifdhalihi.*
+"
+        translationText="Ya Allah, limpahkanlah rahmat kepada junjungan kami, Nabi Muhammad, <span className={highlightTextClasses}>Cahaya dari segala Cahaya</span>, dan <span className={highlightTextClasses}>Rahasia dari segala Rahasia</span>, dan <span className={highlightTextClasses}>Penawar kesusahan (bagi selain Allah)</span>, dan <span className={highlightTextClasses}>Kunci pembuka pintu kemudahan (kelapangan)</span>. Junjungan kami dan pemimpin kami, Nabi Muhammad <span className={highlightTextClasses}>yang terpilih</span>, dan keluarga beliau <span className={highlightTextClasses}>yang suci</span>, serta para sahabat beliau <span className={highlightTextClasses}>yang baik-baik</span>, sebanyak jumlah nikmat Allah dan karunia-Nya."
+"
       >
         <ul className="list-disc pl-5 space-y-1">
             <li><b>Terhindar dari Bahaya & Kelancaran Rezeki:</b> Baca setiap selesai sholat fardhu.</li>
@@ -1350,8 +1352,10 @@ const Bab10 = () => {
         title="4. Sholawat Futuh Rizq Wal Afiyah"
         audioSrc="https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Sholawat Futuh Rizq wal Afiyah bowl 8d.mp3"
         arabicText="اللّٰهُمَّ صَلِّ عَلَىٰ سَيِّدِنَا مُحَمَّدٍ صَلَاةً تَفْتَحُ لَنَا بِهَا أَبْوَابَ الرِّزْقِ وَالْعَافِيَةِ..."
-        latinText="Allahumma shalli ‘alâ Sayyidinâ Muhammadin shalâtan taftahu lanâ bihâ abwâbar rizqi..."
-        translationText="Ya Allah, limpahkanlah shalawat atas junjungan kami Nabi Muhammad, shalawat yang dengannya Engkau bukakan bagi kami pintu-pintu rezeki dan ‘afiyah..."
+        latinText="Allahumma shalli ‘alâ Sayyidinâ Muhammadin shalâtan taftahu lanâ bihâ abwâbar rizqi wal ‘âfiyah, wa tuskinu bihâ khawfanâ, wa tuyassiru lanâ bihâ kulla amrin ‘asîr, wa tujliya bihâ kulla hamm wa gham, wa taqdhi bihâ jamî’a hawâ’ijinâ fid-dunyâ wal-âkhirah, wa ‘alâ âlihi wa shahbihi wa sallim.*
+"
+        translationText="Ya Allah, limpahkanlah shalawat atas junjungan kami Nabi Muhammad, shalawat yang dengannya Engkau bukakan bagi kami pintu-pintu rezeki dan ‘afiyah (keselamatan lahir batin), yang dengannya Engkau tenangkan ketakutan kami, mudahkan segala urusan kami yang sulit, hilangkan segala kesedihan dan kegundahan kami, dan penuhilah segala hajat kami di dunia dan akhirat. Serta limpahkan pula shalawat kepada keluarga dan sahabatnya.”
+"
       >
         <ul className="list-disc pl-5 space-y-1">
             <li><b>Wirid Harian:</b> Baca minimal 7 atau 11 kali setelah sholat fardhu.</li>
