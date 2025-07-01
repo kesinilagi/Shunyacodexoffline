@@ -29,9 +29,9 @@ const closeFullscreen = () => {
   }
 }
 // --- Styling Constants ---
-const contentContainerClasses = "p-6 md:p-10 bg-amber-200 rounded-3xl shadow-lg animate-fade-in mb-8"; // <-- DARI bg-white MENJADI bg-stone-100
+const contentContainerClasses = "p-6 md:p-10 bg-amber-200/40 backdrop-blur-sm rounded-3xl shadow-lg animate-fade-in mb-8";  // <-- DARI bg-white MENJADI bg-stone-100
 const sectionTitleClasses = "text-2xl md:text-3xl font-bold text-center text-black-800 mb-6 border-b-2 pb-2 border-black-200";
-const paragraphClasses = "dynamic-paragraph text-gray-700 leading-loose mb-4 text-justify";
+const paragraphClasses = "dynamic-paragraph text-black-1000 leading-loose mb-4 text-justify[text-shadow:1px_1px_3px_rgba(0,0,0,0.7)]";
 const highlightTextClasses = "text-blue-600 font-semibold";
 const quoteClasses = "italic text-gray-600 border-l-4 border-blue-400 pl-4 py-2 my-4 text-justify";
 const subHeadingClasses = "text-xl font-bold text-gray-800 mb-3 mt-6";
@@ -1810,7 +1810,7 @@ const MainLayout = () => {
     };
 
     return (
-        <div className="min-h-screen w-full bg-gray-900">
+        <div className="min-h-screen w-full">
             {/* --- SIDEBAR & OVERLAY --- */}
             <div className={`sidebar ${isSidebarOpen ? 'is-open' : ''}`}>
                 <SidebarMenu />
@@ -2184,6 +2184,7 @@ const pages = ['kata-pengantar', 'daftar-isi', 'bab1', 'bab2', 'bab3', 'bab4', '
     
     return (
         <AppContext.Provider value={contextValue}>
+      <Starfield />
         {
             !isCoverUnlocked ? <CoverScreen />
             : currentPageKey === 'pixel-thoughts' ? <PixelThoughts />
