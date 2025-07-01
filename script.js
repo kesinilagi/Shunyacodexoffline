@@ -555,12 +555,12 @@ const SholawatAccordion = ({ title, audioSrc, arabicText, latinText, translation
       >
         <div className="overflow-hidden"> {/* Div ini penting untuk animasi grid */}
           <div className="p-4 border-t border-white/20">
-            <p className={`${paragraphClasses} text-center text-xl ${arabicTextClass} text-white`}>{arabicText}</p>
-            <p className={`${paragraphClasses} text-center italic text-gray-300`}>{latinText}</p>
-            <p className={`${paragraphClasses} text-gray-200`}><b>Terjemahan:</b> {translationText}</p>
-            <div className="mt-4 border-t border-dashed border-white/30 pt-4">
+            <p className={`${paragraphClasses} text-center text-xl ${arabicTextClass} text-black`}>{arabicText}</p>
+            <p className={`${paragraphClasses} text-center italic text-black-300`}>{latinText}</p>
+            <p className={`${paragraphClasses} text-Yellow-200`}><b>Terjemahan:</b> {translationText}</p>
+            <div className="mt-4 border-t border-dashed border-black/30 pt-4">
               <h5 className="text-md font-bold text-yellow-300 mb-2">Fadhilah & Anjuran:</h5>
-              <div className="text-gray-200 space-y-2 text-sm break-words">
+              <div className="text-black-200 space-y-2 text-sm break-words">
                   {children}
               </div>
             </div>
