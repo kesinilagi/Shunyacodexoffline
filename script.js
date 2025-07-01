@@ -526,6 +526,47 @@ const InlineAudioIcon = ({ src, isLooping = false }) => {
     );
 };
 
+// --- KOMPONEN BARU UNTUK AKORDEON SHOLAWAT ---
+const SholawatAccordion = ({ title, audioSrc, arabicText, latinText, translationText, children }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="bg-white/10 backdrop-blur-md rounded-xl mb-4 border border-white/20">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full p-4 flex justify-between items-center text-left"
+      >
+        <h4 className="text-lg font-bold text-Yellow">{title}</h4>
+        <div className="flex items-center">
+          <InlineAudioIcon src={audioSrc} isLooping={true} />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className={`h-6 w-6 text-brown transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+      </button>
+      <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? 'max-h-screen' : 'max-h-0'}`}>
+        <div className="p-4 border-t border-black/20">
+          <p className={`${paragraphClasses} text-center text-xl ${arabicTextClass} text-black`}>{arabicText}</p>
+          <p className={`${paragraphClasses} text-center italic text-black-300`}>{latinText}</p>
+          <p className={`${paragraphClasses} text-black-200`}><b>Terjemahan:</b> {translationText}</p>
+          <div className="mt-4 border-t border-dashed border-black/30 pt-4">
+            <h5 className="text-md font-bold text-yellow-300 mb-2">Fadhilah & Anjuran:</h5>
+            <div className="text-black-200 space-y-2 text-sm">
+                {children}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const Starfield = () => {
     const canvasRef = useRef(null);
     useEffect(() => {
@@ -1220,8 +1261,9 @@ const Bab9 = () => (
     </div>
 );
 
-const Bab10 = () => (
-    <div className={`${contentContainerClasses}`}>
+const Bab10 = () => {
+   return (
+  <div className={`${contentContainerClasses}`}>
           <h2 className={`${sectionTitleClasses}`}>Bab 10. Sholawat: Jalan Cepat Menuju Cahaya</h2>
         <p className={`${paragraphClasses}`}>
             Sholawat adalah bentuk pujian, penghormatan, dan doa kepada Nabi Muhammad SAW. Ini adalah salah satu amalan spiritual yang paling dicintai dalam Islam, yang membawa banyak keberkahan bagi pelakunya.
@@ -1250,89 +1292,77 @@ const Bab10 = () => (
             <li className={`${paragraphClasses} !mb-0`}>**Perlindungan dan Keamanan:** Mengamalkan sholawat juga dapat memberikan perlindungan dari berbagai kesulitan dan bahaya, serta menjauhkan dari kemiskinan.</li>
             <li className={`${paragraphClasses} !mb-0`}>**Kedekatan dengan Nabi SAW:** Sholawat adalah cara untuk menunjukkan cinta dan penghormatan kepada Nabi Muhammad SAW, yang pada gilirannya akan mendekatkan Anda kepada beliau di dunia dan akhirat.</li>
         </ul>
-        <h3 className={`${subHeadingClasses}`}>Macam-macam Sholawat</h3>
-        <h4 className="text-lg font-bold text-gray-700 mt-4 mb-2">1. Sholawat Nariyah</h4>
-    <InlineAudioIcon src="https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Sholawat nariyah bowl.mp3" isLooping={true} />
-    
-        <p className={`${paragraphClasses} text-center text-xl ${arabicTextClass}`}>
-            اللَّهُمَّ صَلِّ صَلاَةً كَامِلَةً وَسَلِّمْ سَلاَماً تَامًّا عَلَى سَيِّدِنَا مُحَمَّدٍ الَّذِي تَنْحَلُّ بِهِ الْعُقَدُ، وَتَنْفَرِجُ بِهِ الْكُرَبُ، وَتُقْضَى بِهِ الْحَوَائِجُ، وَتُنَالُ بِهِ الرَّغَائِبُ، وَحُسْنُ الْخَوَاتِيمِ، وَيُسْتَسْقَى الْغَمَامُ بِوَجْهِهِ الْكَرِيمِ، وَعَلَى آلِهِ وَصَحْبِهِ، فِي كُلِّ لَمْحَةٍ وَنَفَسٍ، بِعَدَدِ كُلِّ مَعْلُومٍ لَكَ.
-        </p>
-        <p className={`${paragraphClasses} text-center italic`}>
-            *Allahumma shalli shalaatan kaamilatan wa sallim salaaman taamman ‘alaa sayyidinaa Muhammadin illadzi tanhallu bihil ‘uqad wa tanfariju bihil kurab wa tuqdhaa bihil hawaaij wa tunaalu bihir raghaaib wa husnul khawaatim wa yustasqal ghamaamu bi wajhihil kariim wa ‘alaa aalihi wa shahbihi fii kulli lamhatin wa nafasin bi ‘adadi kulli ma’luumin laka.*
-        </p>
-        <p className={`${paragraphClasses}`}>
-            **Terjemahan Bahasa Indonesia:** Ya Allah, limpahkanlah shalawat yang sempurna dan salam yang sempurna kepada junjungan kami Nabi Muhammad, yang dengan beliau segala simpul kesulitan terurai, segala kesusahan teratasi, segala kebutuhan terpenuhi, segala keinginan tercapai, dan husnul khatimah didapatkan. Dengan wajah mulia beliau, awan pun menurunkan hujan. Dan (limpahkan juga) kepada keluarga dan para sahabat beliau, dalam setiap kilatan pandangan dan hembusan nafas, sebanyak jumlah segala sesuatu yang Engkau ketahui.
-        </p>
-        
-        <h4 className="text-lg font-bold text-gray-700 mt-4 mb-2">2. Sholawat Munjiyat</h4>
-    <InlineAudioIcon src="https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Sholawat munjiyat bowl.mp3" isLooping={true} text= "Dengarkan"/>
-        <p className={`${paragraphClasses} text-center text-xl ${arabicTextClass}`}>
-            اللَّهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّدٍ صَلَاةً تُنَجِّينَا بِهَا مِنْ جَمِيعِ الْأَهْوَالِ وَالآفَاتِ، وَتَقْضِي لَنَا بِهَا جَمِيعَ الْحَاجَاتِ، وَتُطَهِّرُنَا بِهَا مِنْ جَمِيعِ السَّيِّئَاتِ، وَتَرْفَعُنَا بِهَا عِنْدَكَ أَعْلَى الدَّرَجَاتِ، وَتُبَلِّغُنَا بِهَا أَقْصَى الْغَايَاتِ مِنْ جَمِيعِ الْخَيْرَاتِ فِي الْحَيَاةِ وَبَعْدَ الْمَمَاتِ، إِنَّكَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ.
-        </p>
-        <p className={`${paragraphClasses} text-center italic`}>
-            *Allahumma shalli ‘ala sayyidina Muhammadin shalaatan tunajjinaa biha min jamii’il ahwaali wal aafaat, wa taqdhi lanaa biha jamii’al haajaat, wa tutahhirunaa biha min jamii’is sayyi’aat, wa tarfa’unaa biha ‘indaka a’lad darajaat, wa tuballighunaa biha aqshal ghaayaat min jamii’il khayraat fil hayaat wa ba’dal mamaat. Innaka ‘ala kulli syai’in qadiir.*
-        </p>
-        <p className={`${paragraphClasses}`}>
-            **Terjemahan Bahasa Indonesia:** Ya Allah, limpahkanlah shalawat kepada junjungan kami Nabi Muhammad, sebuah shalawat yang dengannya Engkau menyelamatkan kami dari segala bahaya dan bencana, Engkau penuhi semua hajat kami, Engkau sucikan kami dari segala dosa, Engkau angkat derajat kami ke tempat yang paling tinggi di sisi-Mu, dan Engkau sampaikan kami kepada tujuan tertinggi dari semua kebaikan dalam kehidupan ini dan sesudah mati. Sesungguhnya Engkau Maha Kuasa atas segala sesuatu.
-        </p>
-        
-
-        <h4 className="text-lg font-bold text-gray-700 mt-4 mb-2">3. Sholawat Futuh Rizq Wal Afiyah</h4>
-    <InlineAudioIcon src="https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Sholawat Futuh Rizq wal Afiyah bowl 8d.mp3" isLooping={true} />
-        <p className={`${paragraphClasses} text-center text-xl ${arabicTextClass}`}>
-            اللّٰهُمَّ صَلِّ عَلَىٰ سَيِّدِنَا مُحَمَّدٍ صَلَاةً تَفْتَحُ لَنَا بِهَا أَبْوَابَ الرِّزْقِ وَالْعَافِيَةِ، وَتُسْكِنُ بِهَا خَوْفَنَا، وَتُيَسِّرُ لَنَا بِهَا كُلَّ أَمْرٍ عَسِيرٍ، وَتُجْلِي بِهَا كُلَّ هَمٍّ وَغَمٍّ، وَتَقْضِي بِهَا جَمِيعَ حَوَائِجِنَا، فِي الدُّنْيَا وَالآخِرَةِ، وَعَلَى آلِهِ وَصَحْبِهِ وَسَلِّمْ.
-        </p>
-        <p className={`${paragraphClasses} text-center italic`}>
-            *Allahumma shalli ‘alâ Sayyidinâ Muhammadin shalâtan taftahu lanâ bihâ abwâbar rizqi wal ‘âfiyah, wa tuskinu bihâ khawfanâ, wa tuyassiru lanâ bihâ kulla amrin ‘asîr, wa tujliya bihâ kulla hamm wa gham, wa taqdhi bihâ jamî’a hawâ’ijinâ fid-dunyâ wal-âkhirah, wa ‘alâ âlihi wa shahbihi wa sallim.*
-        </p>
-        <p className={`${paragraphClasses}`}>
-            **Terjemahan Bahasa Indonesia:** "Ya Allah, limpahkanlah shalawat atas junjungan kami Nabi Muhammad, shalawat yang dengannya Engkau bukakan bagi kami pintu-pintu rezeki dan ‘afiyah (keselamatan lahir batin), yang dengannya Engkau tenangkan ketakutan kami, mudahkan segala urusan kami yang sulit, hilangkan segala kesedihan dan kegundahan kami, dan penuhilah segala hajat kami di dunia dan akhirat. Serta limpahkan pula shalawat kepada keluarga dan sahabatnya.”
-        </p>
        
-        <h4 className="text-lg font-bold text-gray-700 mt-4 mb-2">4. Sholawat Nurul Anwar</h4>
-    <InlineAudioIcon src="https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Sholawat Nuril Anwar bowl 8d.mp3" isLooping={true} />
-        <p className={`${paragraphClasses} text-center text-xl ${arabicTextClass}`}>
-            اللَّهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّدٍ نُورِ الْأَنْوَارِ، وَسِرِّ الْأَسْرَارِ، وَتِرْيَاقِ الْأَغْيَارِ، وَمِفْتَاحِ بَابِ الْيَسَارِ، سَيِّدِنَا وَمَوْلَانَا مُحَمَّدٍ الْمُخْتَارِ، وَآلِهِ الْأَطْهَارِ، وَصَحْبِهِ الْأَخْيَارِ، عَدَدَ نِعَمِ اللهِ وَإِفْضَالِهِ.
-        </p>
-        <p className={`${paragraphClasses} text-center italic`}>
-            *Allahumma shalli ‘ala Sayyidina Muhammad, Nuril Anwar, wa Sirril Asrar, wa Tiryāqil Aghyār, wa Miftāhi Bābil Yasar, Sayyidina wa Maulana Muhammadinil Mukhtar, wa Alihi al-Athar, wa Shahbihi al-Akhyar, 'Adada Ni'amillahi wa Ifdhalihi.*
-        </p>
-        <p className={`${paragraphClasses}`}>
-            **Terjemahan Bahasa Indonesia:** "Ya Allah, limpahkanlah rahmat kepada junjungan kami, Nabi Muhammad, <span className={highlightTextClasses}>Cahaya dari segala Cahaya</span>, dan <span className={highlightTextClasses}>Rahasia dari segala Rahasia</span>, dan <span className={highlightTextClasses}>Penawar kesusahan (bagi selain Allah)</span>, dan <span className={highlightTextClasses}>Kunci pembuka pintu kemudahan (kelapangan)</span>. Junjungan kami dan pemimpin kami, Nabi Muhammad <span className={highlightTextClasses}>yang terpilih</span>, dan keluarga beliau <span className={highlightTextClasses}>yang suci</span>, serta para sahabat beliau <span className={highlightTextClasses}>yang baik-baik</span>, sebanyak jumlah nikmat Allah dan karunia-Nya."
-        </p>
-        
+      <p className={`${paragraphClasses} text-black-800`}>
+        Sholawat adalah salah satu amalan spiritual paling dicintai dalam Islam. Di bawah ini adalah beberapa sholawat populer beserta fadhilah dan anjuran pengamalannya. Klik pada setiap judul untuk membuka detailnya.
+      </p>
 
-        <h4 className="text-lg font-bold text-gray-700 mt-4 mb-2">5. Sholawat Ibrahimi wal Afiyah</h4>
-    <InlineAudioIcon src="https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Sholawat Ibrahim wal Afiyah bowl 8d.mp3" isLooping={true} />
-        <p className={`${paragraphClasses} text-center text-xl ${arabicTextClass}`}>
-            بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ<br />
-            اللَّهُمَّ صَلِّ عَلَىٰ سَيِّدِنَا مُحَمَّدٍ وَعَلَىٰ آلِ سَيِّدِنَا مُحَمَّدٍ، كَمَا صَلَّيْتَ عَلَىٰ سَيِّدِنَا إِبْرَاهِيمَ وَعَلَىٰ آلِ سَيِّدِنَا إِبْرَاهِيمَ، وَبَارِكْ عَلَىٰ سَيِّدِنَا مُحَمَّدٍ وَعَلَىٰ آلِ سَيِّدِنَا مُحَمَّدٍ، كَمَا بَارَكْتَ عَلَىٰ سَيِّدِنَا إِبْرَاهِيمَ وَعَلَىٰ آلِ سَيِّدِنَا إِبْرَاهِيمَ فِي الْعَالَمِينَ، إِنَّكَ حَمِيدٌ مَجِيدٌ.<br />
-            يَا فَتَّاحُ، يَا رَزَّاقُ، يَا وَهَّابُ، يَا مُغْنِي، افْتَحْ لَنَا أَبْوَابَ الرِّزْقِ الْوَاسِعِ وَالْبَرَكَةِ وَالْغِنَىٰ وَالْعَافِيَةِ. وَاجْعَلْنَا مِنْ جَالِبِي الْأَمْوَالِ بِفَضْلِكَ وَكَرَمِكَ، وَيَسِّرْ لَنَا جَمِيعَ الْأُمُورِ الْمَالِيَّةِ.<br />
-            وَطِبِّ الْقُلُوبِ وَدَوَائِهَا، وَعَافِيَةِ الْأَبْدَانِ وَشِفَائِهَا، وَنُورِ الْأَبْصَارِ وَضِيَائِهَا.<br />
-            وَأَذْهِبْ حَزَنَ قُلُوبِنَا وَكُلَّ هَمٍّ وَغَمٍّ فِي الدُّنْيَا وَالآخِرَةِ.<br />
-            وَسَلِّمْنَا مِنْ كُلِّ بَلَاءٍ وَوَبَاءٍ وَفِتْنَةٍ فِي الدُّنْيَا وَالآخِرَةِ، وَاجْعَلْ عَاقِبَتَنَا حُسْنَ الْخَاتِمَةِ، بِحُرْمَةِ سَيِّدِنَا مُحَمَّدٍ وَآلِهِ وَصَحْبِهِ أَجْمَعِينَ. وَالْـحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ
-        </p>
-        <p className={`${paragraphClasses} text-center italic`}>
-            *Allâhumma shalli ‘alâ Sayyidinâ Muhammadin wa ‘alâ âli Sayyidinâ Muhammadin, kamâ shallaita ‘alâ Sayyidinâ Ibrâhîma wa ‘alâ âli Sayyidinâ Ibrâhîma, wa bârik ‘alâ Sayyidinâ Muhammadin wa ‘alâ âli Sayyidinâ Muhammadin, kamâ bârakta ‘alâ Sayyidinâ Ibrâhîma wa ‘alâ âli Sayyidinâ Ibrâhîma fil ‘âlamîna innaka Hamîdun Majîd.<br />
-            Yâ Fattâhu Yâ Razzâqu, Yâ Wahhâbu Yâ Mughnî, iftah lanâ abwâbar rizqil wâsi‘i wal barakati wal ghinâ wal ‘âfiyah.<br />
-            Waj‘alnâ min jâlibîl amwâli bi fadhlika wa karamika, wa yassir lanâ jamî‘al umûril mâliyah.<br />
-            Wa thibbil qulûbi wa dawâ-ihâ, wa ‘âfiyatil abdâni wa syifâ-ihâ, wa nûril abshâri wa dhiyâ-ihâ.<br />
-            Wa adzhib hazana qalbinâ wa kulla hammin wa ghammin fid-dunyâ wal-âkhirah.<br />
-            Wa sallimnâ min kulli balâ-in wa wabâ-in wa fitnatin fid-dunyâ wal-âkhirah, waj‘al ‘âqibatanâ husnal khâtimah.<br />
-            Bi hurmati Sayyidinâ Muhammadin wa âlihi wa shahbihi ajma‘în. Walhamdulillâhi Rabbil ‘Âlamîn.*
-        </p>
-        <p className={`${paragraphClasses}`}>
-            **Terjemahan Bahasa Indonesia:** Ya Allah, limpahkanlah shalawat kepada junjungan kami Nabi Muhammad dan keluarga beliau, sebagaimana Engkau telah melimpahkan shalawat kepada Nabi Ibrahim dan keluarga Nabi Ibrahim. Dan limpahkanlah berkah kepada Nabi Muhammad dan keluarganya, sebagaimana Engkau telah memberkahi Nabi Ibrahim dan keluarganya di seluruh alam. Sungguh Engkau Maha Terpuji lagi Maha Mulia.<br />
-            Wahai Dzat yang Maha Membuka (Ya Fattah), Maha Pemberi Rezeki (Ya Razzaq), Maha Pemberi Anugerah (Ya Wahhab), Maha Mencukupi (Ya Mughni), bukakanlah untuk kami pintu-pintu rezeki yang luas, keberkahan, kekayaan, dan kesehatan.<br />
-            Jadikanlah kami sebagai para penarik rezeki dengan karunia dan kemurahan-Mu, dan mudahkanlah bagi kami semua urusan keuangan dan hajat dunia kami.<br />
-            Sembuhkanlah hati kami dan seluruh obatnya, sehatkanlah tubuh kami dan berikanlah kesembuhan, terangilah penglihatan kami dan limpahkanlah cahayanya.<br />
-            Hilangkanlah kesedihan hati kami serta segala kegundahan dan kecemasan kami, baik di dunia maupun di akhirat.<br />
-            Selamatkanlah kami dari segala bala, wabah, dan fitnah di dunia dan akhirat, dan jadikanlah akhir hidup kami sebagai akhir yang indah (*husnul khâtimah*).<br />
-            Dengan kehormatan Nabi Muhammad ﷺ, keluarga dan seluruh sahabat beliau. Segala puji bagi Allah, Tuhan seluruh alam.
-        </p>
-        
+      {/* Sholawat Nariyah */}
+      <SholawatAccordion
+        title="1. Sholawat Nariyah"
+        audioSrc="https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Sholawat nariyah bowl.mp3"
+        arabicText="اللَّهُمَّ صَلِّ صَلاَةً كَامِلَةً وَسَلِّمْ سَلاَماً تَامًّا عَلَى سَيِّدِنَا مُحَمَّدٍ الَّذِي تَنْحَلُّ بِهِ الْعُقَدُ، وَتَنْفَرِجُ بِهِ الْكُرَبُ، وَتُقْضَى بِهِ الْحَوَائِجُ، وَتُنَالُ بِهِ الرَّغَائِبُ، وَحُسْنُ الْخَوَاتِيمِ، وَيُسْتَسْقَى الْغَمَامُ بِوَجْهِهِ الْكَرِيمِ، وَعَلَى آلِهِ وَصَحْبِهِ، فِي كُلِّ لَمْحَةٍ وَنَفَسٍ، بِعَدَدِ كُلِّ مَعْلُومٍ لَكَ."
+        latinText="Allahumma shalli shalaatan kaamilatan wa sallim salaaman taamman ‘alaa sayyidinaa Muhammadin..."
+        translationText="Ya Allah, limpahkanlah shalawat yang sempurna dan salam yang sempurna kepada junjungan kami Nabi Muhammad, yang dengan beliau segala simpul kesulitan terurai..."
+      >
+        <ul className="list-disc pl-5 space-y-1">
+            <li><b>Melancarkan Rezeki:</b> Baca 11 kali setiap selesai sholat fardhu.</li>
+            <li><b>Memudahkan Urusan:</b> Baca 31 kali setiap selesai sholat Subuh.</li>
+            <li><b>Hajat Besar & Tolak Bala:</b> Baca 300 kali (berjamaah) atau 4.444 kali (sendiri dalam satu majelis).</li>
+            <li><b>Menghilangkan Kesedihan:</b> Baca 90 kali setiap hari.</li>
+        </ul>
+      </SholawatAccordion>
+
+      {/* Sholawat Munjiyat */}
+      <SholawatAccordion
+        title="2. Sholawat Munjiyat"
+        audioSrc="https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Sholawat munjiyat bowl.mp3"
+        arabicText="اللَّهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّدٍ صَلَاةً تُنَجِّينَا بِهَا مِنْ جَمِيعِ الْأَهْوَالِ وَالآفَاتِ، وَتَقْضِي لَنَا بِهَا جَمِيعَ الْحَاجَاتِ، وَتُطَهِّرُنَا بِهَا مِنْ جَمِيعِ السَّيِّئَاتِ، وَتَرْفَعُنَا بِهَا عِنْدَكَ أَعْلَى الدَّرَجَاتِ..."
+        latinText="Allahumma shalli ‘ala sayyidina Muhammadin shalaatan tunajjinaa biha min jamii’il ahwaali wal aafaat..."
+        translationText="Ya Allah, limpahkanlah shalawat kepada junjungan kami Nabi Muhammad, sebuah shalawat yang dengannya Engkau menyelamatkan kami dari segala bahaya dan bencana..."
+      >
+        <ul className="list-disc pl-5 space-y-1">
+            <li><b>Terkabulnya Doa:</b> Baca 11 kali setiap selesai sholat Subuh.</li>
+            <li><b>Kelancaran Urusan/Pekerjaan:</b> Baca 40 kali di pagi hari sebelum beraktivitas.</li>
+            <li><b>Terhindar dari Penyakit/Musibah:</b> Baca 1.000 kali di tengah malam.</li>
+            <li><b>Meraih Kesuksesan:</b> Baca 500 kali setiap hari.</li>
+        </ul>
+      </SholawatAccordion>
+      
+      {/* Sholawat Nuril Anwar */}
+       <SholawatAccordion
+        title="3. Sholawat Nuril Anwar"
+        audioSrc="https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Sholawat Nuril Anwar bowl 8d.mp3"
+        arabicText="اللَّهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّدٍ نُورِ الْأَنْوَارِ، وَسِرِّ الْأَسْرَارِ، وَتِرْيَاقِ الْأَغْيَارِ، وَمِفْتَاحِ بَابِ الْيَسَارِ..."
+        latinText="Allahumma shalli ‘ala Sayyidina Muhammad, Nuril Anwar, wa Sirril Asrar..."
+        translationText="Ya Allah, limpahkanlah rahmat kepada junjungan kami, Nabi Muhammad, Cahaya dari segala Cahaya, Rahasia dari segala Rahasia..."
+      >
+        <ul className="list-disc pl-5 space-y-1">
+            <li><b>Terhindar dari Bahaya & Kelancaran Rezeki:</b> Baca setiap selesai sholat fardhu.</li>
+            <li><b>Rezeki Lahir Batin & Cahaya Ilahi:</b> Baca 100 kali sehari semalam.</li>
+            <li><b>Terhindar dari Sihir:</b> Baca 7 kali setiap akan tidur.</li>
+            <li><b>Memperoleh Kedudukan:</b> Baca 21 kali setiap akan berangkat kerja.</li>
+        </ul>
+      </SholawatAccordion>
+      
+      {/* Sholawat Futuh Rizq */}
+       <SholawatAccordion
+        title="4. Sholawat Futuh Rizq Wal Afiyah"
+        audioSrc="https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Sholawat Futuh Rizq wal Afiyah bowl 8d.mp3"
+        arabicText="اللّٰهُمَّ صَلِّ عَلَىٰ سَيِّدِنَا مُحَمَّدٍ صَلَاةً تَفْتَحُ لَنَا بِهَا أَبْوَابَ الرِّزْقِ وَالْعَافِيَةِ..."
+        latinText="Allahumma shalli ‘alâ Sayyidinâ Muhammadin shalâtan taftahu lanâ bihâ abwâbar rizqi..."
+        translationText="Ya Allah, limpahkanlah shalawat atas junjungan kami Nabi Muhammad, shalawat yang dengannya Engkau bukakan bagi kami pintu-pintu rezeki dan ‘afiyah..."
+      >
+        <ul className="list-disc pl-5 space-y-1">
+            <li><b>Wirid Harian:</b> Baca minimal 7 atau 11 kali setelah sholat fardhu.</li>
+            <li><b>Hajat Mendesak:</b> Baca 41 kali setiap hari secara rutin.</li>
+            <li><b>Kelancaran Rezeki Signifikan:</b> Baca 100 kali setiap hari.</li>
+        </ul>
+      </SholawatAccordion>
+
     </div>
-);
+  );
+};
 
 const Bab11 = () => (
     <div className={`${contentContainerClasses}`}>
