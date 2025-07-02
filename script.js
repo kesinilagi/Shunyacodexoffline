@@ -962,7 +962,7 @@ const Bab2 = () => (
             Jawabannya… hanya hati nurani Anda yang tahu dan bisa merasakannya.
         </p>
         <IntegratedAudioPlayer
-            src="https://www.dropbox.com/scl/fi/qglpp04ts3fbsdoypga6n/Pembukaan.mp3?rlkey=0n1nc9yz3sbxe6ncn8l3u21dj&st=qat24ch4&dl=1"
+            src="https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Pendahuluan IA.mp3"
             text="Dengarkan Pembukaan Bab Ini"
             
         />
@@ -1260,7 +1260,7 @@ const Bab9 = () => (
             Latihan Kawrooh ini bisa dilakukan kapan saja dan dalam kondisi emosi apa pun. Baik saat Anda sedang merasakan kemarahan yang membakar, kekecewaan yang mendalam, atau bahkan kebahagiaan yang begitu intens hingga membuat Anda lekat pada dunia. Sebab, bahkan hal-hal yang paling kita cintai pun kadang perlu dilepaskan dengan ikhlas ke langit agar tidak menjadi 'berhala' yang mengikat hati dan menghalangi kedamaian batin.
         </p>
     <IntegratedAudioPlayer
-            src="https://www.dropbox.com/scl/fi/15ac701brh7fsm41xbm2c/Pelepasan-Emosi.mp3?rlkey=up5grxllf62d14quiqewn962l&st=c3as7z8g&dl=1"
+            src="https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Pelepasan Emosi Islamic.mp3"
             text="Contoh Audio Pelepasan Emosi"
             
         />
