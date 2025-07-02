@@ -1345,7 +1345,7 @@ const Bab10 = () => {
         arabicText="اللَّهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّدٍ نُورِ الْأَنْوَارِ، وَسِرِّ الْأَسْرَارِ، وَتِرْيَاقِ الْأَغْيَارِ، وَمِفْتَاحِ بَابِ الْيَسَارِ..."
         latinText="Allahumma shalli ‘ala Sayyidina Muhammad, Nuril Anwar, wa Sirril Asrar, wa Tiryāqil Aghyār, wa Miftāhi Bābil Yasar, Sayyidina wa Maulana Muhammadinil Mukhtar, wa Alihi al-Athar, wa Shahbihi al-Akhyar, 'Adada Ni'amillahi wa Ifdhalihi.*
  "
-        translationText="Ya Allah, limpahkanlah rahmat kepada junjungan kami, Nabi Muhammad, <span className={highlightTextClasses}>Cahaya dari segala Cahaya</span>, dan <span className={highlightTextClasses}>Rahasia dari segala Rahasia</span>, dan <span className={highlightTextClasses}>Penawar kesusahan (bagi selain Allah)</span>, dan <span className={highlightTextClasses}>Kunci pembuka pintu kemudahan (kelapangan)</span>. Junjungan kami dan pemimpin kami, Nabi Muhammad <span className={highlightTextClasses}>yang terpilih</span>, dan keluarga beliau <span className={highlightTextClasses}>yang suci</span>, serta para sahabat beliau <span className={highlightTextClasses}>yang baik-baik</span>, sebanyak jumlah nikmat Allah dan karunia-Nya."
+        translationText="Ya Allah, limpahkanlah rahmat kepada junjungan kami, Nabi Muhammad,Cahaya dari segala Cahaya, dan Rahasia dari segala Rahasia, dan Penawar kesusahan (bagi selain Allah), dan Kunci pembuka pintu kemudahan (kelapangan). Junjungan kami dan pemimpin kami, Nabi Muhammad yang terpilih, dan keluarga beliau yang suci, serta para sahabat beliau yang baik-baik, sebanyak jumlah nikmat Allah dan karunia-Nya."
  
       >
         <ul className="list-disc pl-5 space-y-1">
