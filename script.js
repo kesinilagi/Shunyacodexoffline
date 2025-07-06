@@ -1698,7 +1698,7 @@ const DoaPilihan = () => {
       terjemahan: "\"Tidak ada Tuhan selain Engkau. Maha Suci Engkau, sesungguhnya aku termasuk orang-orang yang zalim.\"",
       manfaat: "Doa permohonan ampun dan pertolongan dalam keadaan terdesak (Doa Nabi Yunus).",
       latin: "LAA ILAAHA ILLAAA ANTA SUBHAANAKA...",
-      audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Laailahailaanta.mp3"
+      audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Nabi Yunus Perut Ikan Paus.mp3"
     },
     {
       id: 5,
