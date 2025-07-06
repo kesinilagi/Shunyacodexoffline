@@ -1713,9 +1713,9 @@ const DoaPilihan = () => {
             id: 1,
             title: "Doa Perlindungan dari Kegelisahan dan Utang",
             arab: "اللّهُـمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ، وَالْعَجْزِ وَالْكَسَلِ، وَالْبُخْلِ وَالْجُبْنِ، وَضَلَعِ الدَّيْنِ وَغَلَبَةِ الرِّجَالِ.",
-            terjemahan: "\"Ya Allah, aku berlindung kepada-Mu dari kegelisahan dan kesedihan, kelemahan dan kemalasan, kekikiran dan kepengecutan, beban utang dan dari dikuasai orang lain.\"",
+            terjemahan: "\"Ya Allah, sesungguhnya aku berlindung kepada-Mu dari rasa gelisah dan sedih, dari kelemahan dan kemalasan, dari sifat kikir dan penakut, serta dari lilitan hutang dan tekanan orang-orang.\"",
             manfaat: "Memohon perlindungan dari berbagai kesulitan hidup, termasuk beban utang.",
-            latin: "Allaahumma innee a’oodhu bika minal-hammi wal-hazani...",
+            latin: "Allaahumma innii a’uudzu bika minal-hammi wal-hazan, wal-‘ajzi wal-kasal, wal-bukhli wal-jubn, wa dhala’id-dayni wa ghalabatir-rijaal",
             audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Allahuma inne audzubika.mp3"
         },
         {
@@ -1724,7 +1724,7 @@ const DoaPilihan = () => {
             arab: "اللّهُـمَّ اكْفِـني بِحَلالِـكَ عَنْ حَـرامِـك، وَأَغْنِـني بِفَضْـلِكَ عَمَّـنْ سِـواك.",
             terjemahan: "\"Ya Allah, cukupkanlah aku dengan rezeki halal-Mu dari yang haram, dan jadikanlah aku kaya dengan karunia-Mu dari selain-Mu.\"",
             manfaat: "Memohon kecukupan rezeki yang halal dan kemandirian dari selain Allah.",
-            latin: "Allaahummak-finee bihalaalika ‘an haraamika...",
+            latin: "Allaahumma ikfinii bihalaalika ‘an haraamik, wa aghninii bifadhlika ‘amman siwaak.",
             audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Allahuma finne.mp3"
         },
         {
@@ -1739,10 +1739,10 @@ const DoaPilihan = () => {
         {
             id: 4,
             title: "Doa Nabi Yunus (Saat Terdesak)",
-            arab: "لَا إِلَهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ.",
+              arab: "لَا إِلَهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ.",
             terjemahan: "\"Tidak ada Tuhan selain Engkau. Maha Suci Engkau, sesungguhnya aku termasuk orang-orang yang zalim.\"",
             manfaat: "Doa permohonan ampun dan pertolongan dalam keadaan terdesak (Doa Nabi Yunus).",
-            latin: "LAA ILAAHA ILLAAA ANTA SUBHAANAKA...",
+            latin: "Laa ilaaha illaa anta subhaanaka inni kuntu minazh-zhaalimiin",
             audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Nabi Yunus Perut Ikan Paus.mp3"
         },
         {
@@ -1751,48 +1751,57 @@ const DoaPilihan = () => {
             arab: "حَسْبِيَ اللَّهُ لَا إِلَهَ إِلَّا هُوَ عَلَيْهِ تَوَكَّلْتُ وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ.",
             terjemahan: "\"Cukuplah Allah bagiku, tiada Tuhan selain Dia. Hanya kepada-Nya aku bertawakal, dan Dia adalah Tuhan pemilik Arsy yang agung.\"",
             manfaat: "Menegaskan tawakal penuh kepada Allah sebagai satu-satunya sandaran.",
-            latin: "Hasbiyallahu la ilaha illa Huwa...",
+            latin: "Hasbiyallaahu laa ilaaha illaa Huwa, ‘alayhi tawakkaltu wa Huwa Rabbul-‘Arsyil-‘Azhiim.",
             audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Hasbiyallah.mp3"
         },
         {
             id: 6,
             title: "Doa Pembebasan dari Utang",
-            arab: "للَّهُمَّ يَا فَارِجَ ٱلْهَمِّ، وَيَا كَاشِفَ ٱلْغَمِّ...",
+            arab: "اللَّهُمَّ يَا فَارِجَ الْهَمِّ، وَيَا كَاشِفَ الْغَمِّ، فَرِّجْ هَمِّي وَاكْشِفْ غَمِّي، وَارْزُقْنِي مِنْ حَيْثُ لَا أَحْتَسِبُ، يَا أَرْحَمَ الرَّاحِمِينَ",
             terjemahan: "\"Ya Allah! Wahai penghilang kesedihan... dan bebaskanlah aku dari semua utang.\"",
             manfaat: "Doa spesifik untuk pembebasan dari utang dan memohon rahmat.",
-            latin: "Allaahumma yaa faarijal-hammi...",
+            latin: "Allaahumma yaa faarija al-hamm, wa yaa kaasyifa al-ghamm, farrij hammi wakshif ghummi, warzuqni min haytsu laa ahtasib, yaa arhamar raahimiin.",
             audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Allahuma ya farijal.mp3"
         },
         {
             id: 7,
             title: "Doa Melunasi Utang Orang Lain dari Karunia Allah",
-            arab: "للَّهُمَّ ٱرْدُدْ إِلىٰ جَمِيعِ خَلْقِكَ مَظَالِمَهُمُ...",
-            terjemahan: "\"Ya Allah, (mohon) bantulah aku membayar kembali kepada semua makhluk-Mu atas kezaliman mereka...\"",
+            arab: "اللَّهُمَّ ٱرْدُدْ إِلَىٰ جَمِيعِ خَلْقِكَ مَظَالِمَهُمُ ٱلَّتِي قِبَلِي صَغِيرِهَا وَكَبِيرِهَا فِي يُسْرٍ مِنْكَ وَعَافِيَةٍ، وَمَا لَمْ تُبَلِّغْهُ قُوَّتِي وَلَمْ تَسَعْهُ ذَاتُ يَدِي وَلَمْ يَقْوَ عَلَيْهِ بَدَنِي وَيَقِينِي وَنَفْسِي، فَأَدِّهِ عَنِّي مِنْ جَزِيلِ مَا عِنْدَكَ مِنْ فَضْلِكَ، ثُمَّ لَا تُخْلِفْ عَلَيَّ مِنْهُ شَيْئًا تَقْضِيهِ مِنْ حَسَنَاتِي، يَا أَرْحَمَ الرَّاحِمِينَ.",
+            terjemahan: "\"Ya Allah, kembalikanlah kepada seluruh makhluk-Mu segala kezhaliman mereka yang masih ada padaku — baik yang kecil maupun yang besar — dengan kemudahan dan keselamatan dari-Mu. Dan apa pun yang kekuatanku tak sanggup menyampaikannya, yang tanganku tak sanggup menjangkaunya, yang tubuhku, keyakinanku, dan diriku tak mampu memikulnya — maka tunaikanlah itu dariku dengan limpahan karunia-Mu. Lalu janganlah Engkau kurangi sedikit pun darinya dari (imbalan) kebaikanku, wahai Zat Yang Maha Pengasih di antara para pengasih.\"",
             manfaat: "Permohonan agar Allah melunasi utang yang tak mampu dibayar dari karunia-Nya.",
-            latin: "Allaahumma urdud ilaa jamii'i khalqika...",
+            latin: "Allaahumma urdud ilaa jamii‘i khalqika mazaalimahum allati qibalii shaghiiruhaa wa kabiiruhaa fii yusrin minka wa ‘aafiyah. Wa maa lam tuballigh-hu quwwatii wa lam tasa‘hu dhaatu yadî wa lam yaqwa ‘alayhi badanii wa yaqînii wa nafsii, fa-addihi ‘annii min jaziili maa ‘indaka min fadhlika, tsumma laa tukhlif ‘alayya minhu syay’an taqdhiihi min hasanaatii, yaa arhamar raahimiin.",
             audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Allahuma urdud.mp3"
         },
         {
             id: 8,
             title: "Doa Memohon Kemudahan",
-            arab: "اللَّهُمَّ لَا سَهْلَ إِلَّا مَا جَعَلْتَهُ سَهْلًا...",
-            terjemahan: "\"Ya Allah! Tidak ada kemudahan kecuali yang Engkau jadikan mudah...\"",
+            arab: "االلّهُمَّ لاَ سَهْلَ إِلاَّ مَا جَعَلْتَهُ سَهْلاً، وَأَنْتَ تَجْعَلُ الْحَزْنَ إِذَا شِئْتَ سَهْلاً",
+            terjemahan: "\"Ya Allah, tidak ada kemudahan kecuali apa yang Engkau jadikan mudah, dan Engkaulah yang menjadikan kesedihan (kesulitan) itu mudah jika Engkau kehendaki.\"",
             manfaat: "Memohon kemudahan dari Allah dalam menghadapi segala kesulitan.",
-            latin: "Allahumma la sahla illa maa ja'altahu sahlan...",
-            audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Allahuma ya farijal.mp3" // This audio seems duplicated, might want a different one.
+            latin: "Allahumma la sahla illa maa ja‘altahu sahlan, wa anta taj‘alu al-hazna idza syi’ta sahlan.",
+            audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Allahuma sahla.mp3" // This audio seems duplicated, might want a different one.
         },
         {
             id: 9,
             title: "Doa Memohon Qana'ah dan Keberkahan Rezeki",
-            arab: "اللَّهُمَّ قَنِّعْنِي بِمَا رَزَقْتَنِي، وَبَارِكْ لِي فِيهِ...",
-            terjemahan: "\"Ya Allah, jadikanlah aku ridha dengan apa yang Engkau berikan kepadaku...\"",
+            arab: "اللَّهُمَّ قَنِّعْنِي بِمَا رَزَقْتَنِي وَبَارِكْ لِي فِيهِ وَاخْلُفْ عَلَيَّ كُلَّ غَائِبَةٍ لِي بِخَيْرٍ",
+            terjemahan: "\"Ya Allah, cukupkanlah aku dengan apa yang Engkau rezekikan kepadaku, berkahilah ia untukku, dan gantilah setiap yang hilang dariku dengan yang lebih baik.\"",
             manfaat: "Memohon rasa cukup (qana'ah), keberkahan, dan penggantian yang lebih baik.",
-            latin: "Allahumma qanni’ni bima razaqtani...",
+            latin: "Allahumma qanni’ni bima razaqtani, wa baarik li fihi, wakhluf ‘alayya kulla gha’ibatin li bikhayr.",
             audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Allahuma%20qanni.mp3"
-        }
+        },
+      {
+            id: 10,
+            title: "Doa Rejeki Lapang dan Luas Surat Ali Imron 26-27",
+            arab: "قُلِ اللَّهُمَّ مَالِكَ الْمُلْكِ تُؤْتِي الْمُلْكَ مَن تَشَاءُ وَتَنزِعُ الْمُلْكَ مِمَّن تَشَاءُ وَتُعِزُّ مَن تَشَاءُ وَتُذِلُّ مَن تَشَاءُ ۖ بِيَدِكَ الْخَيْرُ ۖ إِنَّكَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ  , تُولِجُ اللَّيْلَ فِي النَّهَارِ وَتُولِجُ النَّهَارَ فِي اللَّيْلِ وَتُخْرِجُ الْحَيَّ مِنَ الْمَيِّتِ وَتُخْرِجُ الْمَيِّتَ مِنَ الْحَيِّ وَتَرْزُقُ مَن تَشَاءُ بِغَيْرِ حِسَابٍ",
+            terjemahan: "\"Katakanlah (Muhammad), ‘Wahai Allah, Pemilik kerajaan, Engkau berikan kerajaan kepada siapa yang Engkau kehendaki, dan Engkau cabut kerajaan dari siapa yang Engkau kehendaki. Engkau muliakan siapa yang Engkau kehendaki, dan Engkau hinakan siapa yang Engkau kehendaki. Di tangan-Mu segala kebajikan. Sungguh, Engkau Mahakuasa atas segala sesuatu. Engkau masukkan malam ke dalam siang dan Engkau masukkan siang ke dalam malam. Engkau keluarkan yang hidup dari yang mati, dan Engkau keluarkan yang mati dari yang hidup. Dan Engkau berikan rezeki kepada siapa yang Engkau kehendaki tanpa perhitungan\"",
+            manfaat: "memohon dibalikkan keadaan, diangkat derajat, dicukupkan rezeki, dan diberi kemuliaan di dunia & akhirat.",
+            latin: "Qulillaahumma maalikal-mulki tu’til-mulka man tasyā’u wa tanzi‘ul-mulka mimman tasyā’, wa tu‘izzu man tasyā’u wa tudzillu man tasyā’, biyadikal-khayr, innaka ‘alā kulli syay’in qadiir. Tuulijul-layla fin-nahāri wa tuulijun-nahāra fil-layl, wa tukhrijul-hayya minal-mayyit, wa tukhrijul-mayyita minal-hayy, wa tarzuqu man tasyā’u bighayri hisāb.",
+            audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Surah Ali Imran ayat 26-27 8D(1).mp3"
+        },
     ];
 
-    return (
+return (
         <div className={contentContainerClasses}>
             <h2 className={sectionTitleClasses}>🙏 Doa-doa Pilihan (Kelapangan Rezeki dan Pelunasan Utang)</h2>
             <p className={paragraphClasses}>
@@ -1816,29 +1825,7 @@ const DoaPilihan = () => {
     );
 };
 
-    React.createElement("div", { className: "md:hidden space-y-6" },
-      doaData.map(doa => (
-        React.createElement("div", { key: doa.id, className: "bg-white/70 p-4 rounded-xl shadow" },
-          React.createElement("div", { className: "mb-4" },
-            React.createElement("span", { className: cardLabelClasses }, "Doa"),
-            React.createElement("p", { className: `${cardContentClasses} text-2xl text-right ${arabicTextClass}` }, doa.arab)
-          ),
-          React.createElement("div", { className: "mb-4" },
-            React.createElement("span", { className: cardLabelClasses }, "Terjemahan"),
-            React.createElement("p", { className: `${cardContentClasses} italic` }, doa.terjemahan)
-          ),
-          React.createElement("div", { className: "mb-4" },
-            React.createElement("span", { className: cardLabelClasses }, "Manfaat"),
-            React.createElement("p", { className: cardContentClasses }, doa.manfaat)
-          ),
-          React.createElement("div", null,
-             React.createElement(IntegratedAudioPlayer, { src: doa.audioSrc, text: doa.latin, isLooping: true })
-          )
-        )
-      ))
-    )
-  );
-};
+
 
 // ### KOMPONEN LAYOUT UTAMA ###
 // Komponen baru untuk mengatur struktur halaman utama
