@@ -572,7 +572,48 @@ const SholawatAccordion = ({ title, audioSrc, arabicText, latinText, translation
     </div>
   );
 };
+// --- KOMPONEN BARU UNTUK AKORDEON DOA ---
+const DoaAccordion = ({ title, audioSrc, arabicText, latinText, translationText, benefitsText }) => {
+    const [isOpen, setIsOpen] = useState(false);
 
+    return (
+        <div className="bg-white/10 backdrop-blur-md rounded-xl mb-4 border border-white/20">
+            <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="w-full p-4 flex justify-between items-center text-left"
+            >
+                <h4 className="text-lg font-bold text-black">{title}</h4> {/* Changed text-Yellow to text-black for better contrast */}
+                <div className="flex items-center">
+                    <InlineAudioIcon src={audioSrc} isLooping={false} /> {/* Doa usually isn't looped */}
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className={`h-6 w-6 text-black transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+            </button>
+            <div
+                className={`grid transition-all duration-500 ease-in-out ${isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}
+            >
+                <div className="overflow-hidden">
+                    <div className="p-4 border-t border-white/20">
+                        <p className={`${paragraphClasses} text-center text-xl ${arabicTextClass} text-black`}>{arabicText}</p>
+                        <p className={`${paragraphClasses} text-center italic text-black-300`}>{latinText}</p>
+                        <p className={`${paragraphClasses} text-black-800`}><b>Terjemahan:</b> {translationText}</p>
+                        <div className="mt-4 border-t border-dashed border-black/30 pt-4">
+                            <h5 className="text-md font-bold text-black-800 mb-2">Manfaat:</h5>
+                            <p className="text-black-200 space-y-2 text-sm break-words">{benefitsText}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
 const Starfield = () => {
     const canvasRef = useRef(null);
     useEffect(() => {
@@ -1667,114 +1708,113 @@ const DoaHarianPlaylist = () => {
 };  
 
 const DoaPilihan = () => {
-  const doaData = [
-    {
-      id: 1,
-      arab: "اللّهُـمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ، وَالْعَجْزِ وَالْكَسَلِ، وَالْبُخْلِ وَالْجُبْنِ، وَضَلَعِ الدَّيْنِ وَغَلَبَةِ الرِّجَالِ.",
-      terjemahan: "\"Ya Allah, aku berlindung kepada-Mu dari kegelisahan dan kesedihan, kelemahan dan kemalasan, kekikiran dan kepengecutan, beban utang dan dari dikuasai orang lain.\"",
-      manfaat: "Memohon perlindungan dari berbagai kesulitan hidup, termasuk beban utang.",
-      latin: "Allaahumma innee a’oodhu bika minal-hammi wal-hazani...",
-      audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Allahuma inne audzubika.mp3"
-    },
-    {
-      id: 2,
-      arab: "اللّهُـمَّ اكْفِـني بِحَلالِـكَ عَنْ حَـرامِـك، وَأَغْنِـني بِفَضْـلِكَ عَمَّـنْ سِـواك.",
-      terjemahan: "\"Ya Allah, cukupkanlah aku dengan rezeki halal-Mu dari yang haram, dan jadikanlah aku kaya dengan karunia-Mu dari selain-Mu.\"",
-      manfaat: "Memohon kecukupan rezeki yang halal dan kemandirian dari selain Allah.",
-      latin: "Allaahummak-finee bihalaalika ‘an haraamika...",
-      audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Allahuma finne.mp3"
-    },
-    {
-      id: 3,
-      arab: "يَا حَيُّ يَا قَيُّوْمُ بِرَحْمَتِكَ أَسْتَغِيْثُ.",
-      terjemahan: "\"Wahai Yang Maha Hidup, Wahai Yang Maha Berdiri Sendiri! Dengan rahmat-Mu aku memohon pertolongan!\"",
-      manfaat: "Memohon pertolongan dan kemudahan dalam segala urusan.",
-      latin: "Ya Hayyu Ya Qayyum! Bi rahmatika astagheeth",
-      audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/ya%20hayy%20ya%20qayy.mp3"
-    },
-    {
-      id: 4,
-      arab: "لَا إِلَهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ.",
-      terjemahan: "\"Tidak ada Tuhan selain Engkau. Maha Suci Engkau, sesungguhnya aku termasuk orang-orang yang zalim.\"",
-      manfaat: "Doa permohonan ampun dan pertolongan dalam keadaan terdesak (Doa Nabi Yunus).",
-      latin: "LAA ILAAHA ILLAAA ANTA SUBHAANAKA...",
-      audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Nabi Yunus Perut Ikan Paus.mp3"
-    },
-    {
-      id: 5,
-      arab: "حَسْبِيَ اللَّهُ لَا إِلَهَ إِلَّا هُوَ عَلَيْهِ تَوَكَّلْتُ وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ.",
-      terjemahan: "\"Cukuplah Allah bagiku, tiada Tuhan selain Dia. Hanya kepada-Nya aku bertawakal, dan Dia adalah Tuhan pemilik Arsy yang agung.\"",
-      manfaat: "Menegaskan tawakal penuh kepada Allah sebagai satu-satunya sandaran.",
-      latin: "Hasbiyallahu la ilaha illa Huwa...",
-      audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Hasbiyallah.mp3"
-    },
-    {
-      id: 6,
-      arab: "للَّهُمَّ يَا فَارِجَ ٱلْهَمِّ، وَيَا كَاشِفَ ٱلْغَمِّ...",
-      terjemahan: "\"Ya Allah! Wahai penghilang kesedihan... dan bebaskanlah aku dari semua utang.\"",
-      manfaat: "Doa spesifik untuk pembebasan dari utang dan memohon rahmat.",
-      latin: "Allaahumma yaa faarijal-hammi...",
-      audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Allahuma ya farijal.mp3"
-    },
-    {
-      id: 7,
-      arab: "للَّهُمَّ ٱرْدُدْ إِلىٰ جَمِيعِ خَلْقِكَ مَظَالِمَهُمُ...",
-      terjemahan: "\"Ya Allah, (mohon) bantulah aku membayar kembali kepada semua makhluk-Mu atas kezaliman mereka...\"",
-      manfaat: "Permohonan agar Allah melunasi utang yang tak mampu dibayar dari karunia-Nya.",
-      latin: "Allaahumma urdud ilaa jamii'i khalqika...",
-      audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Allahuma urdud.mp3"
-    },
-    {
-      id: 8,
-      arab: "اللَّهُمَّ لَا سَهْلَ إِلَّا مَا جَعَلْتَهُ سَهْلًا...",
-      terjemahan: "\"Ya Allah! Tidak ada kemudahan kecuali yang Engkau jadikan mudah...\"",
-      manfaat: "Memohon kemudahan dari Allah dalam menghadapi segala kesulitan.",
-      latin: "Allahumma la sahla illa maa ja'altahu sahlan...",
-      audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Allahuma ya farijal.mp3"
-    },
-    {
-      id: 9,
-      arab: "اللَّهُمَّ قَنِّعْنِي بِمَا رَزَقْتَنِي، وَبَارِكْ لِي فِيهِ...",
-      terjemahan: "\"Ya Allah, jadikanlah aku ridha dengan apa yang Engkau berikan kepadaku...\"",
-      manfaat: "Memohon rasa cukup (qana'ah), keberkahan, dan penggantian yang lebih baik.",
-      latin: "Allahumma qanni’ni bima razaqtani...",
-      audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Allahuma%20qanni.mp3"
-    }
-  ];
+    const doaData = [
+        {
+            id: 1,
+            title: "Doa Perlindungan dari Kegelisahan dan Utang",
+            arab: "اللّهُـمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ، وَالْعَجْزِ وَالْكَسَلِ، وَالْبُخْلِ وَالْجُبْنِ، وَضَلَعِ الدَّيْنِ وَغَلَبَةِ الرِّجَالِ.",
+            terjemahan: "\"Ya Allah, aku berlindung kepada-Mu dari kegelisahan dan kesedihan, kelemahan dan kemalasan, kekikiran dan kepengecutan, beban utang dan dari dikuasai orang lain.\"",
+            manfaat: "Memohon perlindungan dari berbagai kesulitan hidup, termasuk beban utang.",
+            latin: "Allaahumma innee a’oodhu bika minal-hammi wal-hazani...",
+            audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Allahuma inne audzubika.mp3"
+        },
+        {
+            id: 2,
+            title: "Doa Memohon Kecukupan Rezeki Halal",
+            arab: "اللّهُـمَّ اكْفِـني بِحَلالِـكَ عَنْ حَـرامِـك، وَأَغْنِـني بِفَضْـلِكَ عَمَّـنْ سِـواك.",
+            terjemahan: "\"Ya Allah, cukupkanlah aku dengan rezeki halal-Mu dari yang haram, dan jadikanlah aku kaya dengan karunia-Mu dari selain-Mu.\"",
+            manfaat: "Memohon kecukupan rezeki yang halal dan kemandirian dari selain Allah.",
+            latin: "Allaahummak-finee bihalaalika ‘an haraamika...",
+            audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Allahuma finne.mp3"
+        },
+        {
+            id: 3,
+            title: "Doa Memohon Pertolongan dengan Rahmat Allah",
+            arab: "يَا حَيُّ يَا قَيُّوْمُ بِرَحْمَتِكَ أَسْتَغِيْثُ.",
+            terjemahan: "\"Wahai Yang Maha Hidup, Wahai Yang Maha Berdiri Sendiri! Dengan rahmat-Mu aku memohon pertolongan!\"",
+            manfaat: "Memohon pertolongan dan kemudahan dalam segala urusan.",
+            latin: "Ya Hayyu Ya Qayyum! Bi rahmatika astagheeth",
+            audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/ya%20hayy%20ya%20qayy.mp3"
+        },
+        {
+            id: 4,
+            title: "Doa Nabi Yunus (Saat Terdesak)",
+            arab: "لَا إِلَهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ.",
+            terjemahan: "\"Tidak ada Tuhan selain Engkau. Maha Suci Engkau, sesungguhnya aku termasuk orang-orang yang zalim.\"",
+            manfaat: "Doa permohonan ampun dan pertolongan dalam keadaan terdesak (Doa Nabi Yunus).",
+            latin: "LAA ILAAHA ILLAAA ANTA SUBHAANAKA...",
+            audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Nabi Yunus Perut Ikan Paus.mp3"
+        },
+        {
+            id: 5,
+            title: "Doa Tawakal Penuh kepada Allah",
+            arab: "حَسْبِيَ اللَّهُ لَا إِلَهَ إِلَّا هُوَ عَلَيْهِ تَوَكَّلْتُ وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ.",
+            terjemahan: "\"Cukuplah Allah bagiku, tiada Tuhan selain Dia. Hanya kepada-Nya aku bertawakal, dan Dia adalah Tuhan pemilik Arsy yang agung.\"",
+            manfaat: "Menegaskan tawakal penuh kepada Allah sebagai satu-satunya sandaran.",
+            latin: "Hasbiyallahu la ilaha illa Huwa...",
+            audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Hasbiyallah.mp3"
+        },
+        {
+            id: 6,
+            title: "Doa Pembebasan dari Utang",
+            arab: "للَّهُمَّ يَا فَارِجَ ٱلْهَمِّ، وَيَا كَاشِفَ ٱلْغَمِّ...",
+            terjemahan: "\"Ya Allah! Wahai penghilang kesedihan... dan bebaskanlah aku dari semua utang.\"",
+            manfaat: "Doa spesifik untuk pembebasan dari utang dan memohon rahmat.",
+            latin: "Allaahumma yaa faarijal-hammi...",
+            audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Allahuma ya farijal.mp3"
+        },
+        {
+            id: 7,
+            title: "Doa Melunasi Utang Orang Lain dari Karunia Allah",
+            arab: "للَّهُمَّ ٱرْدُدْ إِلىٰ جَمِيعِ خَلْقِكَ مَظَالِمَهُمُ...",
+            terjemahan: "\"Ya Allah, (mohon) bantulah aku membayar kembali kepada semua makhluk-Mu atas kezaliman mereka...\"",
+            manfaat: "Permohonan agar Allah melunasi utang yang tak mampu dibayar dari karunia-Nya.",
+            latin: "Allaahumma urdud ilaa jamii'i khalqika...",
+            audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Allahuma urdud.mp3"
+        },
+        {
+            id: 8,
+            title: "Doa Memohon Kemudahan",
+            arab: "اللَّهُمَّ لَا سَهْلَ إِلَّا مَا جَعَلْتَهُ سَهْلًا...",
+            terjemahan: "\"Ya Allah! Tidak ada kemudahan kecuali yang Engkau jadikan mudah...\"",
+            manfaat: "Memohon kemudahan dari Allah dalam menghadapi segala kesulitan.",
+            latin: "Allahumma la sahla illa maa ja'altahu sahlan...",
+            audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Allahuma ya farijal.mp3" // This audio seems duplicated, might want a different one.
+        },
+        {
+            id: 9,
+            title: "Doa Memohon Qana'ah dan Keberkahan Rezeki",
+            arab: "اللَّهُمَّ قَنِّعْنِي بِمَا رَزَقْتَنِي، وَبَارِكْ لِي فِيهِ...",
+            terjemahan: "\"Ya Allah, jadikanlah aku ridha dengan apa yang Engkau berikan kepadaku...\"",
+            manfaat: "Memohon rasa cukup (qana'ah), keberkahan, dan penggantian yang lebih baik.",
+            latin: "Allahumma qanni’ni bima razaqtani...",
+            audioSrc: "https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Allahuma%20qanni.mp3"
+        }
+    ];
 
-  const cardLabelClasses = "block text-sm font-bold text-gray-600 uppercase";
-  const cardContentClasses = "mt-1 text-gray-900";
+    return (
+        <div className={contentContainerClasses}>
+            <h2 className={sectionTitleClasses}>🙏 Doa-doa Pilihan (Kelapangan Rezeki dan Pelunasan Utang)</h2>
+            <p className={paragraphClasses}>
+                Berikut adalah kumpulan doa pilihan yang dapat Anda amalkan untuk memohon kelapangan rezeki, kemudahan urusan, dan pembebasan dari utang. Klik pada judul doa untuk melihat detail dan mendengarkan audionya.
+            </p>
 
-  return React.createElement("div", { className: contentContainerClasses },
-    React.createElement("h2", { className: sectionTitleClasses }, "Doa-doa Pilihan"),
-
-    React.createElement("div", { className: "hidden md:block overflow-x-auto" },
-      React.createElement("table", { className: "min-w-full bg-white border border-gray-300" },
-        React.createElement("thead", null,
-          React.createElement("tr", null,
-            React.createElement("th", { className: "py-2 px-4 border-b" }, "Doa (Arab)"),
-            React.createElement("th", { className: "py-2 px-4 border-b" }, "Terjemahan & Manfaat"),
-            React.createElement("th", { className: "py-2 px-4 border-b" }, "Dengarkan (Latin)")
-          )
-        ),
-        React.createElement("tbody", null,
-          doaData.map(doa => (
-            React.createElement("tr", { key: doa.id, className: "even:bg-gray-50" },
-              React.createElement("td", { className: "py-3 px-4 border-b text-right" },
-                React.createElement("p", { className: `text-xl ${arabicTextClass}` }, doa.arab)
-              ),
-              React.createElement("td", { className: "py-3 px-4 border-b" },
-                React.createElement("p", { className: "italic" }, doa.terjemahan),
-                React.createElement("p", { className: "mt-2 text-sm text-blue-700" }, `Manfaat: ${doa.manfaat}`)
-              ),
-              React.createElement("td", { className: "py-3 px-4 border-b" },
-                React.createElement(IntegratedAudioPlayer, { src: doa.audioSrc, text: doa.latin, isLooping: true })
-              )
-            )
-          ))
-        )
-      )
-    ),
+            <div className="mt-6 space-y-3">
+                {doaData.map(doa => (
+                    <DoaAccordion
+                        key={doa.id}
+                        title={doa.title}
+                        audioSrc={doa.audioSrc}
+                        arabicText={doa.arab}
+                        latinText={doa.latin}
+                        translationText={doa.terjemahan}
+                        benefitsText={doa.manfaat}
+                    />
+                ))}
+            </div>
+        </div>
+    );
+};
 
     React.createElement("div", { className: "md:hidden space-y-6" },
       doaData.map(doa => (
