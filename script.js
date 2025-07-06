@@ -573,7 +573,7 @@ const SholawatAccordion = ({ title, audioSrc, arabicText, latinText, translation
   );
 };
 // --- KOMPONEN BARU UNTUK AKORDEON DOA ---
-const DoaAccordion = ({ title, audioSrc, arabicText, latinText, translationText, benefitsText }) => {
+const DoaAccordion = ({ title, audioSrc, arabicText, latinText, translationText, benefitsText ,isLooping }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
@@ -584,7 +584,7 @@ const DoaAccordion = ({ title, audioSrc, arabicText, latinText, translationText,
             >
                 <h4 className="text-lg font-bold text-black">{title}</h4> {/* Changed text-Yellow to text-black for better contrast */}
                 <div className="flex items-center">
-                    <InlineAudioIcon src={audioSrc} isLooping={false} /> {/* Doa usually isn't looped */}
+                    <InlineAudioIcon src={audioSrc} isLooping={isLooping} /> {/* Doa usually isn't looped */}
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className={`h-6 w-6 text-black transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
@@ -1708,7 +1708,8 @@ const DoaHarianPlaylist = () => {
 };  
 
 const DoaPilihan = () => {
-    const doaData = [
+   const { isDoaLooping, setIsDoaLooping } = useContext(AppContext);
+  const doaData = [
         {
             id: 1,
             title: "Doa Perlindungan dari Kegelisahan dan Utang",
@@ -1807,7 +1808,20 @@ return (
             <p className={paragraphClasses}>
                 Berikut adalah kumpulan doa pilihan yang dapat Anda amalkan untuk memohon kelapangan rezeki, kemudahan urusan, dan pembebasan dari utang. Klik pada judul doa untuk melihat detail dan mendengarkan audionya.
             </p>
-
+<div className="text-center my-6">
+                <button
+                    onClick={() => setIsDoaLooping(prev => !prev)}
+                    className={`px-6 py-3 rounded-full font-bold shadow-lg transition-all duration-300 transform hover:scale-105 ${
+                        isDoaLooping ? 'bg-green-600 text-white hover:bg-green-700' : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+                    }`}
+                >
+                    {isDoaLooping ? '🔁 Looping Aktif' : '▶️ Aktifkan Looping'}
+                </button>
+                <p className="text-sm text-gray-600 mt-2">
+                    {isDoaLooping ? 'Setiap doa akan berulang otomatis.' : 'Doa akan diputar sekali lalu berhenti.'}
+                </p>
+            </div>
+            {/* --- END NEW TOGGLE --- */}
             <div className="mt-6 space-y-3">
                 {doaData.map(doa => (
                     <DoaAccordion
@@ -1818,6 +1832,7 @@ return (
                         latinText={doa.latin}
                         translationText={doa.terjemahan}
                         benefitsText={doa.manfaat}
+                        isLooping={isDoaLooping}
                     />
                 ))}
             </div>
@@ -2211,7 +2226,7 @@ const pages = ['kata-pengantar', 'daftar-isi', 'bab1', 'bab2', 'bab3', 'bab4', '
     const [isCoverUnlocked, setIsCoverUnlocked] = useState(false); 
     // --- STATE BARU UNTUK SIDEBAR ---
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-     
+     const [isDoaLooping, setIsDoaLooping] = useState(false);
     const themes = {
         'blue': { name: 'Biru Klasik', header: 'bg-blue-700' },
         'green': { name: 'Hijau Menenangkan', header: 'bg-teal-700' },
@@ -2282,6 +2297,7 @@ const pages = ['kata-pengantar', 'daftar-isi', 'bab1', 'bab2', 'bab3', 'bab4', '
         isCoverUnlocked, setIsCoverUnlocked,
         isSidebarOpen, setIsSidebarOpen,
        isMenuOpen, setIsMenuOpen,
+      isDoaLooping, setIsDoaLooping,
       bgOpacity, setBgOpacity 
     };
     
