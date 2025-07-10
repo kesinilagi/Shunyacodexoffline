@@ -143,8 +143,8 @@ const DaftarIsi = () => {
                     </li>
               
                     <li className="pt-4"><button onClick={() => setCurrentPageKey('pixel-thoughts')} className={`${tocFeatureClasses} golden-background text-yellow-600`}>✨ Ruang Pelepasan (Lepaskan Beban)✨</button></li>
-    <li className="pt-2"><button onClick={()=>setCurrentPageKey('affirmation-room')} className={`${tocFeatureClasses} golden-background text-sky-500`}>✨ Ruang Afirmasi (Isi Energi Positif)✨</button></li>
-    <li className="pt-2"><button onClick={() => setCurrentPageKey('secret-room-rezeki')} className={`${tocFeatureClasses} golden-background text-purple-500`}>✨ Ruang Rahasia Menarik Rezeki ✨</button></li>
+    <li className="pt-2"><button onClick={()=>setCurrentPageKey('affirmation-room')} className={`${tocFeatureClasses} golden-background text-sky-500`}>✨ Ruang Afirmasi / Manifestasi✨</button></li>
+    <li className="pt-2"><button onClick={() => setCurrentPageKey('secret-room-rezeki')} className={`${tocFeatureClasses} golden-background text-purple-500`}>✨ Ruang Rahasia ✨</button></li>
 
                     <li className="pt-2"><button onClick={() => setCurrentPageKey('doapilihan')} className="text-green-600 hover:underline font-bold text-xl">🙏 Doa-doa Pilihan (Kelapangan Rezeki dan Pelunasan Utang)</button></li>
                     <li className="pt-2"><button onClick={() => setCurrentPageKey('doa-harian')} className="text-emerald-600 hover:underline font-bold text-xl">🤲 Doa Pilihan Khusus</button></li>
