@@ -485,8 +485,8 @@ const SecretRoomRezeki = () => {
             // description: 'Resonansi mangkuk Tibet yang dalam untuk menyeimbangkan energi dan kejernihan batin.'
         },
         { 
-            name: 'Egypt Ambience', 
-            src: 'https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Egypt%20Ambience.mp3', 
+            name: 'Rural Ambience', 
+            src: 'https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Rural Ambient.mp3', 
             // description: 'Suasana gurun dan misteri Mesir kuno untuk perjalanan spiritual yang dalam.'
         },
         { 
