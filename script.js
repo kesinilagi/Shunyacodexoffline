@@ -254,7 +254,7 @@ const HeartCoherenceChart = () => {
     );
 };
 
-// ### GANTI SELURUH RUANG AFIRMASI DENGAN VERSI BERSIH INI ###
+// ### GANTI SELURUH RUANG AFIRMASI DENGAN VERSI INI (dengan Gambar Kustom) ###
 const AffirmationRoom = () => {
     const { setCurrentPageKey } = useContext(AppContext);
     const [phase, setPhase] = useState('input');
@@ -262,14 +262,12 @@ const AffirmationRoom = () => {
     const [error, setError] = useState('');
     const audioRef = useRef(null);
     const [isAudioReady, setIsAudioReady] = useState(false);
-    const [rainColor, setRainColor] = useState('#38bdf8'); // Default color
+    
+    // State baru untuk gambar yang diunggah pengguna
+    const [uploadedImage, setUploadedImage] = useState(null); // Menyimpan URL gambar objek
+    const fileInputRef = useRef(null); // Ref untuk input file
 
-    const affirmationColors = [
-        { name: 'Biru Langit', hex: '#38bdf8' }, { name: 'Hijau Zamrud', hex: '#34d399' },
-        { name: 'Kuning Emas', hex: '#facc15' }, { name: 'Merah Muda', hex: '#f472b6' },
-        { name: 'Ungu Lavender', hex: '#a78bfa' }, { name: 'Oranye Senja', hex: '#fb923c' },
-        { name: 'Putih Mutiara', hex: '#f0f9ff' },
-    ];
+    const fixedRainColor = '#E6D2B3'; // Warna krem/emas untuk afirmasi yang memancar
 
     useEffect(() => {
         const audio = audioRef.current;
@@ -288,14 +286,21 @@ const AffirmationRoom = () => {
                 audio.removeEventListener('canplaythrough', handleAudioCanPlay);
                 audio.removeEventListener('ended', handleAudioEnd);
             }
+            // Penting: Revoke Object URL untuk membersihkan memori
+            if (uploadedImage) {
+                URL.revokeObjectURL(uploadedImage);
+            }
         };
-    }, []);
+    }, [uploadedImage]); // Tambahkan uploadedImage sebagai dependency untuk cleanup URL
 
     const handleStart = () => {
         const words = affirmationText.trim().split(/\s+/).filter(Boolean);
         if (words.length === 0) { setError('Mohon masukkan afirmasi Anda.'); return; }
         if (words.length > 15) { setError('Terlalu panjang! Maksimal 15 kata.'); return; }
         
+        // Memastikan gambar sudah diunggah sebelum memulai sesi
+        if (!uploadedImage) { setError('Mohon unggah gambar terlebih dahulu.'); return; }
+
         if (audioRef.current) {
             audioRef.current.currentTime = 0;
             audioRef.current.play().catch(e => {
@@ -311,20 +316,65 @@ const AffirmationRoom = () => {
         if (audioRef.current) { audioRef.current.pause(); audioRef.current.currentTime = 0; }
         setAffirmationText('');
         setPhase('input');
+        // Reset gambar juga saat reset sesi
+        if (uploadedImage) {
+            URL.revokeObjectURL(uploadedImage); // Revoke URL lama
+            setUploadedImage(null); // Hapus gambar
+        }
+        if (fileInputRef.current) {
+            fileInputRef.current.value = ""; // Reset input file
+        }
     };
+
+    // Fungsi untuk menangani unggah gambar
+    const handleImageUpload = (event) => {
+        if (event.target.files && event.target.files[0]) {
+            const file = event.target.files[0];
+            // Validasi tipe file (opsional tapi disarankan)
+            if (!file.type.startsWith('image/')) {
+                setError('Hanya file gambar yang diizinkan!');
+                setUploadedImage(null);
+                return;
+            }
+            // Pastikan gambar yang sebelumnya di-load dihapus dari memori
+            if (uploadedImage) {
+                URL.revokeObjectURL(uploadedImage);
+            }
+            setUploadedImage(URL.createObjectURL(file));
+            setError(''); // Clear any previous error
+        }
+    };
+
 
     return (
         <div className="fixed inset-0 bg-gray-900 text-white flex flex-col justify-center items-center p-4 overflow-hidden">
-            <audio ref={audioRef} src="https://raw.githubusercontent.com/kesinilagi/asetmusik/main/suara ruang afirmasi 8d.mp3" preload="auto"></audio>
+            <audio ref={audioRef} src="https://raw.githubusercontent.com/kesinilagi/asetmusik/main/suara%20ruang%20afirmasi%208d.mp3" preload="auto"></audio>
             
-            {phase === 'raining' && <ZoomingWordBackground customWords={affirmationText.trim().split(/\s+/).filter(Boolean)} rainColor={rainColor} />}
-            {phase === 'raining' && <AffirmationFlasher phrase={affirmationText} rainColor={rainColor}/>}
-        {phase === 'raining' && (
-                    <div className="absolute top-4 left-4 z-20">
-                         <button onClick={resetAffirmation} className="bg-white/20 px-4 py-2 rounded-lg hover:bg-white/30 transition-colors">&larr; Tulis Ulang</button>
-                    </div>
-                )}
-            {phase !== 'raining' && <Starfield />}
+            {/* Latar belakang gambar kustom yang diunggah */}
+            {uploadedImage && (
+                <img 
+                    src={uploadedImage} 
+                    alt="Gambar Afirmasi" 
+                    className={`custom-affirmation-image ${phase === 'raining' ? 'image-zoom-fade' : ''}`}
+                />
+            )}
+
+            {/* Starfield jika tidak ada gambar atau saat input phase */}
+            {!uploadedImage && phase === 'input' && <Starfield />}
+
+            {/* Zooming Words Effect (di atas gambar) */}
+            {/* Posisi kata-kata mungkin perlu penyesuaian CSS lebih lanjut jika ingin menghindari tengah gambar */}
+            {phase === 'raining' && <ZoomingWordBackground customWords={affirmationText.trim().split(/\s+/).filter(Boolean)} rainColor={fixedRainColor} />}
+            
+            {/* Affirmation Flasher (di atas gambar) */}
+            {phase === 'raining' && <AffirmationFlasher phrase={affirmationText} rainColor={fixedRainColor}/>}
+            
+            {phase === 'raining' && (
+                <div className="absolute top-4 left-4 z-20">
+                    <button onClick={resetAffirmation} className="bg-white/20 px-4 py-2 rounded-lg hover:bg-white/30 transition-colors">&larr; Tulis Ulang & Ganti Gambar</button>
+                </div>
+            )}
+            
             <div className="absolute top-4 right-4 z-20">
                 <button onClick={() => setCurrentPageKey('daftar-isi')} className="bg-white/20 px-4 py-2 rounded-lg hover:bg-white/30 transition-colors">Kembali ke Daftar Isi &rarr;</button>
             </div>
@@ -332,8 +382,30 @@ const AffirmationRoom = () => {
             <div className="relative z-10 w-full max-w-3xl text-center flex flex-col justify-center items-center">
                 {phase === 'input' && (
                     <div className="animate-fade-in w-full px-4">
-                        <h1 className="text-3xl md:text-5xl font-bold mb-4">Ruang Afirmasi</h1>
-                        <p className="mb-6 text-gray-300">Tuliskan doa atau afirmasi positif Anda (maks. 15 kata).</p>
+                        <h1 className="text-3xl md:text-5xl font-bold mb-4">Ruang Afirmasi Visual</h1>
+                        <p className="mb-6 text-gray-300">Unggah gambar impian Anda, lalu tuliskan doa atau afirmasi positif (maks. 15 kata).</p>
+                        
+                        {/* Input File untuk Unggah Gambar */}
+                        <div className="mb-6">
+                            <label htmlFor="image-upload" className="block text-gray-300 text-lg font-semibold mb-2">Pilih Gambar Afirmasi Anda:</label>
+                            <input
+                                type="file"
+                                id="image-upload"
+                                accept="image/*"
+                                onChange={handleImageUpload}
+                                ref={fileInputRef}
+                                className="block w-full text-sm text-gray-400
+                                file:mr-4 file:py-2 file:px-4
+                                file:rounded-full file:border-0
+                                file:text-sm file:font-semibold
+                                file:bg-violet-50 file:text-violet-700
+                                hover:file:bg-violet-100"
+                            />
+                            {uploadedImage && (
+                                <img src={uploadedImage} alt="Preview Gambar" className="mt-4 max-h-48 object-contain mx-auto border border-gray-700 rounded-lg shadow-md" />
+                            )}
+                        </div>
+
                         <textarea value={affirmationText} onChange={(e) => setAffirmationText(e.target.value)}
                             className="w-full h-32 bg-gray-800 border border-gray-700 rounded-lg text-xl p-4 focus:outline-none focus:ring-2 focus:ring-sky-500 force-uppercase"
                             placeholder="Contoh: Rezeki berlimpah datang padaku dengan mudah dan menyenangkan..."></textarea>
@@ -341,17 +413,8 @@ const AffirmationRoom = () => {
                             Jumlah Kata: {affirmationText.trim().split(/\s+/).filter(Boolean).length} / 15
                         </p>
                         {error && <p className="text-red-500 mt-2">{error}</p>}
-                        <div className="mt-6">
-                            <p className="text-gray-400 mb-3">Pilih Warna Hujan Afirmasi:</p>
-                            <div className="flex justify-center gap-3 flex-wrap">
-                                {affirmationColors.map(color => (
-                                    <button key={color.name} onClick={() => setRainColor(color.hex)}
-                                        className={`w-8 h-8 rounded-full border-2 transition-all ${rainColor === color.hex ? 'border-white scale-110' : 'border-transparent'}`}
-                                        style={{ backgroundColor: color.hex }} title={color.name}></button>
-                                ))}
-                            </div>
-                        </div>
-                        <button onClick={handleStart} disabled={!isAudioReady}
+                        
+                        <button onClick={handleStart} disabled={!isAudioReady || !uploadedImage}
                             className="mt-8 w-full max-w-sm bg-sky-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-sky-700 transition-all duration-300 disabled:bg-gray-500 disabled:cursor-not-allowed">
                             {isAudioReady ? 'Mulai Sesi Afirmasi' : 'Memuat Audio...'}
                         </button>
@@ -375,18 +438,17 @@ const AffirmationRoom = () => {
 
 
 // --- KOMPONEN BARU: RUANG RAHASIA MENARIK REZEKI MALAM HARI ---
-// --- KOMPONEN BARU: RUANG RAHASIA MENARIK REZEKI MALAM HARI ---
-// --- KOMPONEN BARU: RUANG RAHASIA MENARIK REZEKI MALAM HARI ---
 const SecretRoomRezeki = () => {
     const { setCurrentPageKey } = useContext(AppContext);
     // State untuk mengelola fase saat ini
-    const [currentPhase, setCurrentPhase] = useState('password_check'); 
+    // Mengubah fase awal dari 'password_check' menjadi 'time_check' atau 'intro'
+    // Jika tidak ada batasan waktu, bisa langsung 'intro'
+    const [currentPhase, setCurrentPhase] = useState('time_check'); 
     
     // State untuk mengelola audio utama setiap fase
     const audioReleaseRef = useRef(null);
     const audioManifestationRef = useRef(null);
-    const audioAffirmationRef = useRef(null);
-    const audioGratitudeRef = useRef(null);
+    const audioGratitudeRef = useRef(null); // KOREKSI: ini harusnya useRef(null);
 
     // State untuk melacak apakah audio di fase saat ini sedang bermain
     const [isCurrentAudioPlaying, setIsCurrentAudioPlaying] = useState(false);
@@ -398,49 +460,65 @@ const SecretRoomRezeki = () => {
     const [isCandleLit, setIsCandleLit] = useState(false); // State baru untuk lilin menyala
 
     // States for Password & Time Check
-    const [passwordInput, setPasswordInput] = useState('');
-    const [passwordError, setPasswordError] = useState('');
+    // passwordInput, passwordError, CORRECT_PASSWORD dihapus
     const [timeError, setTimeError] = useState('');
 
-    // Hardcoded Password and Allowed Time
-    const CORRECT_PASSWORD = ''; // Ganti dengan password yang kamu inginkan
     // Allowed time: 12 AM (0) to 4 AM (4). Note: JavaScript uses 0-23 for hours.
     const ALLOW_START_HOUR = 0; // 00:00 (12 AM)
-    const ALLOW_END_HOUR = 21;   // 04:00 (4 AM)
-
+    const ALLOW_END_HOUR = 4;   // 04:00 (4 AM) -- Mengembalikan ke jam 4 pagi sesuai instruksi awal
 
     // Data audio latar
     const ambientSounds = [
-        { name: 'Suara Jangkrik Malam', src: 'https://raw.githubusercontent.com/kesinilagi/asetmusik/main/jangkrik.mp3' },
-        { name: 'Api Unggun Gemercik', src: 'https://raw.githubusercontent.com/kesinilagi/asetmusik/main/api%20unggun.mp3' },
-        { name: 'Gemercik Air Terjun', src: 'https://raw.githubusercontent.com/kesinilagi/asetmusik/main/air%20terjun%20.mp3' },
-        { name: 'Hening (Mati)', src: '' } // Opsi untuk tidak ada suara
+        { 
+            name: 'Gamelan Ambient', 
+            src: 'https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Gamelan%20Ambient.mp3', 
+            // description: 'Melodi gamelan yang menenangkan untuk koneksi dengan energi spiritual Nusantara.' // deskripsi dihapus
+        },
+        { 
+            name: 'Angel Abundance', 
+            src: 'https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Angel%20Abundance.mp3', 
+            // description: 'Suara lembut dan harmonis yang membantu membuka diri pada kelimpahan ilahi.'
+        },
+        { 
+            name: 'Singing Bowl', 
+            src: 'https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Singing%20Bowl.mp3', 
+            // description: 'Resonansi mangkuk Tibet yang dalam untuk menyeimbangkan energi dan kejernihan batin.'
+        },
+        { 
+            name: 'Egypt Ambience', 
+            src: 'https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Egypt%20Ambience.mp3', 
+            // description: 'Suasana gurun dan misteri Mesir kuno untuk perjalanan spiritual yang dalam.'
+        },
+        { 
+            name: 'Hening (Mati)', 
+            src: '',
+            // description: 'Tanpa suara latar, fokus sepenuhnya pada audio sesi utama.'
+        } 
     ];
 
     // Audio sources untuk setiap fase utama
     const phaseAudios = {
-        release: 'https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Pelepasan Emosi Islamic.mp3', // Audio pelepasan
-        manifestation: 'https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Manifestasi Rezeki.mp3', // Audio manifestasi
-        affirmation: 'https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Afirmasi Kelimpahan.mp3', // Audio afirmasi
-        gratitude: 'https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Syukur Abadi.mp3', // Audio syukur
+        release: 'https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Pelepasan%20Emosi%20Islamic.mp3',
+        manifestation: 'https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Manifestasi%20Rezeki.mp3',
+        gratitude: 'https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Syukur%20Abadi.mp3',
     };
 
     // --- FUNGSI-FUNGSI PEMBANTU ---
 
     // Fungsi untuk menghentikan semua audio utama
     const stopAllPhaseAudios = () => {
-        [audioReleaseRef, audioManifestationRef, audioAffirmationRef, audioGratitudeRef].forEach(ref => {
+        [audioReleaseRef, audioManifestationRef, audioGratitudeRef].forEach(ref => {
             if (ref.current) {
                 ref.current.pause();
                 ref.current.currentTime = 0;
             }
         });
-        setIsCurrentAudioPlaying(false); // Pastikan status playing juga direset
+        setIsCurrentAudioPlaying(false);
     };
 
     // Fungsi untuk memulai audio fase tertentu (atau memutar ulang)
     const startOrRestartPhaseAudio = (phaseName) => {
-        stopAllPhaseAudios(); // Hentikan semua audio fase lain yang mungkin sedang bermain
+        stopAllPhaseAudios();
         
         const audioToPlay = phaseAudios[phaseName];
         let currentAudioRef;
@@ -448,14 +526,13 @@ const SecretRoomRezeki = () => {
         switch (phaseName) {
             case 'release': currentAudioRef = audioReleaseRef; break;
             case 'manifestation': currentAudioRef = audioManifestationRef; break;
-            case 'affirmation': currentAudioRef = audioAffirmationRef; break;
             case 'gratitude': currentAudioRef = audioGratitudeRef; break;
             default: return;
         }
 
         if (currentAudioRef && currentAudioRef.current && audioToPlay) {
-            currentAudioRef.current.src = audioToPlay; // Pastikan src diatur ulang
-            currentAudioRef.current.load(); // Reload audio jika src berubah
+            currentAudioRef.current.src = audioToPlay;
+            currentAudioRef.current.load();
             currentAudioRef.current.play()
                 .then(() => setIsCurrentAudioPlaying(true))
                 .catch(e => console.error(`Error playing ${phaseName} audio:`, e));
@@ -464,42 +541,40 @@ const SecretRoomRezeki = () => {
 
     // Fungsi untuk transisi ke fase berikutnya
     const goToNextPhase = (nextPhase) => {
-        stopAllPhaseAudios(); // Hentikan audio yang sedang bermain di fase sebelumnya
+        stopAllPhaseAudios();
         setCurrentPhase(nextPhase);
-        // Langsung mulai audio untuk fase yang baru, kecuali jika itu fase 'finished'
         if (nextPhase !== 'finished') {
             startOrRestartPhaseAudio(nextPhase);
         }
     };
 
-    // Fungsi untuk memeriksa password dan waktu
-    const handlePasswordCheck = () => {
-        const currentHour = new Date().getHours(); // Get current hour (0-23)
+    // Fungsi untuk memeriksa waktu akses
+    const handleTimeCheck = () => {
+        const currentHour = new Date().getHours(); 
 
         const isTimeValid = currentHour >= ALLOW_START_HOUR && currentHour < ALLOW_END_HOUR;
-        const isPasswordCorrect = passwordInput.toUpperCase() === CORRECT_PASSWORD.toUpperCase();
 
-        setPasswordError(''); // Reset error messages
-        setTimeError('');
-
-        if (!isPasswordCorrect) {
-            setPasswordError('Password salah. Mohon coba lagi.');
-            return;
-        }
+        setTimeError(''); // Reset error messages
 
         if (!isTimeValid) {
-            // Check if current hour is outside the allowed range
-            if (currentHour >= ALLOW_END_HOUR && currentHour < ALLOW_START_HOUR) { // e.g. 4 AM to 11:59 PM
-                setTimeError(`Ruangan ini hanya bisa diakses antara pukul ${ALLOW_START_HOUR < 10 ? '0' : ''}${ALLOW_START_HOUR}:00 hingga ${ALLOW_END_HOUR < 10 ? '0' : ''}${ALLOW_END_HOUR}:00 pagi.`);
-            } else { // e.g. 11 AM to 11 PM if allowed is 12 AM to 4 AM
-                setTimeError(`Waktu tidak sesuai. Ruangan ini hanya bisa diakses antara pukul ${ALLOW_START_HOUR < 10 ? '0' : ''}${ALLOW_START_HOUR}:00 hingga ${ALLOW_END_HOUR < 10 ? '0' : ''}${ALLOW_END_HOUR}:00 pagi.`);
-            }
-            return;
+            const formattedStartTime = ALLOW_START_HOUR < 10 ? `0${ALLOW_START_HOUR}` : ALLOW_START_HOUR;
+            const formattedEndTime = ALLOW_END_HOUR < 10 ? `0${ALLOW_END_HOUR}` : ALLOW_END_HOUR;
+            setTimeError(`Ruangan ini hanya bisa diakses antara pukul ${formattedStartTime}:00 hingga ${formattedEndTime}:00 WIB.`);
+            return false; // Mengembalikan false jika waktu tidak valid
         }
-
-        // If both are correct, proceed to intro phase
-        setCurrentPhase('intro');
+        return true; // Mengembalikan true jika waktu valid
     };
+
+    // Auto-check waktu saat komponen dimuat
+    useEffect(() => {
+        if (!handleTimeCheck()) {
+            // Jika waktu tidak valid saat dimuat, mungkin tetap di 'time_check'
+            // Atau alihkan ke halaman lain jika ini adalah entry point utama
+            // Untuk sekarang, kita biarkan pesan error muncul dan tombol tidak bisa diakses
+        } else {
+            setCurrentPhase('intro'); // Jika waktu valid, langsung ke intro
+        }
+    }, []); // Hanya berjalan sekali saat komponen dimount
     
     // --- AKHIR FUNGSI-FUNGSI PEMBANTU ---
 
@@ -508,8 +583,8 @@ const SecretRoomRezeki = () => {
         const audio = backgroundAudioRef.current;
         if (!audio) return;
 
-        audio.loop = true; // Audio latar selalu looping
-        audio.volume = 0.4; // Atur volume agar tidak terlalu dominan
+        audio.loop = true;
+        audio.volume = 0.4;
 
         if (selectedBackgroundSound) {
             audio.src = selectedBackgroundSound;
@@ -530,7 +605,6 @@ const SecretRoomRezeki = () => {
         const refs = {
             'release': audioReleaseRef,
             'manifestation': audioManifestationRef,
-            'affirmation': audioAffirmationRef,
             'gratitude': audioGratitudeRef
         };
 
@@ -542,29 +616,26 @@ const SecretRoomRezeki = () => {
         const handlePlaying = () => setIsCurrentAudioPlaying(true);
         const handlePaused = () => setIsCurrentAudioPlaying(false);
         const handleEnded = () => {
-            setIsCurrentAudioPlaying(false); // Audio berhenti, aktifkan tombol "Lanjut"
+            setIsCurrentAudioPlaying(false);
         };
 
         audio.addEventListener('play', handlePlaying);
         audio.addEventListener('pause', handlePaused);
         audio.addEventListener('ended', handleEnded);
 
-        // Cleanup function
         return () => {
             audio.removeEventListener('play', handlePlaying);
             audio.removeEventListener('pause', handlePaused);
             audio.removeEventListener('ended', handleEnded);
         };
-    }, [currentPhase]); // Pantau perubahan currentPhase untuk pasang event listener yang benar
+    }, [currentPhase]); 
 
 
     const resetSession = () => {
         stopAllPhaseAudios();
-        setCurrentPhase('password_check'); // Reset ke password check
-        setIsCandleLit(false); // Lilin mati
-        setPasswordInput('');
-        setPasswordError('');
-        setTimeError('');
+        setCurrentPhase('time_check'); // Kembali ke time_check (atau intro jika tanpa time check)
+        setIsCandleLit(false);
+        setTimeError(''); // Reset error waktu
         if (backgroundAudioRef.current) {
             backgroundAudioRef.current.pause();
             backgroundAudioRef.current.currentTime = 0;
@@ -575,23 +646,25 @@ const SecretRoomRezeki = () => {
 
     const getPhaseTitle = () => {
         switch (currentPhase) {
-            case 'password_check': return "Akses Ruang Rahasia";
+            case 'time_check': return "Akses Ruang Rahasia"; // Judul untuk pengecekan waktu
             case 'intro': return "Sambutan Malam Kelimpahan";
-            case 'idle': return "Mulai Perjalanan Rezeki Malam Hari";
+            case 'idle': return "Pilih Suasana Sesi Anda";
             case 'release': return "Fase 1: Pelepasan Beban";
             case 'manifestation': return "Fase 2: Manifestasi Impian";
-            case 'affirmation': return "Fase 3: Afirmasi Positif";
-            case 'gratitude': return "Fase 4: Syukur Mendalam";
+            case 'gratitude': return "Fase 3: Syukur Mendalam";
             case 'finished': return "Sesi Selesai. Selamat, Kelimpahan Menanti!";
             default: return "";
         }
     };
 
     const renderPhaseContent = () => {
-        // New: Password Check Phase
-        if (currentPhase === 'password_check') {
+        // New: Time Check Phase (menggantikan password_check)
+        if (currentPhase === 'time_check') {
             const currentHour = new Date().getHours();
-            const displayTimeRange = `${ALLOW_START_HOUR < 10 ? '0' : ''}${ALLOW_START_HOUR}:00 - ${ALLOW_END_HOUR < 10 ? '0' : ''}${ALLOW_END_HOUR}:00 pagi.`;
+            const isTimeValid = currentHour >= ALLOW_START_HOUR && currentHour < ALLOW_END_HOUR;
+            const formattedStartTime = ALLOW_START_HOUR < 10 ? `0${ALLOW_START_HOUR}` : ALLOW_START_HOUR;
+            const formattedEndTime = ALLOW_END_HOUR < 10 ? `0${ALLOW_END_HOUR}` : ALLOW_END_HOUR;
+            const displayTimeRange = `${formattedStartTime}:00 - ${formattedEndTime}:00`;
 
             return (
                 <div className="animate-fade-in flex flex-col items-center">
@@ -599,29 +672,24 @@ const SecretRoomRezeki = () => {
                         Ruang Rahasia ini hanya bisa diakses pada waktu tertentu.
                     </p>
                     <p className="mb-8 text-yellow-300 font-bold text-center">
-                        Waktu Akses: {displayTimeRange}
+                        Waktu Akses: {displayTimeRange} WIB 
                     </p>
-                    <input
-                        type="password" // Use password type for security
-                        value={passwordInput}
-                        onChange={(e) => setPasswordInput(e.target.value)}
-                        onKeyPress={(e) => e.key === 'Enter' && handlePasswordCheck()}
-                        className="w-full max-w-xs bg-gray-800 border border-gray-700 rounded-lg text-xl text-center p-3 focus:outline-none focus:ring-2 focus:ring-yellow-500 text-white"
-                        placeholder="Masukkan Password..."
-                    />
-                    {passwordError && <p className="text-red-500 mt-2">{passwordError}</p>}
                     {timeError && <p className="text-red-500 mt-2">{timeError}</p>}
                     <button
-                        onClick={handlePasswordCheck}
-                        className="bg-purple-600 text-white font-bold py-3 px-8 mt-8 rounded-lg shadow-lg hover:bg-purple-700 transition-all duration-300"
+                        // Tombol ini hanya untuk memicu pengecekan ulang atau memberikan pesan
+                        // Jika waktu sudah valid, useEffect di atas sudah mengubah fase ke 'intro'
+                        // Jika waktu tidak valid, tombol tetap non-aktif atau hanya refresh pesan
+                        onClick={() => { handleTimeCheck(); }} 
+                        disabled={isTimeValid} // Jika waktu valid, tombol ini disabled
+                        className="bg-purple-600 text-white font-bold py-3 px-8 mt-8 rounded-lg shadow-lg hover:bg-purple-700 transition-all duration-300 disabled:bg-gray-500 disabled:cursor-not-allowed"
                     >
-                        Akses Ruang
+                        {isTimeValid ? 'Waktu Sesuai, Silakan Lanjut' : 'Periksa Waktu Akses'}
                     </button>
+                    {!isTimeValid && <p className="text-gray-400 mt-4">Mohon tunggu hingga waktu akses yang ditentukan.</p>}
                 </div>
             );
         }
 
-        // Tampilan untuk 'intro'
         if (currentPhase === 'intro') {
             return (
                 <div className="animate-fade-in flex flex-col items-center">
@@ -631,7 +699,6 @@ const SecretRoomRezeki = () => {
                         Mari mulai dengan menyalakan lilin untuk fokus dan ketenangan.
                     </p>
                     <div className={`candle-container ${isCandleLit ? 'lit' : ''}`}>
-                        {/* Menggunakan gambar lilin.png sebagai batang lilin */}
                         <img src="https://raw.githubusercontent.com/kesinilagi/asetmusik/main/lilin.png" alt="Batang Lilin" className="candle-image" />
                         {isCandleLit && <div className="flame animate-flicker"></div>}
                     </div>
@@ -645,51 +712,45 @@ const SecretRoomRezeki = () => {
             );
         }
 
-        // Tampilan untuk 'idle' (setelah lilin dinyalakan, sebelum mulai audio fase pertama)
         if (currentPhase === 'idle') {
             return (
                 <div className="animate-fade-in flex flex-col items-center">
                     <div className={`candle-container ${isCandleLit ? 'lit' : ''} mb-8`}>
-                        {/* Menggunakan gambar lilin.png sebagai batang lilin */}
                         <img src="https://raw.githubusercontent.com/kesinilagi/asetmusik/main/lilin.png" alt="Batang Lilin" className="candle-image" />
                         {isCandleLit && <div className="flame animate-flicker"></div>}
                     </div>
-                    <p className="mb-4 text-gray-300">Lilin sudah menyala. Sekarang, pilih suara latar untuk sesi Anda:</p>
-                    <div className="flex justify-center gap-3 flex-wrap mb-8">
+                    <p className="mb-4 text-gray-300">Lilin sudah menyala. Sekarang, pilih suasana sesi Anda:</p>
+                    {/* Menggunakan komponen AmbientSoundAccordion */}
+                    <div className="w-full max-w-sm space-y-3">
                         {ambientSounds.map(sound => (
-                            <button
+                            <AmbientSoundAccordion
                                 key={sound.name}
-                                onClick={() => setSelectedBackgroundSound(sound.src)}
-                                className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
-                                    selectedBackgroundSound === sound.src ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-200 hover:bg-gray-600'
-                                }`}
-                            >
-                                {sound.name}
-                            </button>
+                                sound={sound}
+                                selectedBackgroundSound={selectedBackgroundSound}
+                                setSelectedBackgroundSound={setSelectedBackgroundSound}
+                                isBackgroundPlaying={isBackgroundPlaying}
+                                onStartSession={() => { 
+                                    document.querySelectorAll('audio[id="preview-audio"]').forEach(audio => {
+                                        audio.pause();
+                                        audio.currentTime = 0;
+                                    });
+                                    goToNextPhase('release'); 
+                                }}
+                            />
                         ))}
                     </div>
-                    <button
-                        onClick={() => { goToNextPhase('release'); }} // Menggunakan goToNextPhase untuk langsung memulai audio
-                        disabled={!selectedBackgroundSound}
-                        className="bg-green-500 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-green-600 transition-all duration-300 disabled:bg-gray-500 disabled:cursor-not-allowed"
-                    >
-                        Mulai Sesi Pelepasan
-                    </button>
                 </div>
             );
         }
 
-        // Tampilan untuk fase audio (release, manifestation, affirmation, gratitude)
-        if (currentPhase === 'release' || currentPhase === 'manifestation' || currentPhase === 'affirmation' || currentPhase === 'gratitude') {
+        if (currentPhase === 'release' || currentPhase === 'manifestation' || currentPhase === 'gratitude') {
             return (
                 <div className="flex flex-col items-center justify-center h-full w-full">
                     <div className={`candle-container ${isCandleLit ? 'lit' : ''}`}>
-                        {/* Menggunakan gambar lilin.png sebagai batang lilin */}
                         <img src="https://raw.githubusercontent.com/kesinilagi/asetmusik/main/lilin.png" alt="Batang Lilin" className="candle-image" />
                         {isCandleLit && <div className="flame animate-flicker"></div>}
                     </div>
 
-                    {/* Pesan singkat yang memberi tahu status audio */}
                     <p className="text-sm text-gray-400 mt-8 animate-pulse mb-4">
                         {isCurrentAudioPlaying ? (
                             <>
@@ -704,8 +765,7 @@ const SecretRoomRezeki = () => {
                         )}
                     </p>
 
-                    {/* Tombol Ulangi (muncul setelah audio selesai atau belum dimulai) */}
-                    {!isCurrentAudioPlaying && currentPhase !== 'gratitude' && ( // Tombol Ulangi tidak muncul di fase syukur
+                    {!isCurrentAudioPlaying && currentPhase !== 'gratitude' && (
                         <button
                             onClick={() => startOrRestartPhaseAudio(currentPhase)}
                             className="bg-purple-600 text-white font-bold py-2 px-6 rounded-lg shadow-lg hover:bg-purple-700 transition-all duration-300"
@@ -714,7 +774,6 @@ const SecretRoomRezeki = () => {
                         </button>
                     )}
 
-                    {/* Tombol Lanjut ke fase berikutnya, hanya muncul jika audio saat ini TIDAK sedang bermain */}
                     {!isCurrentAudioPlaying && (
                         <>
                             {currentPhase === 'release' && (
@@ -727,21 +786,13 @@ const SecretRoomRezeki = () => {
                             )}
                             {currentPhase === 'manifestation' && (
                                 <button
-                                    onClick={() => goToNextPhase('affirmation')}
-                                    className="bg-blue-500 text-white font-bold py-3 px-8 mt-4 rounded-lg shadow-lg hover:bg-blue-600 transition-all duration-300"
-                                >
-                                    Lanjut ke Afirmasi 🙏
-                                </button>
-                            )}
-                            {currentPhase === 'affirmation' && (
-                                <button
                                     onClick={() => goToNextPhase('gratitude')}
                                     className="bg-blue-500 text-white font-bold py-3 px-8 mt-4 rounded-lg shadow-lg hover:bg-blue-600 transition-all duration-300"
                                 >
                                     Lanjut ke Syukur ❤️
                                 </button>
                             )}
-                            {currentPhase === 'gratitude' && ( // Untuk fase Syukur, langsung ke tombol selesai
+                            {currentPhase === 'gratitude' && (
                                 <button
                                     onClick={() => goToNextPhase('finished')}
                                     className="bg-green-500 text-white font-bold py-3 px-8 mt-4 rounded-lg shadow-lg hover:bg-green-600 transition-all duration-300"
@@ -755,7 +806,6 @@ const SecretRoomRezeki = () => {
             );
         }
 
-        // Tampilan untuk 'finished'
         if (currentPhase === 'finished') {
             return (
                 <div className="animate-fade-in flex flex-col items-center">
@@ -778,25 +828,22 @@ const SecretRoomRezeki = () => {
             );
         }
 
-        return null; // Fallback
+        return null;
     };
 
     return (
         <div className="fixed inset-0 bg-gray-900 text-white flex flex-col justify-center items-center p-4 overflow-hidden">
-            {/* Latar belakang bintang hanya muncul jika lilin belum dinyalakan atau sesi selesai (atau password_check) */}
-            {(currentPhase === 'password_check' || currentPhase === 'finished') && <Starfield />}
+            {/* Latar belakang bintang hanya muncul jika sesi selesai atau saat waktu tidak tepat */}
+            {(currentPhase === 'time_check' || currentPhase === 'finished') && <Starfield />}
 
             {/* Cahaya lilin sebagai overlay */}
-            {isCandleLit && (currentPhase !== 'finished' && currentPhase !== 'password_check') && <div className="candle-light-overlay"></div>}
+            {isCandleLit && (currentPhase !== 'finished' && currentPhase !== 'time_check') && <div className="candle-light-overlay"></div>}
             
-            {/* Audio elemen untuk setiap fase */}
             <audio ref={audioReleaseRef} preload="auto"></audio>
             <audio ref={audioManifestationRef} preload="auto"></audio>
-            <audio ref={audioAffirmationRef} preload="auto"></audio>
             <audio ref={audioGratitudeRef} preload="auto"></audio>
             <audio ref={backgroundAudioRef} preload="auto"></audio>
 
-            {/* Tombol kembali ke Daftar Isi */}
             <div className="absolute top-4 right-4 z-20">
                 <button onClick={() => { resetSession(); setCurrentPageKey('daftar-isi'); }} className="bg-white/20 px-4 py-2 rounded-lg hover:bg-white/30 transition-colors">
                     Kembali ke Daftar Isi &rarr;
@@ -804,10 +851,9 @@ const SecretRoomRezeki = () => {
             </div>
 
             <div className={`relative z-10 w-full max-w-3xl text-center flex flex-col justify-center items-center p-8 rounded-xl shadow-lg
-                ${(currentPhase === 'intro' || currentPhase === 'idle' || currentPhase === 'finished' || currentPhase === 'password_check') ? 'bg-black/50' : 'bg-black/0'}`}>
+                ${(currentPhase === 'intro' || currentPhase === 'idle' || currentPhase === 'finished' || currentPhase === 'time_check') ? 'bg-black/50' : 'bg-black/0'}`}>
                 
-                {/* H1 Judul hanya tampil di fase tertentu */}
-                {(currentPhase === 'intro' || currentPhase === 'idle' || currentPhase === 'finished' || currentPhase === 'password_check') && (
+                {(currentPhase === 'intro' || currentPhase === 'idle' || currentPhase === 'finished' || currentPhase === 'time_check') && (
                     <h1 className="text-3xl md:text-5xl font-bold mb-6 text-yellow-300">
                         {getPhaseTitle()}
                     </h1>
@@ -971,6 +1017,167 @@ const InlineAudioIcon = ({ src, isLooping = false }) => {
                 {isPlaying ? 'Sedang Mendengar...' : 'Dengarkan'}
              </span>
         </button>
+    );
+};
+
+
+// --- KOMPONEN BARU: AKORDEON SUARA LATAR INDIVIDUAL YANG LEBIH RINGKAS ---
+const AmbientSoundAccordion = ({ sound, selectedBackgroundSound, setSelectedBackgroundSound, isBackgroundPlaying, onStartSession }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const previewAudioRef = useRef(null);
+    const [isPreviewPlaying, setIsPreviewPlaying] = useState(false);
+
+    // Efek untuk mengelola preview audio saat akordeon dibuka/ditutup
+    useEffect(() => {
+        const audio = previewAudioRef.current;
+        if (!audio) return;
+
+        // Jika akordeon dibuka DAN ada sumber suara DAN suara ini BUKAN suara latar utama
+        // DAN preview belum bermain, kita bisa mulai play
+        if (isOpen && sound.src && sound.src !== selectedBackgroundSound && !isPreviewPlaying) {
+             // Stop any other preview audio first
+            document.querySelectorAll('audio').forEach(otherAudio => {
+                if (otherAudio !== audio && otherAudio.id === "preview-audio") { // Only stop other preview audios
+                    otherAudio.pause();
+                    otherAudio.currentTime = 0;
+                }
+            });
+            audio.volume = 0.5; // Preview agak pelan
+            audio.loop = true; // Preview looping
+            audio.play().then(() => setIsPreviewPlaying(true)).catch(e => console.error(`Error playing preview for ${sound.name}:`, e));
+        } else if (!isOpen || sound.src === selectedBackgroundSound) { // Jika akordeon ditutup atau suara ini sudah jadi background utama
+            audio.pause();
+            audio.currentTime = 0;
+            setIsPreviewPlaying(false);
+        }
+
+        return () => {
+            if (audio) {
+                audio.pause();
+                audio.currentTime = 0;
+                setIsPreviewPlaying(false);
+            }
+        };
+    }, [isOpen, sound.src, selectedBackgroundSound]);
+
+    // Event listener untuk saat preview audio selesai (jika tidak looping)
+    useEffect(() => {
+        const audio = previewAudioRef.current;
+        if (!audio) return;
+        const handleEnded = () => setIsPreviewPlaying(false);
+        audio.addEventListener('ended', handleEnded);
+        return () => audio.removeEventListener('ended', handleEnded);
+    }, []);
+
+
+    // Fungsi untuk toggle play/pause preview manual
+    const togglePreviewPlay = (e) => {
+        e.stopPropagation(); // Mencegah klik menyebar ke tombol akordeon
+        const audio = previewAudioRef.current;
+        if (!audio) return;
+
+        if (isPreviewPlaying) {
+            audio.pause();
+            audio.currentTime = 0;
+            setIsPreviewPlaying(false);
+        } else {
+             // Stop any other preview audio first
+            document.querySelectorAll('audio').forEach(otherAudio => {
+                if (otherAudio !== audio && otherAudio.id === "preview-audio") { // Only stop other preview audios
+                    otherAudio.pause();
+                    otherAudio.currentTime = 0;
+                }
+            });
+            audio.play().then(() => setIsPreviewPlaying(true)).catch(e => console.error(`Error playing preview for ${sound.name}:`, e));
+        }
+    };
+
+
+    const isCurrentlySelected = selectedBackgroundSound === sound.src;
+
+    return (
+        <div className="bg-gray-800 rounded-lg mb-2 overflow-hidden border border-gray-700"> {/* Ringkas: bg-gray-800 */}
+            <button
+                onClick={() => setIsOpen(!isOpen)}
+                className={`w-full p-3 flex justify-between items-center text-left transition-colors duration-200
+                    ${isCurrentlySelected ? 'bg-blue-700 text-white font-semibold' : 'text-gray-200 hover:bg-gray-700'}`}
+            >
+                <span className="text-base md:text-lg">
+                    {sound.name}
+                    {isCurrentlySelected && <span className="ml-2 text-xs opacity-75">(Terpilih)</span>}
+                    {isBackgroundPlaying && isCurrentlySelected && <span className="ml-2 animate-pulse text-yellow-300">🔊</span>}
+                </span>
+                <div className="flex items-center">
+                    {/* Tombol Play/Pause Preview hanya muncul jika ada src suara */}
+                    {sound.src && (
+                        <button 
+                            onClick={togglePreviewPlay} 
+                            className="p-1 rounded-full hover:bg-gray-600 focus:outline-none"
+                            title={isPreviewPlaying ? "Hentikan Preview" : "Putar Preview"}
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 ${isPreviewPlaying ? 'text-red-400' : 'text-gray-400'}`} fill="currentColor" viewBox="0 0 20 20">
+                                {isPreviewPlaying ? (
+                                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
+                                ) : (
+                                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
+                                )}
+                            </svg>
+                            <audio id="preview-audio" ref={previewAudioRef} src={sound.src} preload="auto" loop></audio>
+                        </button>
+                    )}
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className={`h-5 w-5 text-gray-400 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+            </button>
+            <div 
+                className={`grid transition-all duration-500 ease-in-out ${isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}
+            >
+                <div className="overflow-hidden">
+                    {/* HAPUS BAGIAN INI UNTUK MENGHILANGKAN KETERANGAN */}
+                    {/*
+                    <div className="p-3 pt-0 text-sm text-gray-400"> 
+                        <p className="mb-2 italic">{sound.description}</p>
+                        {isCurrentlySelected ? (
+                            <p className="text-blue-300">Suara ini sedang dipilih sebagai latar utama.</p>
+                        ) : (
+                            <button
+                                onClick={() => { setSelectedBackgroundSound(sound.src); setIsOpen(false); }}
+                                className="bg-blue-600 text-white text-xs font-bold py-1 px-3 rounded hover:bg-blue-700 transition-colors"
+                            >
+                                Pilih Sebagai Latar Utama
+                            </button>
+                        )}
+                        {!sound.src && <p className="text-gray-500">Tidak ada suara untuk pilihan ini.</p>}
+                    </div>
+                    */}
+
+                    {/* GANTI DENGAN BLOK INI (HANYA TOMBOL MULAI SESI JIKA DIPERLUKAN SAAT AKORDEON DIBUKA) */}
+                    {isOpen && ( // Hanya tampilkan tombol ini saat akordeon terbuka
+                         <div className="p-3 pt-0 text-center">
+                            <button
+                                onClick={() => { 
+                                    setSelectedBackgroundSound(sound.src); // Pilih suara latar
+                                    onStartSession(); // Langsung panggil fungsi mulai sesi
+                                    setIsOpen(false); // Tutup akordeon
+                                }}
+                                disabled={!sound.src} 
+                                className="bg-blue-600 text-white text-sm font-bold py-2 px-4 rounded hover:bg-blue-700 transition-colors disabled:bg-gray-500 disabled:cursor-not-allowed"
+                            >
+                                Mulai Sesi {sound.name === 'Hening (Mati)' ? 'Tanpa Suara' : sound.name}
+                            </button>
+                            {!sound.src && <p className="text-gray-500 mt-2">Tidak ada suara untuk pilihan ini.</p>}
+                        </div>
+                    )}
+                </div>
+            </div>
+        </div>
     );
 };
 
@@ -2840,7 +3047,25 @@ style.innerHTML = `
         opacity: 0;
     }
 }
+.custom-affirmation-image {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%; /* Pastikan mengisi seluruh layar */
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: cover; /* Penting: agar gambar menutupi seluruh background */
+    z-index: 0; /* Pastikan di bawah konten utama dan zooming words */
+    opacity: 0.15; /* Transparansi agar kata-kata tetap terlihat */
+    transition: opacity 2s ease-in-out; 
+}
 
+.custom-affirmation-image.image-zoom-fade {
+    opacity: 0.05; /* Saat raining, bisa lebih transparan dan zoom sedikit */
+    transform: translate(-50%, -50%) scale(1.05); /* Zoom perlahan */
+}
     /* === CSS UNTUK PIXEL THOUGHTS (YANG KEMARIN HILANG) === */
     .thought-bubble {
         /* Transisi untuk menyusut */
