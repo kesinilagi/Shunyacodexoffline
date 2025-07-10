@@ -1,21 +1,24 @@
 {
-    "name": "Shunya Codex Interaktif",
-    "short_name": "Shunya Codex",
-    "start_url": ".",
-    "display": "standalone",
-    "background_color": "#2c1e18",
-    "theme_color": "#2c1e18",
-    "description": "Petunjuk Hidup Berkelimpahan Tanpa Batas Tanpa Beban di Era AI.",
-    "icons": [
-        {
-            "src": "https://i.imgur.com/gOKdYgK.jpg",
-            "sizes": "192x192",
-            "type": "image/jpeg"
-        },
-        {
-            "src": "https://i.imgur.com/gOKdYgK.jpg",
-            "sizes": "512x512",
-            "type": "image/jpeg"
-        }
-    ]
+  "name": "Law of Allah Framework",
+  "short_name": "LOA COdex",
+  "description": "E-Book Interaktif untuk ketenangan hati dan rezeki berlimpah",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#111827",
+  "theme_color": "#111827",
+  "icons": [
+    {
+      "src": "icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "orientation": "portrait"
 }
