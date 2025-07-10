@@ -498,9 +498,9 @@ const SecretRoomRezeki = () => {
 
     // Audio sources untuk setiap fase utama
     const phaseAudios = {
-        release: 'https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Pelepasan%20Emosi%20Islamic.mp3',
-        manifestation: 'https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Manifestasi%20Rezeki.mp3',
-        gratitude: 'https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Syukur%20Abadi.mp3',
+        release: 'https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Clearing.mp3',
+        manifestation: 'https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Afirmasi.mp3',
+        gratitude: 'https://raw.githubusercontent.com/kesinilagi/asetmusik/main/Gratitude.mp3',
     };
 
     // --- FUNGSI-FUNGSI PEMBANTU ---
