@@ -254,7 +254,7 @@ const HeartCoherenceChart = () => {
     );
 };
 
-// ### GANTI SELURUH RUANG AFIRMASI DENGAN VERSI INI (dengan Gambar Kustom) ###
+// ### GANTI SELURUH RUANG AFIRMASI DENGAN VERSI INI (Tidak Wajib Unggah Gambar) ###
 const AffirmationRoom = () => {
     const { setCurrentPageKey } = useContext(AppContext);
     const [phase, setPhase] = useState('input');
@@ -263,85 +263,95 @@ const AffirmationRoom = () => {
     const audioRef = useRef(null);
     const [isAudioReady, setIsAudioReady] = useState(false);
     
-    // State baru untuk gambar yang diunggah pengguna
-    const [uploadedImage, setUploadedImage] = useState(null); // Menyimpan URL gambar objek
-    const fileInputRef = useRef(null); // Ref untuk input file
+    // State untuk gambar yang diunggah pengguna (opsional)
+    const [uploadedImage, setUploadedImage] = useState(null); 
+    const fileInputRef = useRef(null); 
 
-    const fixedRainColor = '#E6D2B3'; // Warna krem/emas untuk afirmasi yang memancar
+    const fixedRainColor = '#E6D2B3'; 
 
     useEffect(() => {
         const audio = audioRef.current;
         if (!audio) return;
 
         const handleAudioEnd = () => setPhase('finished');
-        const handleAudioCanPlay = () => setIsAudioReady(true);
+        // Menggunakan 'canplay' agar tombol "Mulai" lebih cepat aktif
+        const handleAudioCanPlay = () => setIsAudioReady(true); 
         
-        audio.addEventListener('canplaythrough', handleAudioCanPlay);
+        audio.addEventListener('canplay', handleAudioCanPlay); // Diubah dari 'canplaythrough' ke 'canplay'
         audio.addEventListener('ended', handleAudioEnd);
 
         return () => {
             if (audio) {
                 audio.pause();
                 audio.currentTime = 0;
-                audio.removeEventListener('canplaythrough', handleAudioCanPlay);
+                audio.removeEventListener('canplay', handleAudioCanPlay); // Hapus listener yang sesuai
                 audio.removeEventListener('ended', handleAudioEnd);
             }
-            // Penting: Revoke Object URL untuk membersihkan memori
             if (uploadedImage) {
                 URL.revokeObjectURL(uploadedImage);
             }
         };
-    }, [uploadedImage]); // Tambahkan uploadedImage sebagai dependency untuk cleanup URL
+    }, [uploadedImage]); // uploadedImage dependency untuk cleanup URL saja, tidak untuk trigger load audio lagi
 
-    const handleStart = () => {
+    // Fungsi handleStart yang dimodifikasi
+    const handleStart = (bypassAudio = false) => { 
         const words = affirmationText.trim().split(/\s+/).filter(Boolean);
         if (words.length === 0) { setError('Mohon masukkan afirmasi Anda.'); return; }
         if (words.length > 15) { setError('Terlalu panjang! Maksimal 15 kata.'); return; }
         
-        // Memastikan gambar sudah diunggah sebelum memulai sesi
-        if (!uploadedImage) { setError('Mohon unggah gambar terlebih dahulu.'); return; }
+        // Hapus validasi !uploadedImage di sini
+        // if (!uploadedImage) { setError('Mohon unggah gambar terlebih dahulu.'); return; } // INI DIHAPUS
 
-        if (audioRef.current) {
+        // Jika tidak bypass audio dan audio belum siap, tampilkan error
+        if (!bypassAudio && !isAudioReady) {
+            setError('Audio belum siap dimuat. Mohon tunggu atau gunakan opsi "Lanjutkan Tanpa Audio".');
+            return;
+        }
+
+        setError('');
+        setPhase('raining'); 
+        
+        if (!bypassAudio && audioRef.current) { 
             audioRef.current.currentTime = 0;
             audioRef.current.play().catch(e => {
                 console.error("Audio Playback Error:", e);
-                setError("Gagal memutar audio. Coba refresh & izinkan autoplay jika diminta.");
+                setError("Gagal memutar audio. Pastikan izinkan autoplay jika diminta.");
+                setIsAudioReady(true); 
             });
+        } else if (bypassAudio) {
+            setIsAudioReady(false); 
         }
-        setError('');
-        setPhase('raining'); 
     };
 
     const resetAffirmation = () => {
         if (audioRef.current) { audioRef.current.pause(); audioRef.current.currentTime = 0; }
         setAffirmationText('');
         setPhase('input');
-        // Reset gambar juga saat reset sesi
+        setIsAudioReady(false); 
         if (uploadedImage) {
-            URL.revokeObjectURL(uploadedImage); // Revoke URL lama
-            setUploadedImage(null); // Hapus gambar
+            URL.revokeObjectURL(uploadedImage);
+            setUploadedImage(null);
         }
         if (fileInputRef.current) {
-            fileInputRef.current.value = ""; // Reset input file
+            fileInputRef.current.value = "";
         }
     };
 
-    // Fungsi untuk menangani unggah gambar
     const handleImageUpload = (event) => {
         if (event.target.files && event.target.files[0]) {
             const file = event.target.files[0];
-            // Validasi tipe file (opsional tapi disarankan)
             if (!file.type.startsWith('image/')) {
                 setError('Hanya file gambar yang diizinkan!');
                 setUploadedImage(null);
                 return;
             }
-            // Pastikan gambar yang sebelumnya di-load dihapus dari memori
             if (uploadedImage) {
                 URL.revokeObjectURL(uploadedImage);
             }
             setUploadedImage(URL.createObjectURL(file));
-            setError(''); // Clear any previous error
+            setError(''); 
+            // Tidak perlu load audio lagi di sini, audio akan load otomatis saat elemen audio pertama dirender
+            // atau saat sesi dimulai. Kita hanya perlu status isAudioReady yang benar.
         }
     };
 
@@ -350,23 +360,22 @@ const AffirmationRoom = () => {
         <div className="fixed inset-0 bg-gray-900 text-white flex flex-col justify-center items-center p-4 overflow-hidden">
             <audio ref={audioRef} src="https://raw.githubusercontent.com/kesinilagi/asetmusik/main/suara%20ruang%20afirmasi%208d.mp3" preload="auto"></audio>
             
-            {/* Latar belakang gambar kustom yang diunggah */}
-            {uploadedImage && (
+            {/* Latar belakang gambar kustom yang diunggah, jika ada */}
+            {uploadedImage ? (
                 <img 
                     src={uploadedImage} 
                     alt="Gambar Afirmasi" 
                     className={`custom-affirmation-image ${phase === 'raining' ? 'image-zoom-fade' : ''}`}
                 />
+            ) : (
+                // Starfield sebagai latar belakang default jika tidak ada gambar diunggah
+                <Starfield /> 
             )}
 
-            {/* Starfield jika tidak ada gambar atau saat input phase */}
-            {!uploadedImage && phase === 'input' && <Starfield />}
-
-            {/* Zooming Words Effect (di atas gambar) */}
-            {/* Posisi kata-kata mungkin perlu penyesuaian CSS lebih lanjut jika ingin menghindari tengah gambar */}
+            {/* Zooming Words Effect */}
             {phase === 'raining' && <ZoomingWordBackground customWords={affirmationText.trim().split(/\s+/).filter(Boolean)} rainColor={fixedRainColor} />}
             
-            {/* Affirmation Flasher (di atas gambar) */}
+            {/* Affirmation Flasher */}
             {phase === 'raining' && <AffirmationFlasher phrase={affirmationText} rainColor={fixedRainColor}/>}
             
             {phase === 'raining' && (
@@ -383,11 +392,11 @@ const AffirmationRoom = () => {
                 {phase === 'input' && (
                     <div className="animate-fade-in w-full px-4">
                         <h1 className="text-3xl md:text-5xl font-bold mb-4">Ruang Afirmasi Visual</h1>
-                        <p className="mb-6 text-gray-300">Unggah gambar impian Anda, lalu tuliskan doa atau afirmasi positif (maks. 15 kata).</p>
+                        <p className="mb-6 text-gray-300">Tuliskan doa atau afirmasi positif Anda (maks. 15 kata).</p>
                         
-                        {/* Input File untuk Unggah Gambar */}
+                        {/* Input File untuk Unggah Gambar (Opsional) */}
                         <div className="mb-6">
-                            <label htmlFor="image-upload" className="block text-gray-300 text-lg font-semibold mb-2">Pilih Gambar Afirmasi Anda:</label>
+                            <label htmlFor="image-upload" className="block text-gray-300 text-lg font-semibold mb-2">Pilih Gambar Afirmasi Anda (Opsional):</label>
                             <input
                                 type="file"
                                 id="image-upload"
@@ -404,6 +413,10 @@ const AffirmationRoom = () => {
                             {uploadedImage && (
                                 <img src={uploadedImage} alt="Preview Gambar" className="mt-4 max-h-48 object-contain mx-auto border border-gray-700 rounded-lg shadow-md" />
                             )}
+                            {uploadedImage && (
+                                <button onClick={() => { URL.revokeObjectURL(uploadedImage); setUploadedImage(null); if(fileInputRef.current) fileInputRef.current.value = ""; }}
+                                    className="mt-2 text-red-400 hover:text-red-500 text-sm">Hapus Gambar</button>
+                            )}
                         </div>
 
                         <textarea value={affirmationText} onChange={(e) => setAffirmationText(e.target.value)}
@@ -414,10 +427,19 @@ const AffirmationRoom = () => {
                         </p>
                         {error && <p className="text-red-500 mt-2">{error}</p>}
                         
-                        <button onClick={handleStart} disabled={!isAudioReady || !uploadedImage}
+                        {/* Tombol utama: Hanya disabled jika teks kosong */}
+                        <button onClick={() => handleStart(false)} disabled={!affirmationText.trim()} 
                             className="mt-8 w-full max-w-sm bg-sky-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-sky-700 transition-all duration-300 disabled:bg-gray-500 disabled:cursor-not-allowed">
                             {isAudioReady ? 'Mulai Sesi Afirmasi' : 'Memuat Audio...'}
                         </button>
+                        
+                        {/* Tombol Bypass: Muncul jika teks sudah ada, audio belum siap, dan bukan dalam fase raining */}
+                        {!isAudioReady && affirmationText.trim() && (
+                            <button onClick={() => handleStart(true)} 
+                                className="mt-4 w-full max-w-sm bg-gray-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-gray-600 transition-all duration-300">
+                                Lanjutkan Tanpa Audio (Hanya Visual)
+                            </button>
+                        )}
                     </div>
                 )}
                 
